@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 
 import UrlComponent from "./UrlComponent";
+
 import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: "",
+      input:
+        'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID',
       protocol: "",
       subDomain: "",
       port: "",
@@ -25,8 +27,8 @@ class App extends Component {
     this.generateUrl(this.state.input);
   }
 
-  onKeypress(key){
-    if (key === 13){
+  onKeypress(key) {
+    if (key === 13) {
       this.saveUrl(this.state.input);
     }
   }
@@ -56,7 +58,6 @@ class App extends Component {
 
     try {
       url = new URL(input);
-      console.log(url);
 
       // esempio con url: https://www.quotidiano.net/my-section/my-page.html#myId?someparamete
       // hash : "#myId?someparamete"
@@ -114,6 +115,12 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.state.url) {
+      this.generateUrl(this.state.url);
+    }
+  }
+
   saveUrl(url) {
     this.setState({ url: url });
   }
@@ -141,13 +148,17 @@ class App extends Component {
                 id="bookmarkInput"
                 className="url-hero__input"
                 onChange={e => {
+                  console.log("changed");
                   this.updateInput(e.target.value);
-                }}
-                onKeyUp={e => {
-                  this.onKeypress(e.keyCode)
+                  this.onKeypress(e.keyCode);
                 }}
               />
-              <button class="url-hero__save" onClick={() => this.saveUrl(this.state.input)}>save</button>
+              <button
+                className="url-hero__save"
+                onClick={() => this.saveUrl(this.state.input)}
+              >
+                save
+              </button>
             </div>
           </div>
         </div>
@@ -161,6 +172,7 @@ class App extends Component {
               sapiente placeat sint aperiam quod, quae amet architecto odio
               similique facilis asperiores unde cupiditate!
             </p>
+            {this.state.input}
             <UrlComponent
               protocol={this.state.protocol}
               subDomain={this.state.subDomain}

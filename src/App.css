@@ -31,23 +31,18 @@
 }
 
 .url-hero__input {
-  padding: 20px 40px;
-  font-size: 24px;
-  display: block;
-  margin: auto;
-}
-
-.url-hero__input {
   padding: 20px 20px;
   font-size: 24px;
   display: block;
   margin: auto;
   width: 100%;
+  padding-right: 150px;
 }
 
 .url-hero__url {
   position: relative;
 }
+
 .url-hero__save {
   position: absolute;
   top: 10px;
@@ -74,36 +69,38 @@
 .main-url {
   margin: 40px 0 80px;
 }
+
 .main-url__title {}
+
 .main-url__subtitle {
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 40px;
 }
 
-
 /* big url */
+
 .url {
   display: flex;
   background-color: white;
-  border: 1px solid #ddd;
   border-radius: 5px;
   max-width: 1000px;
   width: 100%;
   margin: auto;
   justify-content: space-evenly;
+  flex-direction: column;
 }
 
 .url-part {
   margin: 5px;
   position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .url-part__name {
-  font-size: 10px;
-  white-space: nowrap;
-  position: absolute;
-  bottom: 50px;
+  margin-right: 20px;
 }
 
 .url-part__value {
@@ -111,19 +108,22 @@
   border-radius: 10px;
   position: relative;
   z-index: 1;
+  width: 70%;
+  margin-right: 20px;
 }
 
 /* non editable fields */
+
 .url-part.url-part--fill {
   padding-left: 0;
   padding-right: 0;
+  max-width: 1px;
 }
 
 .url-part.url-part--fill .url-part__value {
   padding-left: 0;
   padding-right: 0;
 }
-
 
 .url-part--protocol .url-part__value {
   background-color: #b6cb32;
@@ -158,6 +158,7 @@
 }
 
 /* add value */
+
 .add-value {
   background-color: lightgreen;
   text-align: center;
@@ -165,10 +166,10 @@
   border-radius: 5px;
   font-weight: 700;
   cursor: pointer;
-  position: absolute;
+  /* position: absolute;
   top: 50px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
   width: 40px;
   height: 40px;
 }
