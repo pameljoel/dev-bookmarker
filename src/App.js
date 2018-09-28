@@ -4,21 +4,29 @@ import UrlComponent from "./UrlComponent";
 
 import "./App.css";
 
+/*
+
+TODO:
+  creare un array di parts.
+  questo array di parts dev'essere dato a url component
+  url component manda a part, part si occupa di gestire la validazione delle singole parti
+*/
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       input:
         'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID',
-      protocol: "",
-      subDomain: "",
-      port: "",
-      page: "",
-      parameters: "",
-      anchor: "",
-      dirtyInput: ""
+      parts: [],
+      dirtyInput: "",
+      generatedUrl: "",
+      urlVariants: [],
+      savedUrls: []
     };
     this.updateInput = this.updateInput.bind(this);
+    this.prepareUrl = this.prepareUrl.bind(this);
+    this.composeUrl = this.composeUrl.bind(this);
     this.saveUrl = this.saveUrl.bind(this);
   }
 
@@ -29,32 +37,36 @@ class App extends Component {
 
   onKeypress(key) {
     if (key === 13) {
-      this.saveUrl(this.state.input);
+      this.prepareUrl(this.state.input);
     }
   }
 
-  matchPart(part, input, regExp) {
-    let result = "";
+  matchRegExp(input, regex) {
+    if (!input) {
+      return false;
+    }
+    if (!regex) {
+      return false;
+    }
 
-    // get result
-    result = this.matchRegExp(input, regExp);
+    let result = input.match(regex);
 
-    // remove from string
-    this.removeMatching(input, regExp);
+    if (typeof result === "object" && result !== null) {
+      return result[0];
+    }
+  }
 
-    // return result
-    return result;
+  createUrlVariant(variant) {}
+
+  saveUrl(url) {
+    let savedUrlsCopy = this.state.savedUrls;
+    savedUrlsCopy.push(url);
+
+    this.setState({ savedUrls: savedUrlsCopy });
   }
 
   generateUrl(input) {
     let url;
-    let protocol;
-    let subDomain;
-    let domain;
-    let port;
-    let pageOrFile;
-    let parameters;
-    let anchor;
 
     try {
       url = new URL(input);
@@ -73,45 +85,109 @@ class App extends Component {
       // searchParams : URLSearchParams {}
       // username : ""
 
+      let partsCopy = [];
+
+      function createPart(name, value, type) {
+        return {
+          name: name,
+          value: value,
+          cssClass: `url-part--${name}`,
+          partType: type
+        };
+      }
+
       if (url.protocol) {
-        protocol = url.protocol;
+        partsCopy.push(createPart("protocol", url.protocol, "string"));
       }
 
       if (url.host) {
-        subDomain = url.host;
+        let regExp = /^([a-zA-Z0-9][a-zA-Z0-9-_]*[^.])/;
+        partsCopy.push(
+          createPart("host", this.matchRegExp(url.host, regExp), "string")
+        );
       }
 
       if (url.hostname) {
-        domain = url.hostname;
+        let regExp = /\.{1}(([\S][^\]])*)/;
+        partsCopy.push(
+          createPart(
+            "hostname",
+            this.matchRegExp(url.hostname, regExp),
+            "string"
+          )
+        );
       }
 
       if (url.port) {
-        port = url.port;
+        partsCopy.push(createPart("port", url.port, "string"));
       }
 
       if (url.pathname) {
-        pageOrFile = url.pathname;
+        partsCopy.push(createPart("pathname", url.pathname, "string"));
       }
 
       if (url.searchParams) {
-        parameters = url.searchParams;
+        partsCopy.push(createPart("searchParams", url.searchParams, "object"));
       }
 
       if (url.hash) {
-        anchor = url.hash;
+        partsCopy.push(createPart("hash", url.hash, "string"));
       }
 
       this.setState({
-        protocol: protocol,
-        subDomain: subDomain,
-        domain: domain,
-        port: port,
-        page: pageOrFile,
-        parameters: parameters,
-        anchor: anchor
+        parts: partsCopy
       });
+
     } catch (error) {
       url = null;
+    }
+  }
+
+  composeUrl(
+    protocol,
+    subDomain,
+    domain,
+    port,
+    pageOrFile,
+    parameters,
+    anchor
+  ) {
+    let url = new URL();
+
+    try {
+      if (protocol) {
+        url.protocol = protocol;
+      }
+
+      if (subDomain) {
+        url.host = subDomain;
+      }
+
+      if (domain) {
+        url.hostname = domain;
+      }
+
+      if (port) {
+        url.port = ":" + port;
+      }
+
+      if (pageOrFile) {
+        url.pathname = pageOrFile;
+      }
+
+      if (parameters) {
+        url.searchParams = parameters;
+      }
+
+      if (anchor) {
+        url.hash = anchor;
+      }
+
+      this.setState({
+        generatedUrl: url
+      });
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -121,7 +197,7 @@ class App extends Component {
     }
   }
 
-  saveUrl(url) {
+  prepareUrl(url) {
     this.setState({ url: url });
   }
 
@@ -148,14 +224,13 @@ class App extends Component {
                 id="bookmarkInput"
                 className="url-hero__input"
                 onChange={e => {
-                  console.log("changed");
                   this.updateInput(e.target.value);
                   this.onKeypress(e.keyCode);
                 }}
               />
               <button
                 className="url-hero__save"
-                onClick={() => this.saveUrl(this.state.input)}
+                onClick={() => this.prepareUrl(this.state.input)}
               >
                 save
               </button>
@@ -174,16 +249,18 @@ class App extends Component {
             </p>
             {this.state.input}
             <UrlComponent
-              protocol={this.state.protocol}
-              subDomain={this.state.subDomain}
-              domain={this.state.domain}
-              port={this.state.port}
-              page={this.state.page}
-              parameters={this.state.parameters}
-              anchor={this.state.anchor}
+              saveUrlCallback={this.saveUrl}
+              parts={this.state.parts}
             />
           </div>
         </div>
+        <h2>saved urls:</h2>
+        {this.state.savedUrls.length > 0 &&
+          this.state.savedUrls.map((url, i) => {
+            return <div key={i}>{url}</div>;
+          })}
+        <h2>the url: </h2>
+        <h1>{this.state.generatedUrl}</h1>
         <h1>create custom url map</h1>
         caso d'uso dell'utente: + protocol + subdomain and port + domain (ad
         esempio qn, il carlino e ilgiorno) + page or file (ad esempio

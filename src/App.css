@@ -125,6 +125,8 @@
   padding-right: 0;
 }
 
+/* protocol */
+
 .url-part--protocol .url-part__value {
   background-color: #b6cb32;
 }
@@ -133,27 +135,39 @@
   background-color: #5cd9d4;
 }
 
-.url-part--sub-domain .url-part__value {
+/* sub-domain */
+
+.url-part--host .url-part__value {
   background-color: #f1ef01;
 }
 
-.url-part--domain .url-part__value {
+/* domain */
+
+.url-part--hostname .url-part__value {
   background-color: #f7ba07;
 }
+
+/* port */
 
 .url-part--port .url-part__value {
   background-color: #baccff;
 }
 
-.url-part--page .url-part__value {
+/* page */
+
+.url-part--pathname .url-part__value {
   background-color: #f7ba07;
 }
 
-.url-part--parameters .url-part__value {
+/* parameters */
+
+.url-part--searchParams .url-part__value {
   background-color: #baccff;
 }
 
-.url-part--anchor .url-part__value {
+/* anchor */
+
+.url-part--hash .url-part__value {
   background-color: #e457ff;
 }
 
@@ -166,10 +180,6 @@
   border-radius: 5px;
   font-weight: 700;
   cursor: pointer;
-  /* position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%); */
   width: 40px;
   height: 40px;
 }
