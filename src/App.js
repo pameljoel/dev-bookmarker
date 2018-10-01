@@ -26,13 +26,13 @@ class App extends Component {
     };
     this.updateInput = this.updateInput.bind(this);
     this.prepareUrl = this.prepareUrl.bind(this);
-    this.composeUrl = this.composeUrl.bind(this);
     this.saveUrl = this.saveUrl.bind(this);
   }
 
   updateInput(value) {
+    this.generateUrl(value);
     this.setState({ input: value });
-    this.generateUrl(this.state.input);
+    ;
   }
 
   onKeypress(key) {
@@ -65,6 +65,80 @@ class App extends Component {
     this.setState({ savedUrls: savedUrlsCopy });
   }
 
+  createPart(name, value, type) {
+    return {
+      name: name,
+      value: value,
+      cssClass: `url-part--${name}`,
+      partType: type,
+      additionalvalues: [
+        {
+          value: "additional value 1"
+        },
+        {
+          value: "additional value 2"
+        },
+        {
+          value: "additional value 3"
+        }
+      ]
+    };
+  }
+
+  updatePart(parts, name, value) {
+    for (var i = 0; i < parts.length; i++) {
+      let part = parts[i];
+      if (part.name === name) {
+        part.value = value;
+      }
+    }
+    return parts;
+  }
+
+  addPartToArray(parts, newObject) {
+    parts.push(newObject);
+    return parts;
+  }
+
+  isPartCreated(parts, name) {
+    for (var i = 0; i < parts.length; i++) {
+      let part = parts[i];
+      if (part.name === name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  addPart(array, name, value, regExp, type) {
+    if (this.isPartCreated(array, name)) {
+      this.updatePart(
+        array,
+        name,
+        regExp ? this.matchRegExp(value, regExp) : value
+      );
+    } else {
+      this.addPartToArray(
+        array,
+        this.createPart(
+          name,
+          regExp ? this.matchRegExp(value, regExp) : value,
+          type
+        )
+      );
+    }
+  }
+
+  addValueInArray(array, name, value) {
+    for (var i = 0; i < array.length; i++) {
+      let element = array[i];
+      if (element.name === name) {
+        element.value.push(value);
+      }
+    }
+    return array;
+  }
+
   generateUrl(input) {
     let url;
 
@@ -85,109 +159,55 @@ class App extends Component {
       // searchParams : URLSearchParams {}
       // username : ""
 
-      let partsCopy = [];
-
-      function createPart(name, value, type) {
-        return {
-          name: name,
-          value: value,
-          cssClass: `url-part--${name}`,
-          partType: type
-        };
-      }
+      let partsCopy = this.state.parts;
+      let hostRegExp = /^([a-zA-Z0-9][a-zA-Z0-9-_]*[^.])/;
+      let hostnameRegExp = /\.{1}(([\S][^\]])*)/;
 
       if (url.protocol) {
-        partsCopy.push(createPart("protocol", url.protocol, "string"));
+        this.addPart(partsCopy, "protocol", url.protocol, null, "string");
       }
 
       if (url.host) {
-        let regExp = /^([a-zA-Z0-9][a-zA-Z0-9-_]*[^.])/;
-        partsCopy.push(
-          createPart("host", this.matchRegExp(url.host, regExp), "string")
-        );
+        this.addPart(partsCopy, "host", url.host, hostRegExp, "string");
       }
 
       if (url.hostname) {
-        let regExp = /\.{1}(([\S][^\]])*)/;
-        partsCopy.push(
-          createPart(
-            "hostname",
-            this.matchRegExp(url.hostname, regExp),
-            "string"
-          )
+        this.addPart(
+          partsCopy,
+          "hostname",
+          url.hostname,
+          hostnameRegExp,
+          "string"
         );
       }
 
       if (url.port) {
-        partsCopy.push(createPart("port", url.port, "string"));
+        this.addPart(partsCopy, "port", url.port, null, "string");
       }
 
       if (url.pathname) {
-        partsCopy.push(createPart("pathname", url.pathname, "string"));
+        this.addPart(partsCopy, "pathname", url.pathname, null, "string");
       }
 
       if (url.searchParams) {
-        partsCopy.push(createPart("searchParams", url.searchParams, "object"));
+        this.addPart(
+          partsCopy,
+          "searchParams",
+          url.searchParams,
+          null,
+          "object"
+        );
       }
 
       if (url.hash) {
-        partsCopy.push(createPart("hash", url.hash, "string"));
+        this.addPart(partsCopy, "hash", url.hash, null, "string");
       }
 
       this.setState({
         parts: partsCopy
       });
-
     } catch (error) {
       url = null;
-    }
-  }
-
-  composeUrl(
-    protocol,
-    subDomain,
-    domain,
-    port,
-    pageOrFile,
-    parameters,
-    anchor
-  ) {
-    let url = new URL();
-
-    try {
-      if (protocol) {
-        url.protocol = protocol;
-      }
-
-      if (subDomain) {
-        url.host = subDomain;
-      }
-
-      if (domain) {
-        url.hostname = domain;
-      }
-
-      if (port) {
-        url.port = ":" + port;
-      }
-
-      if (pageOrFile) {
-        url.pathname = pageOrFile;
-      }
-
-      if (parameters) {
-        url.searchParams = parameters;
-      }
-
-      if (anchor) {
-        url.hash = anchor;
-      }
-
-      this.setState({
-        generatedUrl: url
-      });
-    } catch (error) {
-      console.log(error);
     }
   }
 
