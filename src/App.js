@@ -44,8 +44,6 @@ function createPart(name, value, type) {
       tempObject.paramValue = p[1];
       object.value.push(tempObject);
     }
-
-    console.log(object);
   }
 
   return object;
@@ -67,11 +65,13 @@ function matchRegExp(input, regex) {
   return result;
 }
 
-function updatePart(parts, name, value) {
+function updatePart(parts, name, value, type) {
   for (let i = 0; i < parts.length; i += 1) {
     const part = parts[i];
     if (part.name === name) {
-      part.value = value;
+      if (type === 'string') {
+        part.value = value;
+      }
     }
   }
   return parts;
@@ -94,7 +94,7 @@ function isPartCreated(parts, name) {
 
 function addPart(array, name, value, regExp, type) {
   if (isPartCreated(array, name)) {
-    updatePart(array, name, regExp ? matchRegExp(value, regExp) : value);
+    updatePart(array, name, regExp ? matchRegExp(value, regExp) : value, type);
   } else {
     addPartToArray(
       array,

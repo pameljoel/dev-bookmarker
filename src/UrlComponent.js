@@ -1,75 +1,64 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import Part from "./Part";
+import Part from './Part';
+
+
+function checkProp(prop, type) {
+  if (typeof prop === type) {
+    if (type === 'object') {
+      return `&${prop}`;
+    }
+    return prop;
+  }
+  return '';
+}
 
 export default class UrlComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: ""
+      url: '',
     };
     this.addUrl = this.addUrl.bind(this);
-  }
-
-  checkProp(prop, type) {
-    if (typeof prop === type) {
-      if (type === "object") {
-        return "&" + prop;
-      } else {
-        return prop;
-      }
-    } else {
-      return "";
-    }
-  }
-  addUrl() {
-    let url = "";
-
-    url = this.props.parts.map((part, i) => {
-      return this.checkProp(this.props.value, this.props.partType);
-    });
-
-    if (url) {
-      this.setState({ url: url });
-    }
   }
 
   componentWillReceiveProps() {
     this.addUrl();
   }
 
-  iterateParameters(object) {
-    let array = [];
-    for (let value of object) {
-      for (let i = 0; i < value.length; i++) {
-        let element = value[i];
-        array.push(element);
-      }
+  addUrl() {
+    let url = '';
+    const { parts, value, partType } = this.props;
+
+    url = parts.map((part, i) => checkProp(value, partType));
+
+    if (url) {
+      this.setState({ url });
     }
-    return array;
   }
 
+
   render() {
+    const { parts, saveUrlCallback } = this.props;
+    const { url } = this.state;
     return (
       <div>
         <div className="url">
-          {this.props.parts &&
-            this.props.parts.length > 0 &&
-            this.props.parts.map((part, i) => {
-              return (
-                <Part
-                  key={i}
-                  partName={part.name}
-                  cssClass={part.cssClass}
-                  partValue={part.value}
-                  partType={part.partType}
-                />
-              );
-            })}
+          {parts
+            && parts.length > 0
+            && parts.map((part, i) => (
+              <Part
+                key={`${part.name}-${i}`}
+                partName={part.name}
+                cssClass={part.cssClass}
+                partValue={part.value}
+                partType={part.partType}
+              />
+            ))}
         </div>
 
-        <button onClick={() => this.props.saveUrlCallback(this.state.url)}>
+        <button onClick={() => saveUrlCallback(url)}>
           salva questa url
         </button>
         <br />
@@ -82,9 +71,22 @@ export default class UrlComponent extends Component {
 }
 
 UrlComponent.propTypes = {
-  parameters: PropTypes.string || PropTypes.objectOf(PropTypes.string)
+  parts: PropTypes.arrayOf(PropTypes.shape({
+    additionalvalues: PropTypes.array,
+    cssClass: PropTypes.string,
+    name: PropTypes.string,
+    partType: PropTypes.string,
+    value: PropTypes.oneOfType(
+      [PropTypes.string, PropTypes.arrayOf(PropTypes.shape(
+        {
+          paramName: PropTypes.string,
+          paramValue: PropTypes.string,
+        },
+      )),
+      ],
+    ),
+  })),
 };
 
 UrlComponent.defaultProps = {
-  parameters: {}
 };

@@ -19,7 +19,7 @@ export default class Part extends PureComponent {
           {partType
           && partType === 'object'
           && partValue.map(parameter => (
-            <div className="url-part__value" key={parameter}>
+            <div className="url-part__value" key={parameter.paramName}>
               <div className="url-part__value__name">{parameter.paramName}</div>
               <div className="url-part__value__sub">{parameter.paramValue}</div>
             </div>
@@ -35,5 +35,11 @@ Part.propTypes = {
   cssClass: PropTypes.string.isRequired,
   partType: PropTypes.string.isRequired,
   partName: PropTypes.string.isRequired,
-  partValue: PropTypes.string,
+  partValue: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.shape(
+    {
+      paramName: PropTypes.string,
+      paramValue: PropTypes.string,
+    },
+  )),
+  ]),
 };
