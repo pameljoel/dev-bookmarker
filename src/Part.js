@@ -1,33 +1,30 @@
-import React, { Component } from "react";
-import Proptypes from "prop-types";
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Part extends Component {
-  
-  iterateParameters(object) {
-    let array = [];
-    for (let value of object) {
-      for (let i = 0; i < value.length; i++) {
-        let element = value[i];
-        array.push(element);
-      }
-    }
-    return array;
-  }
 
+export default class Part extends PureComponent {
   render() {
+    const {
+      cssClass, partType, partValue, partName,
+    } = this.props;
     return (
-      <div className={`url-part ${this.props.cssClass}`}>
-        <div className="url-part__name">{this.props.partName}</div>
-        {this.props.partType === "string" && (
-          <div className="url-part__value">{this.props.partValue}</div>
-        )}
-        {this.props.partType && this.props.partType === "object"
-          ? this.iterateParameters(this.props.partValue.entries()).map(
-              (parameter, i) => {
-                return <div key={i}>{parameter}</div>;
-              }
-            )
-          : ""}
+      <div className={`url-part ${cssClass}`}>
+        <div className="url-part__name">{partName}</div>
+
+        <div className="url-part__value-container">
+          {partType === 'string' && (
+            <div className="url-part__value">{partValue}</div>
+          )}
+
+          {partType
+          && partType === 'object'
+          && partValue.map(parameter => (
+            <div className="url-part__value" key={parameter}>
+              <div className="url-part__value__name">{parameter.paramName}</div>
+              <div className="url-part__value__sub">{parameter.paramValue}</div>
+            </div>
+          ))}
+        </div>
         <div className="add-value">+</div>
       </div>
     );
@@ -35,7 +32,8 @@ export default class Part extends Component {
 }
 
 Part.propTypes = {
-  partName: Proptypes.string,
-  partValue: Proptypes.string || Proptypes.array,
-  type: Proptypes.string
+  cssClass: PropTypes.string.isRequired,
+  partType: PropTypes.string.isRequired,
+  partName: PropTypes.string.isRequired,
+  partValue: PropTypes.string,
 };
