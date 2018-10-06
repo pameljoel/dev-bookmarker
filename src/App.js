@@ -4,14 +4,6 @@ import UrlComponent from './UrlComponent';
 
 import './App.css';
 
-/*
-
-TODO:
-  creare un array di parts.
-  questo array di parts dev'essere dato a url component
-  url component manda a part, part si occupa di gestire la validazione delle singole parti
-*/
-
 function createPart(name, value, type) {
   const object = {
     name,
@@ -71,10 +63,29 @@ function updatePart(parts, name, value, type) {
     if (part.name === name) {
       if (type === 'string') {
         part.value = value;
+      } else if (typeof value === 'object') {
+        const oldValues = part.value;
+        const newValues = value;
+
+        function replaceOldArrayValues(newValues, oldValues) {
+          const newArray = [];
+          for (const v of newValues) {
+            const tempObject = {
+              paramName: null,
+              paramValue: null,
+            };
+            tempObject.paramName = v[0];
+            tempObject.paramValue = v[1];
+
+            newArray.push(tempObject);
+          }
+          return newArray;
+        }
+
+        part.value = replaceOldArrayValues(newValues, oldValues);
       }
     }
   }
-  return parts;
 }
 
 function addPartToArray(parts, newObject) {
