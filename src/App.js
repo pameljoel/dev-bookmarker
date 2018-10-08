@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import UrlComponent from "./UrlComponent";
+import UrlComponent from './UrlComponent';
 
-import "./App.css";
+import './App.css';
 
 function createPart(name, value, type) {
   const object = {
@@ -10,27 +10,27 @@ function createPart(name, value, type) {
     value: null,
     cssClass: `url-part--${name}`,
     partType: type,
-    additionalvalues: [
+    additionalValues: [
       {
-        value: "additional value 1"
+        value: 'additional value 1',
       },
       {
-        value: "additional value 2"
+        value: 'additional value 2',
       },
       {
-        value: "additional value 3"
-      }
-    ]
+        value: 'additional value 3',
+      },
+    ],
   };
 
-  if (type === "string") {
+  if (type === 'string') {
     object.value = value;
   } else {
     object.value = [];
     for (const p of value) {
       const tempObject = {
         paramName: null,
-        paramValue: null
+        paramValue: null,
       };
       tempObject.paramName = p[0];
       tempObject.paramValue = p[1];
@@ -51,7 +51,7 @@ function matchRegExp(input, regex) {
 
   const result = input.match(regex);
 
-  if (typeof result === "object" && result !== null) {
+  if (typeof result === 'object' && result !== null) {
     return result[0];
   }
   return result;
@@ -61,9 +61,9 @@ function updatePart(parts, name, value, type) {
   for (let i = 0; i < parts.length; i += 1) {
     const part = parts[i];
     if (part.name === name) {
-      if (type === "string") {
+      if (type === 'string') {
         part.value = value;
-      } else if (typeof value === "object") {
+      } else if (typeof value === 'object') {
         const oldValues = part.value;
         const newValues = value;
 
@@ -72,7 +72,7 @@ function updatePart(parts, name, value, type) {
           for (const v of newValues) {
             const tempObject = {
               paramName: null,
-              paramValue: null
+              paramValue: null,
             };
             tempObject.paramName = v[0];
             tempObject.paramValue = v[1];
@@ -109,7 +109,7 @@ function addPart(array, name, value, regExp, type) {
   } else {
     addPartToArray(
       array,
-      createPart(name, regExp ? matchRegExp(value, regExp) : value, type)
+      createPart(name, regExp ? matchRegExp(value, regExp) : value, type),
     );
   }
 }
@@ -121,8 +121,8 @@ class App extends Component {
       input:
         'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID',
       parts: [],
-      generatedUrl: "",
-      savedUrls: []
+      generatedUrl: '',
+      savedUrls: [],
     };
     this.updateInput = this.updateInput.bind(this);
     this.prepareUrl = this.prepareUrl.bind(this);
@@ -147,8 +147,6 @@ class App extends Component {
     this.generateUrl(value);
     this.setState({ input: value });
   }
-
-  addAdditionalValue(array, value) {}
 
   saveUrl(url) {
     const { savedUrls } = this.state;
@@ -183,35 +181,35 @@ class App extends Component {
       const hostnameRegExp = /\.{1}(([\S][^\]])*)/;
 
       if (url.protocol) {
-        addPart(partsCopy, "protocol", url.protocol, null, "string");
+        addPart(partsCopy, 'protocol', url.protocol, null, 'string');
       }
 
       if (url.host) {
-        addPart(partsCopy, "host", url.host, hostRegExp, "string");
+        addPart(partsCopy, 'host', url.host, hostRegExp, 'string');
       }
 
       if (url.hostname) {
-        addPart(partsCopy, "hostname", url.hostname, hostnameRegExp, "string");
+        addPart(partsCopy, 'hostname', url.hostname, hostnameRegExp, 'string');
       }
 
       if (url.port) {
-        addPart(partsCopy, "port", url.port, null, "string");
+        addPart(partsCopy, 'port', url.port, null, 'string');
       }
 
       if (url.pathname) {
-        addPart(partsCopy, "pathname", url.pathname, null, "string");
+        addPart(partsCopy, 'pathname', url.pathname, null, 'string');
       }
 
       if (url.searchParams) {
-        addPart(partsCopy, "searchParams", url.searchParams, null, "object");
+        addPart(partsCopy, 'searchParams', url.searchParams, null, 'object');
       }
 
       if (url.hash) {
-        addPart(partsCopy, "hash", url.hash, null, "string");
+        addPart(partsCopy, 'hash', url.hash, null, 'string');
       }
 
       this.setState({
-        parts: partsCopy
+        parts: partsCopy,
       });
     } catch (error) {
       url = null;
@@ -223,7 +221,9 @@ class App extends Component {
   }
 
   render() {
-    const { input, parts, url, savedUrls, generatedUrl } = this.state;
+    const {
+      input, parts, url, savedUrls, generatedUrl,
+    } = this.state;
     return (
       <div>
         <div className="url-hero">
@@ -231,9 +231,21 @@ class App extends Component {
             <h1>Dev Marker</h1>
             <h2>The bookmarker for devs</h2>
             <div className="url-hero__description">
-              Want to bookmark your pages on multiple{" "}
-              <strong>sub-domains</strong>, <strong>domains</strong>, <strong>ports</strong>? MAybe with different parameters every
-              time? <br /> This is your lucky day. <strong>Try it out.</strong>
+              Want to bookmark your pages on multiple
+              {' '}
+              <strong>sub-domains</strong>
+,
+              {' '}
+              <strong>domains</strong>
+,
+              {' '}
+              <strong>ports</strong>
+? MAybe with different parameters every
+              time?
+              <br />
+              This is your lucky day.
+              {' '}
+              <strong>Try it out.</strong>
             </div>
             <label
               htmlFor="bookmarkInput"
@@ -248,7 +260,7 @@ class App extends Component {
                   name="bookmarkInput"
                   id="bookmarkInput"
                   className="url-hero__input"
-                  onChange={e => {
+                  onChange={(e) => {
                     this.updateInput(e.target.value);
                     this.onKeypress(e.keyCode);
                   }}
@@ -279,8 +291,8 @@ class App extends Component {
           </div>
         </div>
         <h2>saved urls:</h2>
-        {savedUrls.length > 0 &&
-          savedUrls.map(item => <div key={item}>{item}</div>)}
+        {savedUrls.length > 0
+          && savedUrls.map(item => <div key={item}>{item}</div>)}
         <h2>the url: </h2>
         <h1>{generatedUrl}</h1>
         <h1>create custom url map</h1>

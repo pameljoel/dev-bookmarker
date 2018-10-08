@@ -109,9 +109,27 @@
 .url-part {
   margin: 5px;
   position: relative;
+}
+
+.url-part__main {
+
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
+}
+
+.url-part__additional-value {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.url-part__additional-value input {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  border: 0;
+  font-size: 16px;
 }
 
 .url-part__name {

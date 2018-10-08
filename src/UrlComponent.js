@@ -54,6 +54,7 @@ export default class UrlComponent extends Component {
                 cssClass={part.cssClass}
                 partValue={part.value}
                 partType={part.partType}
+                additionalValues={part.additionalValues}
               />
             ))}
         </div>
