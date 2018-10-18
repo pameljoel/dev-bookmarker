@@ -10,6 +10,7 @@ function createPart(name, value, type) {
     value: null,
     cssClass: `url-part--${name}`,
     partType: type,
+    id: Math.round(Math.random() * 1000000),
     additionalValues: [
       {
         value: 'additional value 1',
@@ -57,6 +58,21 @@ function matchRegExp(input, regex) {
   return result;
 }
 
+function replaceOldArrayValues(newValues) {
+  const newArray = [];
+  for (const v of newValues) {
+    const tempObject = {
+      paramName: null,
+      paramValue: null,
+    };
+    tempObject.paramName = v[0];
+    tempObject.paramValue = v[1];
+
+    newArray.push(tempObject);
+  }
+  return newArray;
+}
+
 function updatePart(parts, name, value, type) {
   for (let i = 0; i < parts.length; i += 1) {
     const part = parts[i];
@@ -66,21 +82,6 @@ function updatePart(parts, name, value, type) {
       } else if (typeof value === 'object') {
         const oldValues = part.value;
         const newValues = value;
-
-        function replaceOldArrayValues(newValues, oldValues) {
-          const newArray = [];
-          for (const v of newValues) {
-            const tempObject = {
-              paramName: null,
-              paramValue: null,
-            };
-            tempObject.paramName = v[0];
-            tempObject.paramValue = v[1];
-
-            newArray.push(tempObject);
-          }
-          return newArray;
-        }
 
         part.value = replaceOldArrayValues(newValues, oldValues);
       }
@@ -121,7 +122,6 @@ class App extends Component {
       input:
         'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID',
       parts: [],
-      generatedUrl: '',
       savedUrls: [],
     };
     this.updateInput = this.updateInput.bind(this);
@@ -130,9 +130,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { url } = this.state;
-    if (url) {
-      this.generateUrl(url);
+    const { input } = this.state;
+    if (input) {
+      this.generateUrl(input);
     }
   }
 
@@ -162,19 +162,6 @@ class App extends Component {
     try {
       url = new URL(input);
 
-      // esempio con url: https://www.quotidiano.net/my-section/my-page.html#myId?someparamete
-      // hash : "#myId?someparamete"
-      // host : "www.quotidiano.net"
-      // hostname : "www.quotidiano.net"
-      // href : "https://www.quotidiano.net/my-section/my-page.html#myId?someparamete"
-      // origin : "https://www.quotidiano.net"
-      // password : ""
-      // pathname : "/my-section/my-page.html"
-      // port : ""
-      // protocol : "https:"
-      // search : ""
-      // searchParams : URLSearchParams {}
-      // username : ""
       const { parts } = this.state;
       const partsCopy = parts;
       const hostRegExp = /^([a-zA-Z0-9][a-zA-Z0-9-_]*[^.])/;
@@ -221,9 +208,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      input, parts, url, savedUrls, generatedUrl,
-    } = this.state;
+    const { input, parts, url } = this.state;
     return (
       <div>
         <div className="url-hero">
@@ -290,17 +275,6 @@ class App extends Component {
             <UrlComponent saveUrlCallback={this.saveUrl} parts={parts} />
           </div>
         </div>
-        <h2>saved urls:</h2>
-        {savedUrls.length > 0
-          && savedUrls.map(item => <div key={item}>{item}</div>)}
-        <h2>the url: </h2>
-        <h1>{generatedUrl}</h1>
-        <h1>create custom url map</h1>
-        caso d/'uso dell/'utente: + protocol + subdomain and port + domain (ad
-        esempio qn, il carlino e ilgiorno) + page or file (ad esempio
-        gallery/id, article/id, video/id) + page aggiuntiva (ad esempio: /amp
-        per tutte le altre page che abbiamo indicato) + parameters +
-        FACOLTATIVO: anchor
       </div>
     );
   }

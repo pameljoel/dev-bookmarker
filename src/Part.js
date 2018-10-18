@@ -64,7 +64,7 @@ export default class Part extends Component {
             {additionalValues.map((additional, i) => (
               <div
                 className="url-part__additional-value"
-                key={i}
+                key={`additional-value-${i}`}
               >
                 <input
                   type="text"

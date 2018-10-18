@@ -4,10 +4,21 @@ import PropTypes from 'prop-types';
 import Part from './Part';
 
 
-function checkProp(prop, type) {
+function extractValue(prop, type) {
   if (typeof prop === type) {
     if (type === 'object') {
-      return `&${prop}`;
+      const stringValueFromArray = prop.map((item) => {
+        const { paramName, paramValue } = item;
+        let string = '';
+        if (paramName) {
+          string += `&${paramName}`;
+        }
+        if (paramValue) {
+          string += `=${paramValue}`;
+        }
+        return string;
+      });
+      return stringValueFromArray;
     }
     return prop;
   }
@@ -20,20 +31,22 @@ export default class UrlComponent extends Component {
     this.state = {
       url: '',
     };
-    this.addUrl = this.addUrl.bind(this);
+    this.addToUrl = this.addToUrl.bind(this);
   }
 
   componentWillReceiveProps() {
-    this.addUrl();
+    this.addToUrl();
   }
 
-  addUrl() {
+  addToUrl() {
     let url = '';
-    const { parts, value, partType } = this.props;
+    const { parts } = this.props;
 
-    url = parts.map((part, i) => checkProp(value, partType));
+    console.log(parts);
 
-    if (url) {
+    url = parts.map(part => extractValue(part.value, part.partType));
+
+    if (url.length > 0) {
       this.setState({ url });
     }
   }
@@ -86,7 +99,8 @@ UrlComponent.propTypes = {
       )),
       ],
     ),
-  })),
+  })).isRequired,
+  saveUrlCallback: PropTypes.func.isRequired,
 };
 
 UrlComponent.defaultProps = {
