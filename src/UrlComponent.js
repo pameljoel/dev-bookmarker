@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import Part from './Part';
 
+function makeUrlString(urlArray) {
+  const string = urlArray.join('');
+  return string;
+}
 
 function extractValue(prop, type) {
   if (typeof prop === type) {
@@ -28,9 +32,6 @@ function extractValue(prop, type) {
 export default class UrlComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      url: '',
-    };
     this.addToUrl = this.addToUrl.bind(this);
   }
 
@@ -42,19 +43,19 @@ export default class UrlComponent extends Component {
     let url = '';
     const { parts } = this.props;
 
-    console.log(parts);
+    url = parts.map((part) => {
+      // if (part.additionalValues.length > 0) {
+      //   return part.additionalValues.map(additionaValue => extractValue(additionaValue.value, 'string'));
+      // }
+      return extractValue(part.value, part.partType);
+    });
 
-    url = parts.map(part => extractValue(part.value, part.partType));
-
-    if (url.length > 0) {
-      this.setState({ url });
-    }
+    return url;
   }
 
 
   render() {
     const { parts, saveUrlCallback } = this.props;
-    const { url } = this.state;
     return (
       <div>
         <div className="url">
@@ -72,13 +73,9 @@ export default class UrlComponent extends Component {
             ))}
         </div>
 
-        <button onClick={() => saveUrlCallback(url)}>
+        <button onClick={() => saveUrlCallback(makeUrlString(this.addToUrl()))}>
           salva questa url
         </button>
-        <br />
-        <br />
-        <br />
-        <p>{this.state.url}</p>
       </div>
     );
   }

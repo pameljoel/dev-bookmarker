@@ -275,6 +275,8 @@ class App extends Component {
             <UrlComponent saveUrlCallback={this.saveUrl} parts={parts} />
           </div>
         </div>
+
+        {this.state.savedUrls.map((url, i) => <div key={`${url}-${i}`}>{url}</div>)}
       </div>
     );
   }
