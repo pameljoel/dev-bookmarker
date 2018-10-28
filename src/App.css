@@ -148,8 +148,16 @@
   width: 100%;
   border-radius: 10px;
   margin-bottom: 10px;
-  padding: 10px;
   display: flex;
+}
+
+.url-part__value input{
+  width: 100%;
+  padding: 10px;
+  display: flex;    
+  background: transparent;
+  border: 0;
+  font-size: 16px;
 }
 
 .url-part__value__name {

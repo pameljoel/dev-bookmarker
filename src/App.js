@@ -4,10 +4,10 @@ import UrlComponent from './UrlComponent';
 
 import './App.css';
 
-function createPart(name, value, type) {
+function createPart(name, newValue, type) {
   const object = {
     name,
-    value: null,
+    values: [],
     cssClass: `url-part--${name}`,
     partType: type,
     id: Math.round(Math.random() * 1000000),
@@ -25,17 +25,19 @@ function createPart(name, value, type) {
   };
 
   if (type === 'string') {
-    object.value = value;
+    object.values[0] = newValue;
   } else {
-    object.value = [];
-    for (const p of value) {
-      const tempObject = {
-        paramName: null,
-        paramValue: null,
-      };
-      tempObject.paramName = p[0];
-      tempObject.paramValue = p[1];
-      object.value.push(tempObject);
+    for (const p of newValue) {
+      const paramName = p[0];
+      const paramValue = p[1];
+      let string = '';
+      if (paramName) {
+        string += `&${paramName}`;
+      }
+      if (paramValue) {
+        string += `=${paramValue}`;
+      }
+      object.values.push(string);
     }
   }
 
@@ -73,17 +75,17 @@ function replaceOldArrayValues(newValues) {
   return newArray;
 }
 
-function updatePart(parts, name, value, type) {
+function updatePart(parts, name, newValue, type) {
   for (let i = 0; i < parts.length; i += 1) {
     const part = parts[i];
     if (part.name === name) {
       if (type === 'string') {
-        part.value = value;
-      } else if (typeof value === 'object') {
-        const oldValues = part.value;
-        const newValues = value;
+        part.values[0] = newValue;
+      } else if (typeof newValue === 'object') {
+        const oldValues = part.values;
+        const newValues = newValue;
 
-        part.value = replaceOldArrayValues(newValues, oldValues);
+        part.values = replaceOldArrayValues(newValues, oldValues);
       }
     }
   }
@@ -104,13 +106,13 @@ function isPartCreated(parts, name) {
   return false;
 }
 
-function addPart(array, name, value, regExp, type) {
+function addPart(array, name, newValue, regExp, type) {
   if (isPartCreated(array, name)) {
-    updatePart(array, name, regExp ? matchRegExp(value, regExp) : value, type);
+    updatePart(array, name, regExp ? matchRegExp(newValue, regExp) : newValue, type);
   } else {
     addPartToArray(
       array,
-      createPart(name, regExp ? matchRegExp(value, regExp) : value, type),
+      createPart(name, regExp ? matchRegExp(newValue, regExp) : newValue, type),
     );
   }
 }
@@ -144,7 +146,7 @@ class App extends Component {
   }
 
   updateInput(value) {
-    this.generateUrl(value);
+    this.generateUrl(value[0]);
     this.setState({ input: value });
   }
 
@@ -213,7 +215,7 @@ class App extends Component {
       <div>
         <div className="url-hero">
           <div className="container">
-            <h1>Dev Marker</h1>
+            <h1>Dev Bookmarker</h1>
             <h2>The bookmarker for devs</h2>
             <div className="url-hero__description">
               Want to bookmark your pages on multiple

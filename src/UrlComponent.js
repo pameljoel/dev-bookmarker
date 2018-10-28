@@ -8,11 +8,11 @@ function makeUrlString(urlArray) {
   return string;
 }
 
-function extractValue(prop, type) {
-  if (typeof prop === type) {
-    if (type === 'object') {
-      const stringValueFromArray = prop.map((item) => {
-        const { paramName, paramValue } = item;
+function extractValue(props, type) {
+  props.map((prop) => {
+    if (typeof prop === type) {
+      if (type === 'object') {
+        const { paramName, paramValue } = prop;
         let string = '';
         if (paramName) {
           string += `&${paramName}`;
@@ -21,12 +21,11 @@ function extractValue(prop, type) {
           string += `=${paramValue}`;
         }
         return string;
-      });
-      return stringValueFromArray;
+      }
+      return prop;
     }
-    return prop;
-  }
-  return '';
+    return '';
+  });
 }
 
 export default class UrlComponent extends Component {
@@ -43,16 +42,10 @@ export default class UrlComponent extends Component {
     let url = '';
     const { parts } = this.props;
 
-    url = parts.map((part) => {
-      // if (part.additionalValues.length > 0) {
-      //   return part.additionalValues.map(additionaValue => extractValue(additionaValue.value, 'string'));
-      // }
-      return extractValue(part.value, part.partType);
-    });
+    url = parts.map(part => extractValue(part.values, part.partType));
 
     return url;
   }
-
 
   render() {
     const { parts, saveUrlCallback } = this.props;
@@ -66,7 +59,7 @@ export default class UrlComponent extends Component {
                 key={`${part.name}-${i}`}
                 partName={part.name}
                 cssClass={part.cssClass}
-                partValue={part.value}
+                partValues={part.values}
                 partType={part.partType}
                 additionalValues={part.additionalValues}
               />
@@ -82,23 +75,24 @@ export default class UrlComponent extends Component {
 }
 
 UrlComponent.propTypes = {
-  parts: PropTypes.arrayOf(PropTypes.shape({
-    additionalvalues: PropTypes.array,
-    cssClass: PropTypes.string,
-    name: PropTypes.string,
-    partType: PropTypes.string,
-    value: PropTypes.oneOfType(
-      [PropTypes.string, PropTypes.arrayOf(PropTypes.shape(
-        {
-          paramName: PropTypes.string,
-          paramValue: PropTypes.string,
-        },
-      )),
-      ],
-    ),
-  })).isRequired,
+  parts: PropTypes.arrayOf(
+    PropTypes.shape({
+      additionalvalues: PropTypes.array,
+      cssClass: PropTypes.string,
+      name: PropTypes.string,
+      partType: PropTypes.string,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(
+          PropTypes.shape({
+            paramName: PropTypes.string,
+            paramValue: PropTypes.string,
+          }),
+        ),
+      ]),
+    }),
+  ).isRequired,
   saveUrlCallback: PropTypes.func.isRequired,
 };
 
-UrlComponent.defaultProps = {
-};
+UrlComponent.defaultProps = {};

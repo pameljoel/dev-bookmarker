@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Value from './Value';
 
 export default class Part extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class Part extends Component {
 
   render() {
     const {
-      cssClass, partType, partValue, partName,
+      cssClass, partType, partValues, partName,
     } = this.props;
     const { additionalValues } = this.state;
     return (
@@ -44,35 +45,27 @@ export default class Part extends Component {
           <div className="url-part__name">{partName}</div>
 
           <div className="url-part__value-container">
-            {partType === 'string' && (
-              <div className="url-part__value">{partValue}</div>
-            )}
+            {partType === 'string'
+              && partValues.map(value => <Value key={value} partValue={value} />)}
 
             {partType
               && partType === 'object'
-              && partValue.map(parameter => (
-                <div className="url-part__value" key={parameter.paramName}>
-                  <div className="url-part__value__name">
-                    {parameter.paramName}
-                  </div>
-                  <div className="url-part__value__sub">
-                    {parameter.paramValue}
-                  </div>
+              && partValues.map(value => <Value key={value} partValue={value} />)}
+
+            {additionalValues
+              && additionalValues.map((additional, i) => (
+                <div
+                  className="url-part__additional-value"
+                  key={`additional-value-${i}`}
+                >
+                  <input
+                    type="text"
+                    value={additional.value}
+                    onChange={e => this.updateAdditionalValues(e.target.value, i)
+                    }
+                  />
                 </div>
               ))}
-
-            {additionalValues.map((additional, i) => (
-              <div
-                className="url-part__additional-value"
-                key={`additional-value-${i}`}
-              >
-                <input
-                  type="text"
-                  value={additional.value}
-                  onChange={e => this.updateAdditionalValues(e.target.value, i)}
-                />
-              </div>
-            ))}
           </div>
           <div
             className="add-value"
@@ -90,7 +83,7 @@ Part.propTypes = {
   cssClass: PropTypes.string.isRequired,
   partType: PropTypes.string.isRequired,
   partName: PropTypes.string.isRequired,
-  partValue: PropTypes.oneOfType([
+  partValues: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(
       PropTypes.shape({
@@ -107,6 +100,6 @@ Part.propTypes = {
 };
 
 Part.defaultProps = {
-  partValue: '',
+  partValues: [],
   additionalValues: [],
 };
