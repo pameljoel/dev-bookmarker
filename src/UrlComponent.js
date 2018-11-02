@@ -8,24 +8,10 @@ function makeUrlString(urlArray) {
   return string;
 }
 
-function extractValue(props, type) {
-  props.map((prop) => {
-    if (typeof prop === type) {
-      if (type === 'object') {
-        const { paramName, paramValue } = prop;
-        let string = '';
-        if (paramName) {
-          string += `&${paramName}`;
-        }
-        if (paramValue) {
-          string += `=${paramValue}`;
-        }
-        return string;
-      }
-      return prop;
-    }
-    return '';
-  });
+function extractValues(parts) {
+  let string = '';
+  string = parts.map(part => part.values[0].value);
+  return string;
 }
 
 export default class UrlComponent extends Component {
@@ -42,39 +28,59 @@ export default class UrlComponent extends Component {
     let url = '';
     const { parts } = this.props;
 
-    url = parts.map(part => extractValue(part.values, part.partType));
+    url = extractValues(parts);
 
     return url;
   }
 
   render() {
-    const { parts, saveUrlCallback } = this.props;
+    const {
+      parts,
+      saveUrlCallback,
+      addAdditionalValueCallback,
+      removeAdditionalValueCallback,
+      updateAdditionalValueCallback,
+    } = this.props;
     return (
       <div>
         <div className="url">
           {parts
             && parts.length > 0
-            && parts.map((part, i) => (
+            && parts.map(part => (
               <Part
-                key={`${part.name}-${i}`}
+                key={part.partId}
                 partName={part.name}
                 cssClass={part.cssClass}
-                partValues={part.values}
+                values={part.values}
                 partType={part.partType}
+                partId={part.partId}
                 additionalValues={part.additionalValues}
+                isAdditionalValue={part.isAdditionalValue}
+                addAdditionalValueCallback={addAdditionalValueCallback}
+                removeAdditionalValueCallback={removeAdditionalValueCallback}
+                updateAdditionalValueCallback={updateAdditionalValueCallback}
               />
             ))}
         </div>
 
-        <button onClick={() => saveUrlCallback(makeUrlString(this.addToUrl()))}>
-          salva questa url
-        </button>
+        <div className="container">
+          <button
+            type="button"
+            className="big-button"
+            onClick={() => saveUrlCallback(makeUrlString(this.addToUrl()))}
+          >
+            save this url
+          </button>
+        </div>
       </div>
     );
   }
 }
 
 UrlComponent.propTypes = {
+  addAdditionalValueCallback: PropTypes.func.isRequired,
+  updateAdditionalValueCallback: PropTypes.func.isRequired,
+  removeAdditionalValueCallback: PropTypes.func.isRequired,
   parts: PropTypes.arrayOf(
     PropTypes.shape({
       additionalvalues: PropTypes.array,

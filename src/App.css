@@ -58,11 +58,8 @@
   position: relative;
 }
 
-.url-hero__save {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
+
+.big-button {
   font-size: 24px;
   padding: 10px 40px;
   border: none;
@@ -72,6 +69,15 @@
   cursor: pointer;
   transition: background-color .3s ease-in-out, color .2s ease-in-out;
   outline: none;
+  width: 100%;
+}
+
+.url-hero__save {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  width: auto;
 }
 
 .url-hero__save:hover {
@@ -130,6 +136,7 @@
   padding: 10px;
   border: 0;
   font-size: 16px;
+  margin-right: 10px;
 }
 
 .url-part__name {
@@ -143,12 +150,17 @@
   position: relative;
   z-index: 1;
 }
+.url-part__value-container > div {
+  display: flex;
+}
 
 .url-part__value {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 10px;
+  padding: 10px;
   display: flex;
+  margin-right: 10px;
 }
 
 .url-part__value input{
@@ -234,6 +246,9 @@
 
 /* add value */
 
+.url-part__additional-value:hover .remove-value {
+  opacity: 1;
+}
 .add-value {
   background-color: lightgreen;
   text-align: center;
@@ -243,4 +258,31 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
+}
+
+.remove-value {  
+  background-color: #ddd;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+.saved-urls {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.saved-url {
+  padding: 10px;
+  background-color: #eee;
+  margin-bottom: 10px;
+  font-size: 12px;
+  border-radius: 10px;
 }

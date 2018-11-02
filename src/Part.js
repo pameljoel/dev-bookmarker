@@ -3,75 +3,102 @@ import PropTypes from 'prop-types';
 import Value from './Value';
 
 export default class Part extends Component {
-  constructor(props) {
-    super(props);
-    const { additionalValues } = this.props;
-    this.state = {
-      additionalValues,
-    };
-    this.addAdditionalValue = this.addAdditionalValue.bind(this);
-    this.updateAdditionalValues = this.updateAdditionalValues.bind(this);
-  }
-
-  updateAdditionalValues(input, i) {
-    this.setState((prevState) => {
-      const additionalValuesCopy = prevState.additionalValues;
-      const object = {
-        value: input,
-      };
-      additionalValuesCopy.splice(i, 1, object);
-
-      return {
-        additionalValues: additionalValuesCopy,
-      };
-    });
-  }
-
-  addAdditionalValue(newAdditionalValue) {
-    const { additionalValues } = this.state;
-    const additionalValuesCopy = additionalValues;
-    additionalValuesCopy.push(newAdditionalValue);
-    this.setState({ additionalValues: additionalValuesCopy });
-  }
-
   render() {
     const {
-      cssClass, partType, partValues, partName,
+      cssClass,
+      partType,
+      values,
+      partName,
+      partId,
+      addAdditionalValueCallback,
+      removeAdditionalValueCallback,
+      updateAdditionalValueCallback,
     } = this.props;
-    const { additionalValues } = this.state;
     return (
       <div className={`url-part ${cssClass}`}>
         <div className="url-part__main">
           <div className="url-part__name">{partName}</div>
-
           <div className="url-part__value-container">
             {partType === 'string'
-              && partValues.map(value => <Value key={value} partValue={value} />)}
+              && values.map(value => (
+                <div
+                  key={value.valueId}
+                  className={`${
+                    value.isAdditionalValue ? 'url-part__additional-value' : ''
+                  }`}
+                >
+                  <Value
+                    partValue={value.value}
+                    partId={partId}
+                    valueId={value.valueId}
+                    isAdditionalValue={value.isAdditionalValue}
+                    updateAdditionalValueCallback={
+                      updateAdditionalValueCallback
+                    }
+                  />
+                  {value.isAdditionalValue ? (
+                    <div
+                      role="button"
+                      tabIndex="0"
+                      className="remove-value"
+                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)
+                      }
+                    >
+                      -
+                    </div>
+                  ) : (
+                    <div
+                      role="button"
+                      tabIndex="0"
+                      className="add-value"
+                      onClick={() => addAdditionalValueCallback(partId)}
+                    >
+                      +
+                    </div>
+                  )}
+                </div>
+              ))}
 
             {partType
               && partType === 'object'
-              && partValues.map(value => <Value key={value} partValue={value} />)}
-
-            {additionalValues
-              && additionalValues.map((additional, i) => (
+              && values.map(value => (
                 <div
-                  className="url-part__additional-value"
-                  key={`additional-value-${i}`}
+                  key={value.valueId}
+                  className={`${
+                    value.isAdditionalValue ? 'url-part__additional-value' : ''
+                  }`}
                 >
-                  <input
-                    type="text"
-                    value={additional.value}
-                    onChange={e => this.updateAdditionalValues(e.target.value, i)
+                  <Value
+                    partValue={value.value}
+                    partId={partId}
+                    valueId={value.valueId}
+                    updateAdditionalValueCallback={
+                      updateAdditionalValueCallback
                     }
+                    isAdditionalValue={value.isAdditionalValue}
                   />
+                  {value.isAdditionalValue ? (
+                    <div
+                      role="button"
+                      tabIndex="0"
+                      className="remove-value"
+                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)
+                      }
+                    >
+                      -
+                    </div>
+                  ) : (
+                    <div
+                      role="button"
+                      tabIndex="0"
+                      className="add-value"
+                      onClick={() => addAdditionalValueCallback(partId)}
+                    >
+                      +
+                    </div>
+                  )}
                 </div>
               ))}
-          </div>
-          <div
-            className="add-value"
-            onClick={() => this.addAdditionalValue({ value: '' })}
-          >
-            +
           </div>
         </div>
       </div>
@@ -83,7 +110,11 @@ Part.propTypes = {
   cssClass: PropTypes.string.isRequired,
   partType: PropTypes.string.isRequired,
   partName: PropTypes.string.isRequired,
-  partValues: PropTypes.oneOfType([
+  addAdditionalValueCallback: PropTypes.func.isRequired,
+  removeAdditionalValueCallback: PropTypes.func.isRequired,
+  updateAdditionalValueCallback: PropTypes.func.isRequired,
+  partId: PropTypes.number.isRequired,
+  values: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(
       PropTypes.shape({
@@ -92,14 +123,8 @@ Part.propTypes = {
       }),
     ),
   ]),
-  additionalValues: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-    }),
-  ),
 };
 
 Part.defaultProps = {
-  partValues: [],
-  additionalValues: [],
+  values: [],
 };

@@ -4,42 +4,48 @@ import UrlComponent from './UrlComponent';
 
 import './App.css';
 
+
+function createRandomId() {
+  return Math.round(Math.random() * 10000000000);
+}
+
+function makeParamsString(params) {
+  let string = '';
+  for (const p of params) {
+    const paramName = p[0];
+    const paramValue = p[1];
+    if (paramName) {
+      string += `&${paramName}`;
+    }
+    if (paramValue) {
+      string += `=${paramValue}`;
+    }
+  }
+  return string;
+}
+
 function createPart(name, newValue, type) {
   const object = {
     name,
     values: [],
     cssClass: `url-part--${name}`,
     partType: type,
-    id: Math.round(Math.random() * 1000000),
-    additionalValues: [
-      {
-        value: 'additional value 1',
-      },
-      {
-        value: 'additional value 2',
-      },
-      {
-        value: 'additional value 3',
-      },
-    ],
+    partId: createRandomId(),
+  };
+
+  const valueObject = {
+    valueId: createRandomId(),
+    value: null,
+    isAdditionalValue: false,
   };
 
   if (type === 'string') {
-    object.values[0] = newValue;
+    valueObject.value = newValue;
   } else {
-    for (const p of newValue) {
-      const paramName = p[0];
-      const paramValue = p[1];
-      let string = '';
-      if (paramName) {
-        string += `&${paramName}`;
-      }
-      if (paramValue) {
-        string += `=${paramValue}`;
-      }
-      object.values.push(string);
-    }
+    valueObject.value = makeParamsString(newValue);
   }
+
+  object.values.push(valueObject);
 
   return object;
 }
@@ -60,32 +66,14 @@ function matchRegExp(input, regex) {
   return result;
 }
 
-function replaceOldArrayValues(newValues) {
-  const newArray = [];
-  for (const v of newValues) {
-    const tempObject = {
-      paramName: null,
-      paramValue: null,
-    };
-    tempObject.paramName = v[0];
-    tempObject.paramValue = v[1];
-
-    newArray.push(tempObject);
-  }
-  return newArray;
-}
-
 function updatePart(parts, name, newValue, type) {
   for (let i = 0; i < parts.length; i += 1) {
     const part = parts[i];
     if (part.name === name) {
       if (type === 'string') {
-        part.values[0] = newValue;
+        part.values[0].value = newValue;
       } else if (typeof newValue === 'object') {
-        const oldValues = part.values;
-        const newValues = newValue;
-
-        part.values = replaceOldArrayValues(newValues, oldValues);
+        part.values[0].value = makeParamsString(newValue);
       }
     }
   }
@@ -108,7 +96,12 @@ function isPartCreated(parts, name) {
 
 function addPart(array, name, newValue, regExp, type) {
   if (isPartCreated(array, name)) {
-    updatePart(array, name, regExp ? matchRegExp(newValue, regExp) : newValue, type);
+    updatePart(
+      array,
+      name,
+      regExp ? matchRegExp(newValue, regExp) : newValue,
+      type,
+    );
   } else {
     addPartToArray(
       array,
@@ -117,7 +110,7 @@ function addPart(array, name, newValue, regExp, type) {
   }
 }
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -129,6 +122,9 @@ class App extends Component {
     this.updateInput = this.updateInput.bind(this);
     this.prepareUrl = this.prepareUrl.bind(this);
     this.saveUrl = this.saveUrl.bind(this);
+    this.addAdditionalValue = this.addAdditionalValue.bind(this);
+    this.removeAdditionalValue = this.removeAdditionalValue.bind(this);
+    this.updateAdditionalValue = this.updateAdditionalValue.bind(this);
   }
 
   componentDidMount() {
@@ -145,8 +141,36 @@ class App extends Component {
     }
   }
 
+
+  addAdditionalValue(partId) {
+    const object = {
+      valueId: createRandomId(),
+      value: '',
+      isAdditionalValue: true,
+    };
+
+    const { parts } = this.state;
+    const partsCopy = parts;
+    partsCopy.map(part => part.partId === partId && part.values.push(object));
+    this.setState({ parts: partsCopy });
+  }
+
+  updateAdditionalValue(input, partId, valueId) {
+    const { parts } = this.state;
+    const partsCopy = parts;
+    partsCopy.map(part => part.partId === partId && part.values.map(value => (value.valueId === valueId ? value.value = input : null)));
+    this.setState({ parts: partsCopy });
+  }
+
+  removeAdditionalValue(partId, valueId) {
+    const { parts } = this.state;
+    const partsCopy = parts;
+    partsCopy.map(part => part.partId === partId && part.values.map((value, i) => value.valueId === valueId && part.values.splice(i, 1)));
+    this.setState({ parts: partsCopy });
+  }
+
   updateInput(value) {
-    this.generateUrl(value[0]);
+    this.generateUrl(value);
     this.setState({ input: value });
   }
 
@@ -210,7 +234,9 @@ class App extends Component {
   }
 
   render() {
-    const { input, parts, url } = this.state;
+    const {
+      input, parts, url, savedUrls,
+    } = this.state;
     return (
       <div>
         <div className="url-hero">
@@ -253,7 +279,7 @@ class App extends Component {
                   }}
                 />
                 <button
-                  className="url-hero__save"
+                  className="url-hero__save big-button"
                   type="button"
                   onClick={() => this.prepareUrl(input)}
                 >
@@ -274,14 +300,25 @@ class App extends Component {
               similique facilis asperiores unde cupiditate!
             </p>
             {input}
-            <UrlComponent saveUrlCallback={this.saveUrl} parts={parts} />
+            <UrlComponent
+              addAdditionalValueCallback={this.addAdditionalValue}
+              removeAdditionalValueCallback={this.removeAdditionalValue}
+              updateAdditionalValueCallback={this.updateAdditionalValue}
+              saveUrlCallback={this.saveUrl}
+              parts={parts}
+            />
+          </div>
+          <div className="container">
+            <div className="saved-urls">
+              {savedUrls.map((savedUrl, i) => (
+                <div className="saved-url" key={`${savedUrl}-${i}`}>
+                  {savedUrl}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        {this.state.savedUrls.map((url, i) => <div key={`${url}-${i}`}>{url}</div>)}
       </div>
     );
   }
 }
-
-export default App;
