@@ -3,6 +3,22 @@ import PropTypes from 'prop-types';
 import Value from './Value';
 
 export default class Part extends Component {
+  constructor(props) {
+    super(props);
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  onKeyDown(key, partId, valueId) {
+    const { addAdditionalValueCallback, removeAdditionalValueCallback } = this.props;
+    if (key === 13) {
+      if (valueId) {
+        removeAdditionalValueCallback(partId, valueId);
+      } else {
+        addAdditionalValueCallback(partId);
+      }
+    }
+  }
+
   render() {
     const {
       cssClass,
@@ -39,10 +55,10 @@ export default class Part extends Component {
                   {value.isAdditionalValue ? (
                     <div
                       role="button"
-                      tabIndex="0"
+                      tabIndex="-1"
                       className="remove-value"
-                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)
-                      }
+                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)}
+                      onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
                     >
                       -
                     </div>
@@ -52,6 +68,7 @@ export default class Part extends Component {
                       tabIndex="0"
                       className="add-value"
                       onClick={() => addAdditionalValueCallback(partId)}
+                      onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
                     >
                       +
                     </div>
@@ -82,8 +99,8 @@ export default class Part extends Component {
                       role="button"
                       tabIndex="0"
                       className="remove-value"
-                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)
-                      }
+                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)}
+                      onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
                     >
                       -
                     </div>
@@ -93,6 +110,7 @@ export default class Part extends Component {
                       tabIndex="0"
                       className="add-value"
                       onClick={() => addAdditionalValueCallback(partId)}
+                      onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
                     >
                       +
                     </div>
