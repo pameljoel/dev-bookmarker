@@ -100,5 +100,3 @@ UrlComponent.propTypes = {
   ).isRequired,
   saveUrlCallback: PropTypes.func.isRequired,
 };
-
-UrlComponent.defaultProps = {};
