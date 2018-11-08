@@ -47,7 +47,6 @@ export default class UrlComponent extends Component {
   render() {
     const {
       parts,
-      saveUrlCallback,
       saveUrlsCallback,
       addAdditionalValueCallback,
       removeAdditionalValueCallback,
@@ -110,5 +109,5 @@ UrlComponent.propTypes = {
       ]),
     }),
   ).isRequired,
-  saveUrlCallback: PropTypes.func.isRequired,
+  saveUrlsCallback: PropTypes.func.isRequired,
 };

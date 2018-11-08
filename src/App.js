@@ -40,12 +40,14 @@ function createPart(name, newValue, type) {
 
   const valueObject = {
     valueId: createRandomId(),
-    value: null,
+    value: '',
     isAdditionalValue: false,
   };
 
   if (type === 'string') {
-    valueObject.value = newValue;
+    if (name === 'port') valueObject.value += ':';
+    valueObject.value += newValue;
+    if (name === 'protocol') valueObject.value += '//';
   } else {
     valueObject.value = makeParamsString(newValue);
   }
@@ -126,7 +128,6 @@ export default class App extends Component {
     };
     this.updateInput = this.updateInput.bind(this);
     this.prepareUrl = this.prepareUrl.bind(this);
-    this.saveUrl = this.saveUrl.bind(this);
     this.saveUrls = this.saveUrls.bind(this);
     this.addAdditionalValue = this.addAdditionalValue.bind(this);
     this.removeAdditionalValue = this.removeAdditionalValue.bind(this);
@@ -180,7 +181,6 @@ export default class App extends Component {
     this.setState({ input: value });
   }
 
-
   saveUrls(...args) {
     const newUrls = [];
     const array = [];
@@ -205,14 +205,6 @@ export default class App extends Component {
 
     this.setState({ savedUrls: newUrls });
     return array;
-  }
-
-  saveUrl(url) {
-    const { savedUrls } = this.state;
-    const savedUrlsCopy = savedUrls;
-    savedUrlsCopy.push(url);
-
-    this.setState({ savedUrls: savedUrlsCopy });
   }
 
   generateUrl(input) {
@@ -337,7 +329,6 @@ export default class App extends Component {
               addAdditionalValueCallback={this.addAdditionalValue}
               removeAdditionalValueCallback={this.removeAdditionalValue}
               updateAdditionalValueCallback={this.updateAdditionalValue}
-              saveUrlCallback={this.saveUrl}
               saveUrlsCallback={this.saveUrls}
               parts={parts}
             />
