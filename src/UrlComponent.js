@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 
 import Part from './Part';
 
-function makeUrlString(urlArray) {
-  const string = urlArray.join('');
-  return string;
-}
-
 function extractValues(parts) {
   let string = '';
   string = parts.map(part => part.values[0].value);
@@ -33,10 +28,27 @@ export default class UrlComponent extends Component {
     return url;
   }
 
+  makeArrayOfValues(parts) {
+    const array = [];
+    let valuesArray = [];
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      valuesArray = [];
+      for (let j = 0; j < part.values.length; j++) {
+        const value = part.values[j].value;
+        valuesArray.push(value);
+      }
+      array.push(valuesArray);
+    }
+    return array;
+  }
+
   render() {
     const {
       parts,
       saveUrlCallback,
+      saveUrlsCallback,
       addAdditionalValueCallback,
       removeAdditionalValueCallback,
       updateAdditionalValueCallback,
@@ -67,7 +79,7 @@ export default class UrlComponent extends Component {
           <button
             type="button"
             className="big-button"
-            onClick={() => saveUrlCallback(makeUrlString(this.addToUrl()))}
+            onClick={() => saveUrlsCallback(this.makeArrayOfValues(parts))}
           >
             save this url
           </button>

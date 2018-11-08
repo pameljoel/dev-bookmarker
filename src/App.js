@@ -24,6 +24,11 @@ function makeParamsString(params) {
   return string;
 }
 
+function makeUrlString(urlArray) {
+  const string = urlArray.join('');
+  return string;
+}
+
 function createPart(name, newValue, type) {
   const object = {
     name,
@@ -122,6 +127,7 @@ export default class App extends Component {
     this.updateInput = this.updateInput.bind(this);
     this.prepareUrl = this.prepareUrl.bind(this);
     this.saveUrl = this.saveUrl.bind(this);
+    this.saveUrls = this.saveUrls.bind(this);
     this.addAdditionalValue = this.addAdditionalValue.bind(this);
     this.removeAdditionalValue = this.removeAdditionalValue.bind(this);
     this.updateAdditionalValue = this.updateAdditionalValue.bind(this);
@@ -172,6 +178,33 @@ export default class App extends Component {
   updateInput(value) {
     this.generateUrl(value);
     this.setState({ input: value });
+  }
+
+
+  saveUrls(...args) {
+    const newUrls = [];
+    const array = [];
+    const arg = args[0];
+    const max = arg.length - 1;
+
+    function helper(arr, i) {
+      for (let j = 0, l = arg[i].length; j < l; j += 1) {
+        const a = arr.slice(0);
+        // clone arr
+        a.push(arg[i][j]);
+        if (i === max) {
+          array.push(a);
+        } else {
+          helper(a, i + 1);
+        }
+      }
+    }
+
+    helper([], 0);
+    array.map(url => newUrls.push(makeUrlString(url)));
+
+    this.setState({ savedUrls: newUrls });
+    return array;
   }
 
   saveUrl(url) {
@@ -305,6 +338,7 @@ export default class App extends Component {
               removeAdditionalValueCallback={this.removeAdditionalValue}
               updateAdditionalValueCallback={this.updateAdditionalValue}
               saveUrlCallback={this.saveUrl}
+              saveUrlsCallback={this.saveUrls}
               parts={parts}
             />
           </div>
