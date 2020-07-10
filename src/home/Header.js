@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
 
-export const Header = ({ input }) => {
-  return <div className="url-hero">
+const Header = ({
+  url, onKeypress, updateInput, setUrl,
+}) => (
+  <div className="url-hero">
     <div className="container">
       <h1>Dev Bookmarker</h1>
       <h2>The bookmarker for devs</h2>
@@ -31,19 +33,19 @@ export const Header = ({ input }) => {
         <div className="url-hero__url">
           <input
             type="text"
-            value={input}
+            value={url}
             name="bookmarkInput"
             id="bookmarkInput"
             className="url-hero__input"
             onChange={(e) => {
-              this.updateInput(e.target.value);
-              this.onKeypress(e.keyCode);
+              updateInput(e.target.value);
+              onKeypress(e.keyCode);
             }}
           />
           <button
             className="url-hero__save big-button"
             type="button"
-            onClick={() => this.prepareUrl(input)}
+            onClick={() => setUrl(url)}
           >
             save
           </button>
@@ -51,4 +53,6 @@ export const Header = ({ input }) => {
       </label>
     </div>
   </div>
-}
+);
+
+export default Header;

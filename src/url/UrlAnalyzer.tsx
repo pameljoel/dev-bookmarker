@@ -12,7 +12,7 @@ type Props = {
   saveUrlsCallback: () => void,
 }
 
-export const UrlAnalyzer: React.FC<Props> = ({
+const UrlAnalyzer: React.FC<Props> = ({
   parts,
   savedUrls,
   addAdditionalValueCallback,
@@ -25,17 +25,19 @@ return <div className="main-url">
   <div className="container">
     <Header />
     <UrlComponent
+      parts={parts}
       addAdditionalValueCallback={addAdditionalValueCallback}
       removeAdditionalValueCallback={removeAdditionalValueCallback}
       updateAdditionalValueCallback={updateAdditionalValueCallback}
       saveUrlsCallback={saveUrlsCallback}
-      parts={parts}
     />
   </div>
   <div className="container">
     <div className="preview-urls">
-      {savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-index`} />)}
+      {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-index`} />)}
     </div>
   </div>
 </div>
 }
+
+export default UrlAnalyzer;

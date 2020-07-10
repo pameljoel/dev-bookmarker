@@ -17,23 +17,24 @@ type Part = {
 }
 
 export const UrlParts: React.FC<Props> = ({ parts, addAdditionalValueCallback, removeAdditionalValueCallback, updateAdditionalValueCallback }) => {
-  if (!parts || parts.length < 1) return null;
-
   return <div className="url">
-    {parts.map((part: Part) => (
-      <UrlPart
-        key={part.partId}
-        partName={part.name}
-        cssClass={part.cssClass}
-        values={part.values}
-        partType={part.partType}
-        partId={part.partId}
-        additionalValues={part.additionalValues}
-        isAdditionalValue={part.isAdditionalValue}
-        addAdditionalValueCallback={addAdditionalValueCallback}
-        removeAdditionalValueCallback={removeAdditionalValueCallback}
-        updateAdditionalValueCallback={updateAdditionalValueCallback}
-      />
-    ))}
+    {parts.map((part: Part) => {
+      console.log('aaaaa part', {part})
+       return <UrlPart
+          key={part.partId}
+          partName={part.name}
+          cssClass={part.cssClass}
+          values={part.values}
+          partType={part.partType}
+          partId={part.partId}
+          additionalValues={part.additionalValues}
+          isAdditionalValue={part.isAdditionalValue}
+          addAdditionalValueCallback={addAdditionalValueCallback}
+          removeAdditionalValueCallback={removeAdditionalValueCallback}
+          updateAdditionalValueCallback={updateAdditionalValueCallback}
+        />
+    }
+
+    )}
   </div>
 }
