@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import UrlAnalyzer from '../url/UrlAnalyzer';
-import { createRandomId, makeUrlString } from '../url/utils';
+import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { generateUrl } from '../url/partials/generateUrl';
 import './Home.css';
 

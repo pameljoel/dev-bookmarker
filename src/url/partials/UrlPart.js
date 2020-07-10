@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Value from '../Value';
+import Value from './Value';
 
 export default class UrlPart extends Component {
   constructor(props) {

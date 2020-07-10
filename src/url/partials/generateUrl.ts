@@ -1,4 +1,4 @@
-import { addPart } from '../utils';
+import { addPart } from './utils';
 
 type UrlPartsActions = {
   [key: string] : (key: string) => void;

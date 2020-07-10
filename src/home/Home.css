@@ -145,10 +145,7 @@
 }
 
 .url-part__value-container {
-  width: 70%;
-  margin-right: 20px;
-  position: relative;
-  z-index: 1;
+  width: 80%;
 }
 .url-part__value-container > div {
   display: flex;

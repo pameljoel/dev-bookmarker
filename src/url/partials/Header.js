@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Header = () => (
+const Header = () => (
   <header>
     <h2 className="main-url__title">Examine your url</h2>
     <p className="main-url__subtitle">
@@ -11,3 +11,5 @@ export const Header = () => (
     </p>
   </header>
 );
+
+export default Header;
