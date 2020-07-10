@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header } from './Header';
-import { UrlAnalizer } from '../url/UrlAnalizer';
+import { UrlAnalyzer } from '../url/UrlAnalyzer';
 import './Home.css';
 
 
@@ -263,7 +263,7 @@ export default class Home extends Component {
     return (
       <div>
         <Header input={input} />
-        <UrlAnalizer
+        <UrlAnalyzer
           parts={parts}
           savedUrls={savedUrls}
           addAdditionalValueCallback={this.addAdditionalValue}

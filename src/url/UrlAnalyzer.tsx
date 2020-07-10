@@ -1,9 +1,18 @@
 import UrlComponent from "./UrlComponent";
 import React from "react";
-import {Header} from "./partials/Header";
-import {UrlPreview} from "./partials/UrlPreview";
+import { Header}  from "./partials/Header";
+import { UrlPreview } from "./partials/UrlPreview";
 
-export const UrlAnalizer = ({
+type Props = {
+  parts: any,
+  savedUrls: any,
+  addAdditionalValueCallback: () => void,
+  removeAdditionalValueCallback: () => void,
+  updateAdditionalValueCallback: () => void,
+  saveUrlsCallback: () => void,
+}
+
+export const UrlAnalyzer: React.FC<Props> = ({
   parts,
   savedUrls,
   addAdditionalValueCallback,
@@ -25,7 +34,7 @@ return <div className="main-url">
   </div>
   <div className="container">
     <div className="preview-urls">
-      {savedUrls.map((url, i) => <UrlPreview url={url} />)}
+      {savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-index`} />)}
     </div>
   </div>
 </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import UrlPart from './partials/UrlPart';
+import { UrlParts } from './partials/UrlParts';
 
 function extractValues(parts) {
   let string = '';
@@ -36,7 +35,7 @@ export default class UrlComponent extends Component {
       const part = parts[i];
       valuesArray = [];
       for (let j = 0; j < part.values.length; j++) {
-        const value = part.values[j].value;
+        const { value } = part.values[j];
         valuesArray.push(value);
       }
       array.push(valuesArray);
@@ -54,25 +53,13 @@ export default class UrlComponent extends Component {
     } = this.props;
     return (
       <div>
-        <div className="url">
-          {parts
-            && parts.length > 0
-            && parts.map(part => (
-              <UrlPart
-                key={part.partId}
-                partName={part.name}
-                cssClass={part.cssClass}
-                values={part.values}
-                partType={part.partType}
-                partId={part.partId}
-                additionalValues={part.additionalValues}
-                isAdditionalValue={part.isAdditionalValue}
-                addAdditionalValueCallback={addAdditionalValueCallback}
-                removeAdditionalValueCallback={removeAdditionalValueCallback}
-                updateAdditionalValueCallback={updateAdditionalValueCallback}
-              />
-            ))}
-        </div>
+
+        <UrlParts
+          parts={parts}
+          addAdditionalValueCallback={addAdditionalValueCallback}
+          removeAdditionalValueCallback={removeAdditionalValueCallback}
+          updateAdditionalValueCallback={updateAdditionalValueCallback}
+        />
 
         <div className="container">
           <button
