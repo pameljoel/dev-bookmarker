@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import UrlAnalyzer from '../url/UrlAnalyzer';
-import { addPart, createRandomId, makeUrlString } from '../url/utils';
+import { createRandomId, makeUrlString } from '../url/utils';
+import { generateUrl } from '../url/partials/generateUrl';
 import './Home.css';
 
 export const Home = () => {
@@ -10,52 +11,10 @@ export const Home = () => {
   const [parts, setParts] = useState([]);
   const [savedUrls, setSavedUrls] = useState([]);
 
-  const generateUrl = (input) => {
-    let newUrl;
-
-    try {
-      newUrl = new URL(input);
-
-      const copy = parts.slice();
-      const hostRegExp = /^([a-zA-Z0-9][a-zA-Z0-9-_]*[^.])/;
-      const hostnameRegExp = /\.{1}(([\S][^\]])*)/;
-
-      if (newUrl.protocol) {
-        addPart(copy, 'protocol', newUrl.protocol, null, 'string');
-      }
-
-      if (newUrl.host) {
-        addPart(copy, 'host', newUrl.host, hostRegExp, 'string');
-      }
-
-      if (newUrl.hostname) {
-        addPart(copy, 'hostname', newUrl.hostname, hostnameRegExp, 'string');
-      }
-
-      if (newUrl.port) {
-        addPart(copy, 'port', newUrl.port, null, 'string');
-      }
-
-      if (newUrl.pathname) {
-        addPart(copy, 'pathname', newUrl.pathname, null, 'string');
-      }
-
-      if (newUrl.searchParams) {
-        addPart(copy, 'searchParams', newUrl.searchParams, null, 'object');
-      }
-
-      if (newUrl.hash) {
-        addPart(copy, 'hash', newUrl.hash, null, 'string');
-      }
-
-      setParts(copy);
-    } catch (error) {
-      newUrl = null;
-    }
-  };
 
   const updateInput = (value) => {
-    generateUrl(value);
+    const newParts = generateUrl(value, parts);
+    setParts(newParts);
     setUrl(value);
   };
 
