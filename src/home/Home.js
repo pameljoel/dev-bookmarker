@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-
-import UrlComponent from '../url/UrlComponent';
-
+import { Header } from './Header';
+import { UrlAnalizer } from '../url/UrlAnalizer';
 import './Home.css';
-import {Header} from "./Header";
-import {UrlAnalizer} from "../url/UrlAnalizer";
 
 
 function createRandomId() {
@@ -150,7 +147,6 @@ export default class Home extends Component {
     }
   }
 
-
   addAdditionalValue(partId) {
     const object = {
       valueId: createRandomId(),
@@ -262,16 +258,19 @@ export default class Home extends Component {
 
   render() {
     const {
-      input, parts, url, savedUrls,
+      input, parts, savedUrls,
     } = this.state;
     return (
       <div>
         <Header input={input} />
-        <UrlAnalizer parts={parts} savedUrls={savedUrls}
-                     addAdditionalValueCallback={this.addAdditionalValue}
-                     removeAdditionalValueCallback={this.removeAdditionalValue}
-                     updateAdditionalValueCallback={this.updateAdditionalValue}
-                     saveUrlsCallback={this.saveUrls} />
+        <UrlAnalizer
+          parts={parts}
+          savedUrls={savedUrls}
+          addAdditionalValueCallback={this.addAdditionalValue}
+          removeAdditionalValueCallback={this.removeAdditionalValue}
+          updateAdditionalValueCallback={this.updateAdditionalValue}
+          saveUrlsCallback={this.saveUrls}
+        />
       </div>
     );
   }

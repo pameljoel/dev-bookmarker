@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Part from './Part';
+import UrlPart from './partials/UrlPart';
 
 function extractValues(parts) {
   let string = '';
@@ -58,7 +58,7 @@ export default class UrlComponent extends Component {
           {parts
             && parts.length > 0
             && parts.map(part => (
-              <Part
+              <UrlPart
                 key={part.partId}
                 partName={part.name}
                 cssClass={part.cssClass}

@@ -1,6 +1,7 @@
 import UrlComponent from "./UrlComponent";
 import React from "react";
-import {Header} from "./Header";
+import {Header} from "./partials/Header";
+import {UrlPreview} from "./partials/UrlPreview";
 
 export const UrlAnalizer = ({
   parts,
@@ -23,12 +24,8 @@ return <div className="main-url">
     />
   </div>
   <div className="container">
-    <div className="saved-urls">
-      {savedUrls.map((savedUrl, i) => (
-        <div className="saved-url" key={`${savedUrl}-${i}`}>
-          {savedUrl}
-        </div>
-      ))}
+    <div className="preview-urls">
+      {savedUrls.map((url, i) => <UrlPreview url={url} />)}
     </div>
   </div>
 </div>

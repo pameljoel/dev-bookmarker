@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Value from './Value';
+import Value from '../Value';
 
-export default class Part extends Component {
+export default class UrlPart extends Component {
   constructor(props) {
     super(props);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -124,7 +124,7 @@ export default class Part extends Component {
   }
 }
 
-Part.propTypes = {
+UrlPart.propTypes = {
   cssClass: PropTypes.string.isRequired,
   partType: PropTypes.string.isRequired,
   partName: PropTypes.string.isRequired,
@@ -143,6 +143,6 @@ Part.propTypes = {
   ]),
 };
 
-Part.defaultProps = {
+UrlPart.defaultProps = {
   values: [],
 };
