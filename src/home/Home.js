@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
-import UrlComponent from './UrlComponent';
+import UrlComponent from '../url/UrlComponent';
 
-import './App.css';
+import './Home.css';
+import {Header} from "./Header";
+import {UrlAnalizer} from "../url/UrlAnalizer";
 
 
 function createRandomId() {
@@ -117,7 +119,7 @@ function addPart(array, name, newValue, regExp, type) {
   }
 }
 
-export default class App extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -264,85 +266,12 @@ export default class App extends Component {
     } = this.state;
     return (
       <div>
-        <div className="url-hero">
-          <div className="container">
-            <h1>Dev Bookmarker</h1>
-            <h2>The bookmarker for devs</h2>
-            <div className="url-hero__description">
-              Want to bookmark your pages on multiple
-              {' '}
-              <strong>sub-domains</strong>
-,
-              {' '}
-              <strong>domains</strong>
-,
-              {' '}
-              <strong>ports</strong>
-? MAybe with different parameters every
-              time?
-              <br />
-              This is your lucky day.
-              {' '}
-              <strong>Try it out.</strong>
-            </div>
-            <label
-              htmlFor="bookmarkInput"
-              id="labelForInput"
-              className="url-hero__label"
-            >
-              Bookmark an url
-              <div className="url-hero__url">
-                <input
-                  type="text"
-                  value={input}
-                  name="bookmarkInput"
-                  id="bookmarkInput"
-                  className="url-hero__input"
-                  onChange={(e) => {
-                    this.updateInput(e.target.value);
-                    this.onKeypress(e.keyCode);
-                  }}
-                />
-                <button
-                  className="url-hero__save big-button"
-                  type="button"
-                  onClick={() => this.prepareUrl(input)}
-                >
-                  save
-                </button>
-              </div>
-            </label>
-          </div>
-        </div>
-        {url}
-        <div className="main-url">
-          <div className="container">
-            <h2 className="main-url__title">Examine your url</h2>
-            <p className="main-url__subtitle">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Perspiciatis dolore dolor nisi autem officia officiis provident
-              sapiente placeat sint aperiam quod, quae amet architecto odio
-              similique facilis asperiores unde cupiditate!
-            </p>
-            {input}
-            <UrlComponent
-              addAdditionalValueCallback={this.addAdditionalValue}
-              removeAdditionalValueCallback={this.removeAdditionalValue}
-              updateAdditionalValueCallback={this.updateAdditionalValue}
-              saveUrlsCallback={this.saveUrls}
-              parts={parts}
-            />
-          </div>
-          <div className="container">
-            <div className="saved-urls">
-              {savedUrls.map((savedUrl, i) => (
-                <div className="saved-url" key={`${savedUrl}-${i}`}>
-                  {savedUrl}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <Header input={input} />
+        <UrlAnalizer parts={parts} savedUrls={savedUrls}
+                     addAdditionalValueCallback={this.addAdditionalValue}
+                     removeAdditionalValueCallback={this.removeAdditionalValue}
+                     updateAdditionalValueCallback={this.updateAdditionalValue}
+                     saveUrlsCallback={this.saveUrls} />
       </div>
     );
   }
