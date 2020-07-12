@@ -9,12 +9,12 @@ export default class UrlPart extends Component {
   }
 
   onKeyDown(key, partId, valueId) {
-    const { addAdditionalValueCallback, removeAdditionalValueCallback } = this.props;
+    const { addAdditionalValue, removeAdditionalValue } = this.props;
     if (key === 13) {
       if (valueId) {
-        removeAdditionalValueCallback(partId, valueId);
+        removeAdditionalValue(partId, valueId);
       } else {
-        addAdditionalValueCallback(partId);
+        addAdditionalValue(partId);
       }
     }
   }
@@ -26,9 +26,9 @@ export default class UrlPart extends Component {
       values,
       partName,
       partId,
-      addAdditionalValueCallback,
-      removeAdditionalValueCallback,
-      updateAdditionalValueCallback,
+      addAdditionalValue,
+      removeAdditionalValue,
+      updateAdditionalValue,
     } = this.props;
     return (
       <div className={`url-part ${cssClass}`}>
@@ -48,8 +48,8 @@ export default class UrlPart extends Component {
                     partId={partId}
                     valueId={value.valueId}
                     isAdditionalValue={value.isAdditionalValue}
-                    updateAdditionalValueCallback={
-                      updateAdditionalValueCallback
+                    updateAdditionalValue={
+                      updateAdditionalValue
                     }
                   />
                   {value.isAdditionalValue ? (
@@ -57,7 +57,7 @@ export default class UrlPart extends Component {
                       role="button"
                       tabIndex="-1"
                       className="remove-value"
-                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)}
+                      onClick={() => removeAdditionalValue(partId, value.valueId)}
                       onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
                     >
                       -
@@ -67,7 +67,7 @@ export default class UrlPart extends Component {
                       role="button"
                       tabIndex="0"
                       className="add-value"
-                      onClick={() => addAdditionalValueCallback(partId)}
+                      onClick={() => addAdditionalValue(partId)}
                       onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
                     >
                       +
@@ -89,8 +89,8 @@ export default class UrlPart extends Component {
                     partValue={value.value}
                     partId={partId}
                     valueId={value.valueId}
-                    updateAdditionalValueCallback={
-                      updateAdditionalValueCallback
+                    updateAdditionalValue={
+                      updateAdditionalValue
                     }
                     isAdditionalValue={value.isAdditionalValue}
                   />
@@ -99,7 +99,7 @@ export default class UrlPart extends Component {
                       role="button"
                       tabIndex="0"
                       className="remove-value"
-                      onClick={() => removeAdditionalValueCallback(partId, value.valueId)}
+                      onClick={() => removeAdditionalValue(partId, value.valueId)}
                       onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
                     >
                       -
@@ -109,7 +109,7 @@ export default class UrlPart extends Component {
                       role="button"
                       tabIndex="0"
                       className="add-value"
-                      onClick={() => addAdditionalValueCallback(partId)}
+                      onClick={() => addAdditionalValue(partId)}
                       onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
                     >
                       +
@@ -128,9 +128,9 @@ UrlPart.propTypes = {
   cssClass: PropTypes.string.isRequired,
   partType: PropTypes.string.isRequired,
   partName: PropTypes.string.isRequired,
-  addAdditionalValueCallback: PropTypes.func.isRequired,
-  removeAdditionalValueCallback: PropTypes.func.isRequired,
-  updateAdditionalValueCallback: PropTypes.func.isRequired,
+  addAdditionalValue: PropTypes.func.isRequired,
+  removeAdditionalValue: PropTypes.func.isRequired,
+  updateAdditionalValue: PropTypes.func.isRequired,
   partId: PropTypes.number.isRequired,
   values: PropTypes.oneOfType([
     PropTypes.string,

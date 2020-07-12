@@ -20,7 +20,7 @@ export default class Value extends PureComponent {
 
   render() {
     const {
-      partValue, isAdditionalValue, partId, valueId, updateAdditionalValueCallback,
+      partValue, isAdditionalValue, partId, valueId, updateAdditionalValue,
     } = this.props;
 
     return (
@@ -29,7 +29,7 @@ export default class Value extends PureComponent {
           type="text"
           value={partValue}
           placeholder="Add value"
-          onChange={e => updateAdditionalValueCallback(e.target.value, partId, valueId)}
+          onChange={e => updateAdditionalValue(e.target.value, partId, valueId)}
           ref={this.textInput}
         />
       ) : (
@@ -42,7 +42,7 @@ export default class Value extends PureComponent {
 }
 
 Value.propTypes = {
-  updateAdditionalValueCallback: PropTypes.func.isRequired,
+  updateAdditionalValue: PropTypes.func.isRequired,
   isAdditionalValue: PropTypes.bool,
   partId: PropTypes.number.isRequired,
   valueId: PropTypes.number.isRequired,

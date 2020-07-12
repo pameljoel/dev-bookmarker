@@ -89,10 +89,10 @@ export const Home = () => {
       <UrlAnalyzer
         parts={parts}
         savedUrls={savedUrls}
-        addAdditionalValueCallback={addAdditionalValue}
-        removeAdditionalValueCallback={removeAdditionalValue}
-        updateAdditionalValueCallback={updateAdditionalValue}
-        saveUrlsCallback={saveUrls}
+        addAdditionalValue={addAdditionalValue}
+        removeAdditionalValue={removeAdditionalValue}
+        updateAdditionalValue={updateAdditionalValue}
+        saveUrls={saveUrls}
       />
     </div>
   );

@@ -6,19 +6,19 @@ import { UrlPreview } from "./partials/UrlPreview";
 type Props = {
   parts: any,
   savedUrls: any,
-  addAdditionalValueCallback: () => void,
-  removeAdditionalValueCallback: () => void,
-  updateAdditionalValueCallback: () => void,
-  saveUrlsCallback: () => void,
+  addAdditionalValue: () => void,
+  removeAdditionalValue: () => void,
+  updateAdditionalValue: () => void,
+  saveUrls: () => void,
 }
 
 const UrlAnalyzer: React.FC<Props> = ({
   parts,
   savedUrls,
-  addAdditionalValueCallback,
-  removeAdditionalValueCallback,
-  updateAdditionalValueCallback,
-  saveUrlsCallback
+  addAdditionalValue,
+  removeAdditionalValue,
+  updateAdditionalValue,
+  saveUrls
 }) => {
 
 return <div className="main-url">
@@ -26,10 +26,10 @@ return <div className="main-url">
     <Header />
     <UrlComponent
       parts={parts}
-      addAdditionalValueCallback={addAdditionalValueCallback}
-      removeAdditionalValueCallback={removeAdditionalValueCallback}
-      updateAdditionalValueCallback={updateAdditionalValueCallback}
-      saveUrlsCallback={saveUrlsCallback}
+      addAdditionalValue={addAdditionalValue}
+      removeAdditionalValue={removeAdditionalValue}
+      updateAdditionalValue={updateAdditionalValue}
+      saveUrls={saveUrls}
     />
   </div>
   <div className="container">

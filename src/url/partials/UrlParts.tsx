@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {
   parts: any,
-  addAdditionalValueCallback: () => void, removeAdditionalValueCallback: () => void, updateAdditionalValueCallback: () => void
+  addAdditionalValue: () => void, removeAdditionalValue: () => void, updateAdditionalValue: () => void
 }
 
 type Part = {
@@ -16,7 +16,7 @@ type Part = {
   partId: string,
 }
 
-export const UrlParts: React.FC<Props> = ({ parts, addAdditionalValueCallback, removeAdditionalValueCallback, updateAdditionalValueCallback }) => {
+export const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
   return <div className="url">
     {parts.map((part: Part) => {
       console.log('aaaaa part', {part})
@@ -29,9 +29,9 @@ export const UrlParts: React.FC<Props> = ({ parts, addAdditionalValueCallback, r
           partId={part.partId}
           additionalValues={part.additionalValues}
           isAdditionalValue={part.isAdditionalValue}
-          addAdditionalValueCallback={addAdditionalValueCallback}
-          removeAdditionalValueCallback={removeAdditionalValueCallback}
-          updateAdditionalValueCallback={updateAdditionalValueCallback}
+          addAdditionalValue={addAdditionalValue}
+          removeAdditionalValue={removeAdditionalValue}
+          updateAdditionalValue={updateAdditionalValue}
         />
     }
 

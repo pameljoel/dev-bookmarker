@@ -46,26 +46,26 @@ export default class UrlComponent extends Component {
   render() {
     const {
       parts,
-      saveUrlsCallback,
-      addAdditionalValueCallback,
-      removeAdditionalValueCallback,
-      updateAdditionalValueCallback,
+      saveUrls,
+      addAdditionalValue,
+      removeAdditionalValue,
+      updateAdditionalValue,
     } = this.props;
     return (
       <div>
 
         <UrlParts
           parts={parts}
-          addAdditionalValueCallback={addAdditionalValueCallback}
-          removeAdditionalValueCallback={removeAdditionalValueCallback}
-          updateAdditionalValueCallback={updateAdditionalValueCallback}
+          addAdditionalValue={addAdditionalValue}
+          removeAdditionalValue={removeAdditionalValue}
+          updateAdditionalValue={updateAdditionalValue}
         />
 
         <div className="container">
           <button
             type="button"
             className="big-button"
-            onClick={() => saveUrlsCallback(this.makeArrayOfValues(parts))}
+            onClick={() => saveUrls(this.makeArrayOfValues(parts))}
           >
             save this url
           </button>
@@ -76,9 +76,9 @@ export default class UrlComponent extends Component {
 }
 
 UrlComponent.propTypes = {
-  addAdditionalValueCallback: PropTypes.func.isRequired,
-  updateAdditionalValueCallback: PropTypes.func.isRequired,
-  removeAdditionalValueCallback: PropTypes.func.isRequired,
+  addAdditionalValue: PropTypes.func.isRequired,
+  updateAdditionalValue: PropTypes.func.isRequired,
+  removeAdditionalValue: PropTypes.func.isRequired,
   parts: PropTypes.arrayOf(
     PropTypes.shape({
       additionalvalues: PropTypes.array,
@@ -96,5 +96,5 @@ UrlComponent.propTypes = {
       ]),
     }),
   ).isRequired,
-  saveUrlsCallback: PropTypes.func.isRequired,
+  saveUrls: PropTypes.func.isRequired,
 };
