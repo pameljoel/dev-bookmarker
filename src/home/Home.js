@@ -11,7 +11,6 @@ export const Home = () => {
   const [parts, setParts] = useState([]);
   const [savedUrls, setSavedUrls] = useState([]);
 
-
   const updateInput = (value) => {
     const newParts = generateUrl(value, parts);
     setParts(newParts);
