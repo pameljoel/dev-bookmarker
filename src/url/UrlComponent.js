@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { UrlParts } from './partials/UrlParts';
 
@@ -8,72 +8,58 @@ function extractValues(parts) {
   return string;
 }
 
-export default class UrlComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.addToUrl = this.addToUrl.bind(this);
-  }
+const addToUrl = parts => extractValues(parts);
 
-  componentWillReceiveProps() {
-    this.addToUrl();
-  }
+const makeArrayOfValues = (parts) => {
+  const array = [];
+  let valuesArray = [];
 
-  addToUrl() {
-    let url = '';
-    const { parts } = this.props;
-
-    url = extractValues(parts);
-
-    return url;
-  }
-
-  makeArrayOfValues(parts) {
-    const array = [];
-    let valuesArray = [];
-
-    for (let i = 0; i < parts.length; i++) {
-      const part = parts[i];
-      valuesArray = [];
-      for (let j = 0; j < part.values.length; j++) {
-        const { value } = part.values[j];
-        valuesArray.push(value);
-      }
-      array.push(valuesArray);
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    valuesArray = [];
+    for (let j = 0; j < part.values.length; j++) {
+      const { value } = part.values[j];
+      valuesArray.push(value);
     }
-    return array;
+    array.push(valuesArray);
   }
+  return array;
+};
 
-  render() {
-    const {
-      parts,
-      saveUrls,
-      addAdditionalValue,
-      removeAdditionalValue,
-      updateAdditionalValue,
-    } = this.props;
-    return (
-      <div>
 
-        <UrlParts
-          parts={parts}
-          addAdditionalValue={addAdditionalValue}
-          removeAdditionalValue={removeAdditionalValue}
-          updateAdditionalValue={updateAdditionalValue}
-        />
+const UrlComponent = ({
+  parts, saveUrls,
+  addAdditionalValue,
+  removeAdditionalValue,
+  updateAdditionalValue,
+}) => {
+  useEffect(() => {
+    addToUrl(parts);
+  }, [parts]);
 
-        <div className="container">
-          <button
-            type="button"
-            className="big-button"
-            onClick={() => saveUrls(this.makeArrayOfValues(parts))}
-          >
-            save this url
-          </button>
-        </div>
+  return (
+    <div>
+      <UrlParts
+        parts={parts}
+        addAdditionalValue={addAdditionalValue}
+        removeAdditionalValue={removeAdditionalValue}
+        updateAdditionalValue={updateAdditionalValue}
+      />
+
+      <div className="container">
+        <button
+          type="button"
+          className="big-button"
+          onClick={() => saveUrls(makeArrayOfValues(parts))}
+        >
+          save this url
+        </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default UrlComponent;
 
 UrlComponent.propTypes = {
   addAdditionalValue: PropTypes.func.isRequired,
