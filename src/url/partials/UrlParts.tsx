@@ -19,7 +19,6 @@ type Part = {
 const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
   return <div className="url">
     {parts.map((part: Part) => {
-      console.log('aaaaa part', {part})
        return <UrlPart
           key={part.partId}
           partName={part.name}
@@ -34,7 +33,6 @@ const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditional
           updateAdditionalValue={updateAdditionalValue}
         />
     }
-
     )}
   </div>
 }
