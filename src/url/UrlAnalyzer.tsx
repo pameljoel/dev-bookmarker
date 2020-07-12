@@ -20,24 +20,23 @@ const UrlAnalyzer: React.FC<Props> = ({
   updateAdditionalValue,
   saveUrls
 }) => {
-
-return <div className="main-url">
-  <div className="container">
-    <Header />
-    <UrlComponent
-      parts={parts}
-      addAdditionalValue={addAdditionalValue}
-      removeAdditionalValue={removeAdditionalValue}
-      updateAdditionalValue={updateAdditionalValue}
-      saveUrls={saveUrls}
-    />
-  </div>
-  <div className="container">
-    <div className="preview-urls">
-      {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-index`} />)}
+  return <div className="main-url">
+    <div className="container">
+      <Header />
+      <UrlComponent
+        parts={parts}
+        addAdditionalValue={addAdditionalValue}
+        removeAdditionalValue={removeAdditionalValue}
+        updateAdditionalValue={updateAdditionalValue}
+        saveUrls={saveUrls}
+      />
+    </div>
+    <div className="container">
+      <div className="preview-urls">
+        {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-index`} />)}
+      </div>
     </div>
   </div>
-</div>
 }
 
 export default UrlAnalyzer;
