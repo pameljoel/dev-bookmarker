@@ -16,7 +16,7 @@ type Part = {
   partId: string,
 }
 
-export const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
+const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
   return <div className="url">
     {parts.map((part: Part) => {
       console.log('aaaaa part', {part})
@@ -38,3 +38,5 @@ export const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdd
     )}
   </div>
 }
+
+export default UrlParts;
