@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { UrlParts } from './partials/UrlParts';
+import UrlParts from './partials/UrlParts';
+import SaveUrlButton from './partials/SaveUrlButton';
 
 function extractValues(parts) {
   let string = '';
@@ -26,7 +27,6 @@ const makeArrayOfValues = (parts) => {
   return array;
 };
 
-
 const UrlComponent = ({
   parts, saveUrls,
   addAdditionalValue,
@@ -46,15 +46,7 @@ const UrlComponent = ({
         updateAdditionalValue={updateAdditionalValue}
       />
 
-      <div className="container">
-        <button
-          type="button"
-          className="big-button"
-          onClick={() => saveUrls(makeArrayOfValues(parts))}
-        >
-          save this url
-        </button>
-      </div>
+      <SaveUrlButton onClick={() => saveUrls(makeArrayOfValues(parts))} />
     </div>
   );
 };
