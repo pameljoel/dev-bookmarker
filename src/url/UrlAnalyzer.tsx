@@ -1,7 +1,7 @@
 import UrlComponent from "./UrlComponent";
 import React from "react";
 import Header from "./partials/Header";
-import { UrlPreview } from "./partials/UrlPreview";
+import UrlPreview from "./partials/UrlPreview";
 
 type Props = {
   parts: any,
