@@ -5,9 +5,34 @@ import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { generateUrl } from '../url/partials/generateUrl';
 import './Home.css';
 
+const DEFAULT_URL = 'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID';
+
+const generateUrlsToSave = (...chunks) => {
+  const newUrls = [];
+  const newArray = [];
+  const chunk = chunks[0];
+  const max = chunk.length - 1;
+
+  const saveChunks = (startArray, index) => {
+    const actualChunk = chunk[index];
+
+    actualChunk.forEach((urlChunkString) => {
+      const startArrayCopy = startArray.slice();
+      startArrayCopy.push(urlChunkString);
+
+      if (index === max) newArray.push(startArrayCopy);
+      else { saveChunks(startArrayCopy, index + 1); }
+    });
+  };
+
+  saveChunks([], 0);
+
+  newArray.map(i => newUrls.push(makeUrlString(i)));
+  return newArray;
+};
+
 export const Home = () => {
-  const defaultUrl = 'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID';
-  const [url, setUrl] = useState(defaultUrl);
+  const [url, setUrl] = useState(DEFAULT_URL);
   const [parts, setParts] = useState([]);
   const [savedUrls, setSavedUrls] = useState([]);
 
@@ -51,30 +76,9 @@ export const Home = () => {
     setParts(partsCopy);
   };
 
-  const saveUrls = (...args) => {
-    const newUrls = [];
-    const array = [];
-    const arg = args[0];
-    const max = arg.length - 1;
-
-    function helper(arr, i) {
-      for (let j = 0, l = arg[i].length; j < l; j += 1) {
-        const a = arr.slice(0);
-        // clone arr
-        a.push(arg[i][j]);
-        if (i === max) {
-          array.push(a);
-        } else {
-          helper(a, i + 1);
-        }
-      }
-    }
-
-    helper([], 0);
-    array.map(i => newUrls.push(makeUrlString(i)));
-
-    setSavedUrls(newUrls);
-    return array;
+  const saveUrls = (chunks) => {
+    const urls = generateUrlsToSave(chunks);
+    setSavedUrls(urls);
   };
 
   return (

@@ -12,19 +12,20 @@ function extractValues(parts) {
 const addToUrl = parts => extractValues(parts);
 
 const makeArrayOfValues = (parts) => {
-  const array = [];
-  let valuesArray = [];
+  const arrayOfParts = [];
 
-  for (let i = 0; i < parts.length; i++) {
+  for (let i = 0; i < parts.length; i += 1) {
     const part = parts[i];
-    valuesArray = [];
+    const valuesArray = [];
+
     for (let j = 0; j < part.values.length; j++) {
       const { value } = part.values[j];
       valuesArray.push(value);
     }
-    array.push(valuesArray);
+
+    arrayOfParts.push(valuesArray);
   }
-  return array;
+  return arrayOfParts;
 };
 
 const UrlComponent = ({
