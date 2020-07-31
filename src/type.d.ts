@@ -11,7 +11,6 @@ type Chunk = {
   partId: number,
   partType: PartType,
   values: ChunkValues,
-  isAdditionalValue: boolean,
 };
 
 type ChunkId = number;

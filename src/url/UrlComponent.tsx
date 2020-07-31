@@ -4,7 +4,7 @@ import UrlChunks from './urlChunk/UrlChunks';
 import SaveUrlButton from './partials/SaveUrlButton';
 
 type Props = {
-  parts: Chunks,
+  chunks: Chunks,
   saveUrls: any,
   addAdditionalValue: any,
   removeAdditionalValue: any,
@@ -35,25 +35,25 @@ const makeArrayOfValues = (parts: Chunks) => {
 };
 
 const UrlComponent: React.FC<Props> = ({
-  parts, saveUrls,
+  chunks, saveUrls,
   addAdditionalValue,
   removeAdditionalValue,
   updateAdditionalValue,
 }) => {
   useEffect(() => {
-    addToUrl(parts);
-  }, [parts]);
+    addToUrl(chunks);
+  }, [chunks]);
 
   return (
     <div>
       <UrlChunks
-        parts={parts}
+        chunks={chunks}
         addAdditionalValue={addAdditionalValue}
         removeAdditionalValue={removeAdditionalValue}
         updateAdditionalValue={updateAdditionalValue}
       />
 
-      <SaveUrlButton onClick={() => saveUrls(makeArrayOfValues(parts))} />
+      <SaveUrlButton onClick={() => saveUrls(makeArrayOfValues(chunks))} />
     </div>
   );
 };

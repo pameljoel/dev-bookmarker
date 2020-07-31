@@ -24,7 +24,7 @@ const UrlAnalyzer: React.FC<Props> = ({
     <div className="container">
       <Header />
       <UrlComponent
-        parts={parts}
+        chunks={parts}
         addAdditionalValue={addAdditionalValue}
         removeAdditionalValue={removeAdditionalValue}
         updateAdditionalValue={updateAdditionalValue}
