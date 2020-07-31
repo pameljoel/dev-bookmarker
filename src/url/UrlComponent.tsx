@@ -10,17 +10,17 @@ type Props = {
   updateAdditionalValue: any
 }
 
-function makeArrayOfChunkValues(parts: Chunks): ArrayOfChunkValues {
-  return parts.map((part: Chunk) => part.values[0].value);
+function makeArrayOfChunkValues(chunks: Chunks): ArrayOfChunkValues {
+  return chunks.map((part: Chunk) => part.values[0].value);
 }
 
 const addToUrl = (urlChunks: Chunks) => makeArrayOfChunkValues(urlChunks);
 
-const makeArrayOfValues = (parts: Chunks) => {
+const makeArrayOfValues = (chunks: Chunks) => {
   const arrayOfParts = [];
 
-  for (let i = 0; i < parts.length; i += 1) {
-    const part = parts[i];
+  for (let i = 0; i < chunks.length; i += 1) {
+    const part = chunks[i];
     const valuesArray = [];
 
     for (let j = 0; j < part.values.length; j++) {

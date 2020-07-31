@@ -66,9 +66,9 @@ function matchRegExp(input, regex) {
   return result;
 }
 
-function updatePart(parts, name, newValue, type) {
-  for (let i = 0; i < parts.length; i += 1) {
-    const part = parts[i];
+function updatePart(chunks, name, newValue, type) {
+  for (let i = 0; i < chunks.length; i += 1) {
+    const part = chunks[i];
     if (part.name === name) {
       if (type === 'string') {
         part.values[0].value = newValue;
@@ -79,14 +79,14 @@ function updatePart(parts, name, newValue, type) {
   }
 }
 
-function addPartToArray(parts, newObject) {
-  parts.push(newObject);
-  return parts;
+function addPartToArray(chunks, newObject) {
+  chunks.push(newObject);
+  return chunks;
 }
 
-function isPartCreated(parts, name) {
-  for (let i = 0; i < parts.length; i += 1) {
-    const part = parts[i];
+function isPartCreated(chunks, name) {
+  for (let i = 0; i < chunks.length; i += 1) {
+    const part = chunks[i];
     if (part.name === name) {
       return true;
     }

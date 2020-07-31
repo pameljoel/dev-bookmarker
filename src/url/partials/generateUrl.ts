@@ -39,11 +39,11 @@ const URL_PARTS_TYPES = {
   [URL_PARTS.HASH]: URL_PARTS_TYPE.STRING,
 }
 
-export const generateUrl = (input: any, parts: any) => {
+export const generateUrl = (input: any, chunks: any) => {
   let newUrl: URL;
 
     newUrl = new URL(input);
-    const copy = parts.slice();
+    const copy = chunks.slice();
 
     const execute = (key: string) => {
       // @ts-ignore
@@ -61,8 +61,8 @@ export const generateUrl = (input: any, parts: any) => {
     }
 
     for (const key in URL_PARTS) {
-      const parts: { [name: string]: string } = URL_PARTS;
-      const value: string = parts[key];
+      const chunks: { [name: string]: string } = URL_PARTS;
+      const value: string = chunks[key];
 
       const actions: UrlPartsActions = urlPartsActions;
       const action = actions[value];

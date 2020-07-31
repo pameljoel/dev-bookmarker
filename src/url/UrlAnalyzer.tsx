@@ -4,7 +4,7 @@ import Header from "./partials/Header";
 import UrlPreview from "./partials/UrlPreview";
 
 type Props = {
-  parts: any,
+  chunks: any,
   savedUrls: any,
   addAdditionalValue: () => void,
   removeAdditionalValue: () => void,
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const UrlAnalyzer: React.FC<Props> = ({
-  parts,
+  chunks,
   savedUrls,
   addAdditionalValue,
   removeAdditionalValue,
@@ -24,7 +24,7 @@ const UrlAnalyzer: React.FC<Props> = ({
     <div className="container">
       <Header />
       <UrlComponent
-        chunks={parts}
+        chunks={chunks}
         addAdditionalValue={addAdditionalValue}
         removeAdditionalValue={removeAdditionalValue}
         updateAdditionalValue={updateAdditionalValue}

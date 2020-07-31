@@ -33,11 +33,11 @@ const generateUrlsToSave = (...chunks) => {
 
 export const Home = () => {
   const [url, setUrl] = useState(DEFAULT_URL);
-  const [parts, setParts] = useState([]);
+  const [chunks, setParts] = useState([]);
   const [savedUrls, setSavedUrls] = useState([]);
 
   const updateInput = (value) => {
-    const newParts = generateUrl(value, parts);
+    const newParts = generateUrl(value, chunks);
     setParts(newParts);
     setUrl(value);
   };
@@ -59,21 +59,21 @@ export const Home = () => {
       isAdditionalValue: true,
     };
 
-    const copy = parts.slice();
+    const copy = chunks.slice();
     copy.map(part => part.chunkId === chunkId && part.values.push(object));
     setParts(copy);
   };
 
   const updateAdditionalValue = (input, chunkId, valueId) => {
-    const partsCopy = parts.slice();
-    partsCopy.map(part => part.chunkId === chunkId && part.values.map(value => (value.valueId === valueId ? value.value = input : null)));
-    setParts(partsCopy);
+    const chunksCopy = chunks.slice();
+    chunksCopy.map(part => part.chunkId === chunkId && part.values.map(value => (value.valueId === valueId ? value.value = input : null)));
+    setParts(chunksCopy);
   };
 
   const removeAdditionalValue = (chunkId, valueId) => {
-    const partsCopy = parts.slice();
-    partsCopy.map(part => part.chunkId === chunkId && part.values.map((value, i) => value.valueId === valueId && part.values.splice(i, 1)));
-    setParts(partsCopy);
+    const chunksCopy = chunks.slice();
+    chunksCopy.map(part => part.chunkId === chunkId && part.values.map((value, i) => value.valueId === valueId && part.values.splice(i, 1)));
+    setParts(chunksCopy);
   };
 
   const saveUrls = (chunks) => {
@@ -90,7 +90,7 @@ export const Home = () => {
         setUrl={setUrl}
       />
       <UrlAnalyzer
-        parts={parts}
+        chunks={chunks}
         savedUrls={savedUrls}
         addAdditionalValue={addAdditionalValue}
         removeAdditionalValue={removeAdditionalValue}
