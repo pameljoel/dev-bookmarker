@@ -18,7 +18,7 @@ const RemoveButton: React.FC<Props> = ({ onClick, handleOnKeyDown, chunkId, valu
       valueId: valueId
     })}
   >
-    Delete
+    ×
   </button>;
 };
 

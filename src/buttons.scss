@@ -61,7 +61,7 @@
 .remove-value {
   background-color: white;
   text-align: center;
-  border-radius: 12px;
+  border-radius: 4px 8px 8px 4px;
   border: 1px solid #ddd;
   font-weight: 300;
   cursor: pointer;
@@ -70,6 +70,8 @@
   opacity: 0;
   transition: opacity .3s ease-in-out;
   padding: 0 12px;
+  font-size: 16px;
+  transition: .4s background-color ease-in-out, .4s color ease-in-out;
 
   &:hover {
     background-color: black;
