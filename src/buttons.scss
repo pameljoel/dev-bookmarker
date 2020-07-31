@@ -1,0 +1,78 @@
+.big-button {
+  font-size: 18px;
+  padding: 16px 40px;
+  border: none;
+  background-color: #9be3fb;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s ease-in-out, color .2s ease-in-out;
+  outline: none;
+  width: 300px;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  border: 1px solid #9be3fb;
+}
+
+.url-hero__save {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  width: auto;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 40px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 10px;
+    line-height: normal;
+    height: auto;
+  }
+
+  &:hover {
+    background-color: rgb(49, 137, 167);
+    color: white;
+  }
+}
+
+
+.add-value {
+  background-color: white;
+  border: 1px solid #eee;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: lighter;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 12px;
+  height: 30px;
+  line-height: 30px;
+  transition: .4s background-color ease-in-out, .4s color ease-in-out;
+
+  &:hover {
+    background-color: lightgreen;
+    color: #2ea52e;
+  }
+}
+
+.remove-value {
+  background-color: white;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-weight: 300;
+  cursor: pointer;
+  color: #999;
+  height: 30px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  padding: 0 12px;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}

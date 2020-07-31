@@ -1,0 +1,50 @@
+
+.url-hero {
+  text-align: center;
+  font-size: 24px;
+  background-color: #091d2b;
+  color: white;
+  padding: 60px 20px;
+
+  &__description {
+    font-size: 16px;
+    line-height: 1.6em;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 40px;
+  }
+
+  &__label {
+    font-size: 16px;
+    line-height: 1.6em;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  &__input {
+    padding: 20px 20px;
+    font-size: 24px;
+    display: block;
+    margin: auto;
+    width: 100%;
+    padding-right: 150px;
+  }
+
+  &__url {
+    position: relative;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 18px;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+  }
+}

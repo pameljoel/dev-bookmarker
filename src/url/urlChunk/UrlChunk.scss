@@ -1,0 +1,147 @@
+
+.url-chunk {
+  position: relative;
+
+  &__main {
+    border: 1px solid #eee;
+    padding: 0;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
+  }
+
+  &__additional-value {
+    width: 100%;
+    margin-bottom: 10px;
+
+    &:hover button {
+      opacity: 1;
+    }
+
+    input {
+      width: 100%;
+      background-color: #eee;
+      border-radius: 10px;
+      padding: 10px;
+      border: 0;
+      font-size: 16px;
+    }
+
+    button {
+      position: absolute;
+      right: 6px;
+      top: 4px;
+    }
+  }
+
+  &__header {
+    margin-bottom: 8px;
+    font-weight: lighter;
+    background-color: #f7f7f7;
+    padding: 6px 12px;
+    border-bottom: #eee;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+
+    &-name {
+      font-size: 16px;
+      font-weight: lighter;
+      color: #333;
+    }
+
+    &-button {
+      font-size: 16px;
+      font-weight: lighter;
+      color: #333;
+    }
+  }
+
+  &__value {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+
+    background-color: #b6cb32;
+    border: 1px solid #b6cb32;
+
+    &-container {
+      padding: 2px 12px;
+
+      & > div {
+        display: flex;
+        position: relative;
+      }
+    }
+
+    &__name {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    &__sub {
+      display: inline-block;
+    }
+
+    input{
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      background: transparent;
+      border: 0;
+      font-size: 16px;
+    }
+  }
+
+  &.url-chunk--fill {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 1px;
+
+    .url-chunk__value {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &--protocol .url-chunk__value {
+    background-color: #e9fffe;
+    border-color: #69fff8;
+  }
+
+  &--host .url-chunk__value {
+    background-color: #fffec3;
+    border-color: #f1ef01;
+  }
+
+  &--hostname .url-chunk__value {
+    background-color: #fff0c6;
+    border-color: #f7ba07;
+  }
+
+  &--port .url-chunk__value {
+    background-color: #f1f4ff;
+    border-color: #baccff;
+  }
+
+  &--pathname .url-chunk__value {
+    background-color: #ffebeb;
+    border-color: #ffc7c7;
+  }
+
+  &--searchParams .url-chunk__value {
+    background-color: #efefef;
+    border-color: #d2d1d1;
+  }
+
+  &__value__parameter {
+    display: inline-block;
+  }
+
+  &--hash .url-chunk__value {
+    background-color: #fbe7ff;
+    border-color: #e457ff;
+  }
+}
