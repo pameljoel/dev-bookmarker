@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Value from '../partials/ChunkValue';
 
 type Props = {
-  cssClass: string;
+  chunkClass: string;
   name: string;
-  partId: number;
-  partType: string;
+  chunkId: number;
+  chunkType: string;
   values: ChunkValues;
   addAdditionalValue: (chunkId: ChunkId) => void;
   removeAdditionalValue: (chunkId: ChunkId, valueId: number) => void;
@@ -21,11 +20,11 @@ type OnKeyDown = {
 
 const UrlChunk: React.FC<Props> = (
   {
-    cssClass,
+    chunkClass,
     name,
-    partType,
+    chunkType,
     values= [],
-    partId,
+    chunkId,
     addAdditionalValue,
     removeAdditionalValue,
     updateAdditionalValue
@@ -42,7 +41,7 @@ const UrlChunk: React.FC<Props> = (
   };
 
   return (
-    <div className={`url-part ${cssClass}`}>
+    <div className={`url-part ${chunkClass}`}>
       <div className="url-part__main">
         <div className="url-part__header">
           <div className="url-part__header-name">
@@ -50,17 +49,17 @@ const UrlChunk: React.FC<Props> = (
           </div>
           <div className="url-part__header-button">
             <button
-              role="button"
+              type="button"
               className="add-value"
-              onClick={() => addAdditionalValue(partId)}
-              onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: partId })}
+              onClick={() => addAdditionalValue(chunkId)}
+              onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: chunkId })}
             >
               Add value
             </button>
           </div>
         </div>
         <div className="url-part__value-container">
-          {partType === 'string'
+          {chunkType === 'string'
               && values.map(value => (
                 <div
                   key={value.valueId}
@@ -70,7 +69,7 @@ const UrlChunk: React.FC<Props> = (
                 >
                   <Value
                     partValue={value.value}
-                    partId={partId}
+                    chunkId={chunkId}
                     valueId={value.valueId}
                     isAdditionalValue={value.isAdditionalValue}
                     updateAdditionalValue={
@@ -81,8 +80,8 @@ const UrlChunk: React.FC<Props> = (
                   <button
                     type="button"
                     className="remove-value"
-                    onClick={() => removeAdditionalValue(partId, value.valueId)}
-                    onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: partId, valueId: value.valueId })}
+                    onClick={() => removeAdditionalValue(chunkId, value.valueId)}
+                    onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: chunkId, valueId: value.valueId })}
                   >
                     Delete
                   </button>
@@ -90,8 +89,8 @@ const UrlChunk: React.FC<Props> = (
                 </div>
               ))}
 
-          {partType
-              && partType === 'object'
+          {chunkType
+              && chunkType === 'object'
               && values.map(value => (
                 <div
                   key={value.valueId}
@@ -101,7 +100,7 @@ const UrlChunk: React.FC<Props> = (
                 >
                   <Value
                     partValue={value.value}
-                    partId={partId}
+                    chunkId={chunkId}
                     valueId={value.valueId}
                     updateAdditionalValue={
                       updateAdditionalValue
@@ -112,8 +111,8 @@ const UrlChunk: React.FC<Props> = (
                     <button
                       type="button"
                       className="remove-value"
-                      onClick={() => removeAdditionalValue(partId, value.valueId)}
-                      onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: partId, valueId: value.valueId })}
+                      onClick={() => removeAdditionalValue(chunkId, value.valueId)}
+                      onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: chunkId, valueId: value.valueId })}
                     >
                       Delete
                     </button>

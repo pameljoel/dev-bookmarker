@@ -52,7 +52,7 @@ export const Home = () => {
     }
   };
 
-  const addAdditionalValue = (partId) => {
+  const addAdditionalValue = (chunkId) => {
     const object = {
       valueId: createRandomId(),
       value: '',
@@ -60,19 +60,19 @@ export const Home = () => {
     };
 
     const copy = parts.slice();
-    copy.map(part => part.partId === partId && part.values.push(object));
+    copy.map(part => part.chunkId === chunkId && part.values.push(object));
     setParts(copy);
   };
 
-  const updateAdditionalValue = (input, partId, valueId) => {
+  const updateAdditionalValue = (input, chunkId, valueId) => {
     const partsCopy = parts.slice();
-    partsCopy.map(part => part.partId === partId && part.values.map(value => (value.valueId === valueId ? value.value = input : null)));
+    partsCopy.map(part => part.chunkId === chunkId && part.values.map(value => (value.valueId === valueId ? value.value = input : null)));
     setParts(partsCopy);
   };
 
-  const removeAdditionalValue = (partId, valueId) => {
+  const removeAdditionalValue = (chunkId, valueId) => {
     const partsCopy = parts.slice();
-    partsCopy.map(part => part.partId === partId && part.values.map((value, i) => value.valueId === valueId && part.values.splice(i, 1)));
+    partsCopy.map(part => part.chunkId === chunkId && part.values.map((value, i) => value.valueId === valueId && part.values.splice(i, 1)));
     setParts(partsCopy);
   };
 

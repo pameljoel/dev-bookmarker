@@ -33,7 +33,7 @@ const UrlAnalyzer: React.FC<Props> = ({
     </div>
     <div className="container">
       <div className="preview-urls">
-        {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-index`} />)}
+        {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-${i}`} />)}
       </div>
     </div>
   </div>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import UrlChunks from './urlChunk/UrlChunks';
 import SaveUrlButton from './partials/SaveUrlButton';
 
@@ -35,7 +34,8 @@ const makeArrayOfValues = (parts: Chunks) => {
 };
 
 const UrlComponent: React.FC<Props> = ({
-  chunks, saveUrls,
+  chunks,
+  saveUrls,
   addAdditionalValue,
   removeAdditionalValue,
   updateAdditionalValue,

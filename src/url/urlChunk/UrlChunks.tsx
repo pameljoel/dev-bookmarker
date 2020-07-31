@@ -13,19 +13,19 @@ const UrlChunks: React.FC<Props> = ({ chunks, addAdditionalValue, removeAddition
     {chunks.map((part) => {
       const {
         name,
-        cssClass,
-        partId,
+        chunkClass,
+        chunkId,
         values,
-        partType,
+        chunkType,
       } = part;
 
        return <UrlChunk
-          key={partId}
+          key={chunkId}
           name={name}
-          cssClass={cssClass}
+          chunkClass={chunkClass}
           values={values}
-          partType={partType}
-          partId={partId}
+          chunkType={chunkType}
+          chunkId={chunkId}
           addAdditionalValue={addAdditionalValue}
           removeAdditionalValue={removeAdditionalValue}
           updateAdditionalValue={updateAdditionalValue}

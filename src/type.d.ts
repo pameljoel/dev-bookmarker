@@ -6,10 +6,10 @@ enum PartType {
 }
 
 type Chunk = {
-  cssClass: string,
+  chunkClass: string,
   name: string,
-  partId: number,
-  partType: PartType,
+  chunkId: number,
+  chunkType: PartType,
   values: ChunkValues,
 };
 
@@ -22,20 +22,6 @@ type ChunkValue = {
   value: ValueOfAChunk,
   isAdditionalValue: boolean,
 };
-
-type AdditionalValue = {
-  key: number;
-  name: string;
-  cssClass: string;
-  values: ChunkValues;
-  partType: string;
-  partId: string;
-  additionalValues: any;
-  isAdditionalValue: any;
-  addAdditionalValue: () => void;
-  removeAdditionalValue: () => void;
-  updateAdditionalValue: () => void;
-}
 
 /* group of atomic types */
 

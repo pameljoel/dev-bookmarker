@@ -22,13 +22,13 @@ export function makeUrlString(urlArray) {
   return string;
 }
 
-function createPart(name, newValue, type) {
-  const object = {
+function createChunk(name, newValue, type) {
+  const chunk = {
     name,
     values: [],
-    cssClass: `url-part--${name}`,
-    partType: type,
-    partId: createRandomId(),
+    chunkClass: `url-part--${name}`,
+    chunkType: type,
+    chunkId: createRandomId(),
   };
 
   const valueObject = {
@@ -45,9 +45,9 @@ function createPart(name, newValue, type) {
     valueObject.value = makeParamsString(newValue);
   }
 
-  object.values.push(valueObject);
+  chunk.values.push(valueObject);
 
-  return object;
+  return chunk;
 }
 
 function matchRegExp(input, regex) {
@@ -105,7 +105,7 @@ export function addPart(array, name, newValue, regExp, type) {
   } else {
     addPartToArray(
       array,
-      createPart(name, regExp ? matchRegExp(newValue, regExp) : newValue, type),
+      createChunk(name, regExp ? matchRegExp(newValue, regExp) : newValue, type),
     );
   }
 }
