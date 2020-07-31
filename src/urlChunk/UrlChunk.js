@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Value from './ChunkValue';
+import Value from '../url/partials/ChunkValue';
 
-export default class UrlPart extends Component {
+export default class UrlChunk extends Component {
   constructor(props) {
     super(props);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -120,7 +120,7 @@ export default class UrlPart extends Component {
   }
 }
 
-UrlPart.propTypes = {
+UrlChunk.propTypes = {
   cssClass: PropTypes.string.isRequired,
   partType: PropTypes.string.isRequired,
   partName: PropTypes.string.isRequired,
@@ -139,6 +139,6 @@ UrlPart.propTypes = {
   ]),
 };
 
-UrlPart.defaultProps = {
+UrlChunk.defaultProps = {
   values: [],
 };

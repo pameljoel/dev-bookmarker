@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import UrlParts from './partials/UrlParts';
+import UrlChunks from '../urlChunk/UrlChunks';
 import SaveUrlButton from './partials/SaveUrlButton';
 
 type Props = {
@@ -46,7 +46,7 @@ const UrlComponent: React.FC<Props> = ({
 
   return (
     <div>
-      <UrlParts
+      <UrlChunks
         parts={parts}
         addAdditionalValue={addAdditionalValue}
         removeAdditionalValue={removeAdditionalValue}

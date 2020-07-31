@@ -1,4 +1,4 @@
-import UrlPart from "./UrlPart";
+import UrlChunk from "./UrlChunk";
 import React from "react";
 
 type Props = {
@@ -16,10 +16,10 @@ type Part = {
   partId: string,
 }
 
-const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
+const UrlChunks: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
   return <div className="url">
     {parts.map((part: Part) => {
-       return <UrlPart
+       return <UrlChunk
           key={part.partId}
           partName={part.name}
           cssClass={part.cssClass}
@@ -37,4 +37,4 @@ const UrlParts: React.FC<Props> = ({ parts, addAdditionalValue, removeAdditional
   </div>
 }
 
-export default UrlParts;
+export default UrlChunks;
