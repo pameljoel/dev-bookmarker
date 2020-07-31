@@ -6,7 +6,6 @@ type Props = {
 
 const SaveUrlButton: React.FC<Props> = ({ onClick }) => {
   return (
-    <div className="container">
       <button
         type="button"
         className="big-button"
@@ -14,7 +13,6 @@ const SaveUrlButton: React.FC<Props> = ({ onClick }) => {
       >
         save this url
       </button>
-    </div>
   );
 }
 

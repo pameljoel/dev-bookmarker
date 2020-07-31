@@ -24,8 +24,7 @@ const Header = ({
         {' '}
         <strong>Try it out.</strong>
       </div>
-      <label
-        htmlFor="bookmarkInput"
+      <div
         id="labelForInput"
         className="url-hero__label"
       >
@@ -50,7 +49,7 @@ const Header = ({
             save
           </button>
         </div>
-      </label>
+      </div>
     </div>
   </div>
 );

@@ -46,7 +46,7 @@ export default class UrlPart extends Component {
                 onClick={() => addAdditionalValue(partId)}
                 onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
               >
-                +
+                Add value
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default class UrlPart extends Component {
                     onClick={() => removeAdditionalValue(partId, value.valueId)}
                     onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
                   >
-                    -
+                   Delete
                   </button>
                   )}
                 </div>

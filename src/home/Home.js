@@ -3,7 +3,7 @@ import Header from './Header';
 import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { generateUrl } from '../url/partials/generateUrl';
-import './Home.css';
+import './Home.scss';
 
 const DEFAULT_URL = 'http://www.quotidiano.net:5000/my-section/my-page.html?id="1"&omg="omggoog"#myID';
 

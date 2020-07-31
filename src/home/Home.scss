@@ -5,7 +5,10 @@
 .container {
   max-width: 1000px;
   margin: auto;
-  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 }
 
 /* hero */
@@ -61,17 +64,19 @@
 
 .big-button {
   font-size: 24px;
-  padding: 10px 40px;
+  padding: 16px 40px;
   border: none;
-  background-color: lightblue;
+  background-color: #9be3fb;
   color: black;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color .3s ease-in-out, color .2s ease-in-out;
   outline: none;
-  width: 50%;
-    display: block;
-    margin: auto;
+  width: 600px;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  border: 1px solid #9be3fb;
 }
 
 .url-hero__save {
@@ -80,6 +85,16 @@
   right: 10px;
   z-index: 1000;
   width: auto;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 40px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 10px;
+    line-height: normal;
+    height: auto;
+  }
 }
 
 .url-hero__save:hover {
@@ -143,7 +158,7 @@
 
 .url-part__additional-value button {
     position: absolute;
-    right:12px;
+    right: 6px;
     top: 4px;
 }
 
@@ -154,7 +169,7 @@
     margin-bottom: 8px;
     font-weight: lighter;
     background-color: #f7f7f7;
-    padding: 12px;
+    padding: 6px 12px;
     border-bottom: #eee;
     display: flex;
     justify-content:space-between;
@@ -257,7 +272,7 @@
 
 .url-part--pathname .url-part__value {
     background-color: #ffebeb;
-    border-color: #f70707;
+    border-color: #ffc7c7;
 }
 
 /* parameters */
@@ -281,29 +296,43 @@
 /* add value */
 
 .url-part__additional-value:hover .remove-value {
-  opacity: 1;
+opacity: 1;
 }
 .add-value {
-    background-color: lightgreen;
+  background-color: white;
+  border: 1px solid #eee;
     text-align: center;
     border-radius: 5px;
-    font-weight: 700;
+  font-weight: lighter;
+  font-size: 12px;
     cursor: pointer;
-    width: 60px;
+  padding: 0 12px;
     height: 30px;
     line-height: 30px;
+  transition: .4s background-color ease-in-out, .4s color ease-in-out;
+
+  &:hover {
+    background-color: lightgreen;
+    color: #2ea52e;
+  }
 }
 
 .remove-value {
-  background-color: #ddd;
+  background-color: white;
   text-align: center;
-  border-radius: 5px;
-  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-weight: 300;
   cursor: pointer;
-  width: 40px;
+  color: #999;
   height: 30px;
   opacity: 0;
   transition: opacity .3s ease-in-out;
+  padding: 0 12px;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
 .preview-urls {
