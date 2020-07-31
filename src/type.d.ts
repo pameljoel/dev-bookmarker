@@ -1,6 +1,6 @@
 /* atomic types */
 
-enum PartType {
+enum ChunkType {
   STRING= 'string',
   OBJECT= 'object'
 }
@@ -9,7 +9,7 @@ type Chunk = {
   chunkClass: string,
   name: string,
   chunkId: number,
-  chunkType: PartType,
+  chunkType: ChunkType,
   values: ChunkValues,
 };
 

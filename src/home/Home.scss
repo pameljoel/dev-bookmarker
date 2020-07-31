@@ -61,9 +61,8 @@
   position: relative;
 }
 
-
 .big-button {
-  font-size: 24px;
+  font-size: 18px;
   padding: 16px 40px;
   border: none;
   background-color: #9be3fb;
@@ -72,7 +71,7 @@
   cursor: pointer;
   transition: background-color .3s ease-in-out, color .2s ease-in-out;
   outline: none;
-  width: 600px;
+  width: 300px;
   max-width: 100%;
   display: block;
   margin-left: auto;

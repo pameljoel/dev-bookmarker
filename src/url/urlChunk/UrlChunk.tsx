@@ -6,7 +6,7 @@ type Props = {
   chunkClass: string;
   name: string;
   chunkId: number;
-  chunkType: string;
+  chunkType: ChunkType;
   values: ChunkValues;
   addAdditionalValue: AddAdditionaValue;
   removeAdditionalValue: RemoveAdditionalValue;
@@ -76,6 +76,7 @@ const UrlChunk: React.FC<Props> = (
           {chunkType && values.map(value => (
               <AdditionalChunkRow
                 key={value.valueId}
+                chunkType={chunkType}
                 value={value}
                 updateAdditionalValue={updateAdditionalValue}
                 onClick={() => removeAdditionalValue(chunkId, value.valueId)}
