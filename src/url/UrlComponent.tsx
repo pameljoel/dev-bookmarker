@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import UrlChunks from '../urlChunk/UrlChunks';
+import UrlChunks from './urlChunk/UrlChunks';
 import SaveUrlButton from './partials/SaveUrlButton';
 
 type Props = {
