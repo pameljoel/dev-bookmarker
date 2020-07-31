@@ -10,14 +10,14 @@ type Props = {
 
 const UrlChunks: React.FC<Props> = ({ chunks, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
   return <div className="url">
-    {chunks.map((part) => {
+    {chunks.map((chunk) => {
       const {
         name,
         chunkClass,
         chunkId,
         values,
         chunkType,
-      } = part;
+      } = chunk;
 
        return <UrlChunk
           key={chunkId}

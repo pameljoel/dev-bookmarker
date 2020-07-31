@@ -41,13 +41,13 @@ const UrlChunk: React.FC<Props> = (
   };
 
   return (
-    <div className={`url-part ${chunkClass}`}>
-      <div className="url-part__main">
-        <div className="url-part__header">
-          <div className="url-part__header-name">
+    <div className={`url-chunk ${chunkClass}`}>
+      <div className="url-chunk__main">
+        <div className="url-chunk__header">
+          <div className="url-chunk__header-name">
             {name}
           </div>
-          <div className="url-part__header-button">
+          <div className="url-chunk__header-button">
             <button
               type="button"
               className="add-value"
@@ -58,17 +58,17 @@ const UrlChunk: React.FC<Props> = (
             </button>
           </div>
         </div>
-        <div className="url-part__value-container">
+        <div className="url-chunk__value-container">
           {chunkType === 'string'
               && values.map(value => (
                 <div
                   key={value.valueId}
                   className={`${
-                    value.isAdditionalValue ? 'url-part__additional-value' : ''
+                    value.isAdditionalValue ? 'url-chunk__additional-value' : ''
                   }`}
                 >
                   <Value
-                    partValue={value.value}
+                    chunkValue={value.value}
                     chunkId={chunkId}
                     valueId={value.valueId}
                     isAdditionalValue={value.isAdditionalValue}
@@ -95,11 +95,11 @@ const UrlChunk: React.FC<Props> = (
                 <div
                   key={value.valueId}
                   className={`${
-                    value.isAdditionalValue ? 'url-part__additional-value' : ''
+                    value.isAdditionalValue ? 'url-chunk__additional-value' : ''
                   }`}
                 >
                   <Value
-                    partValue={value.value}
+                    chunkValue={value.value}
                     chunkId={chunkId}
                     valueId={value.valueId}
                     updateAdditionalValue={

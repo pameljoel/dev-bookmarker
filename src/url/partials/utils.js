@@ -26,7 +26,7 @@ function createChunk(name, newValue, type) {
   const chunk = {
     name,
     values: [],
-    chunkClass: `url-part--${name}`,
+    chunkClass: `url-chunk--${name}`,
     chunkType: type,
     chunkId: createRandomId(),
   };
@@ -68,12 +68,12 @@ function matchRegExp(input, regex) {
 
 function updatePart(chunks, name, newValue, type) {
   for (let i = 0; i < chunks.length; i += 1) {
-    const part = chunks[i];
-    if (part.name === name) {
+    const chunk = chunks[i];
+    if (chunk.name === name) {
       if (type === 'string') {
-        part.values[0].value = newValue;
+        chunk.values[0].value = newValue;
       } else if (typeof newValue === 'object') {
-        part.values[0].value = makeParamsString(newValue);
+        chunk.values[0].value = makeParamsString(newValue);
       }
     }
   }
@@ -86,8 +86,8 @@ function addPartToArray(chunks, newObject) {
 
 function isPartCreated(chunks, name) {
   for (let i = 0; i < chunks.length; i += 1) {
-    const part = chunks[i];
-    if (part.name === name) {
+    const chunk = chunks[i];
+    if (chunk.name === name) {
       return true;
     }
   }

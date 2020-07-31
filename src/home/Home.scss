@@ -130,11 +130,11 @@
     margin-bottom: 20px;
 }
 
-.url-part {
+.url-chunk {
   position: relative;
 }
 
-.url-part__main {
+.url-chunk__main {
     border: 1px solid #eee;
     padding: 0;
     margin-bottom: 12px;
@@ -142,12 +142,12 @@
     box-shadow: 0 0 20px rgba(0,0,0,.1);
 }
 
-.url-part__additional-value {
+.url-chunk__additional-value {
   width: 100%;
   margin-bottom: 10px;
 }
 
-.url-part__additional-value input {
+.url-chunk__additional-value input {
   width: 100%;
   background-color: #eee;
   border-radius: 10px;
@@ -156,16 +156,16 @@
   font-size: 16px;
 }
 
-.url-part__additional-value button {
+.url-chunk__additional-value button {
     position: absolute;
     right: 6px;
     top: 4px;
 }
 
 
-/* url part header */
+/* url chunk header */
 
-.url-part__header {
+.url-chunk__header {
     margin-bottom: 8px;
     font-weight: lighter;
     background-color: #f7f7f7;
@@ -176,27 +176,27 @@
     align-items:center;
 }
 
-.url-part__header-name {
+.url-chunk__header-name {
     font-size: 16px;
     font-weight: lighter;
     color: #333;
 }
 
-.url-part__header-button {
+.url-chunk__header-button {
     font-size: 16px;
     font-weight: lighter;
     color: #333;
 }
 
-.url-part__value-container {
+.url-chunk__value-container {
     padding: 2px 12px;
 }
-.url-part__value-container > div {
+.url-chunk__value-container > div {
   display: flex;
     position: relative;
 }
 
-.url-part__value {
+.url-chunk__value {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -204,7 +204,7 @@
   display: flex;
 }
 
-.url-part__value input{
+.url-chunk__value input{
   width: 100%;
   padding: 10px;
   display: flex;
@@ -213,89 +213,89 @@
   font-size: 16px;
 }
 
-.url-part__value__name {
+.url-chunk__value__name {
   display: inline-block;
   margin-right: 20px;
 }
 
-.url-part__value__sub {
+.url-chunk__value__sub {
   display: inline-block;
 }
 
 /* non editable fields */
 
-.url-part.url-part--fill {
+.url-chunk.url-chunk--fill {
   padding-left: 0;
   padding-right: 0;
   max-width: 1px;
 }
 
-.url-part.url-part--fill .url-part__value {
+.url-chunk.url-chunk--fill .url-chunk__value {
   padding-left: 0;
   padding-right: 0;
 }
 
-.url-part__value {
+.url-chunk__value {
     background-color: #b6cb32;
     border: 1px solid #b6cb32;
 }
 
 /* protocol */
 
-.url-part--protocol .url-part__value {
+.url-chunk--protocol .url-chunk__value {
     background-color: #e9fffe;
     border-color: #69fff8;
 }
 
 /* sub-domain */
 
-.url-part--host .url-part__value {
+.url-chunk--host .url-chunk__value {
     background-color: #fffec3;
     border-color: #f1ef01;
 }
 
 /* domain */
 
-.url-part--hostname .url-part__value {
+.url-chunk--hostname .url-chunk__value {
     background-color: #fff0c6;
   border-color: #f7ba07;
 }
 
 /* port */
 
-.url-part--port .url-part__value {
+.url-chunk--port .url-chunk__value {
     background-color: #f1f4ff;
     border-color: #baccff;
 }
 
 /* page */
 
-.url-part--pathname .url-part__value {
+.url-chunk--pathname .url-chunk__value {
     background-color: #ffebeb;
     border-color: #ffc7c7;
 }
 
 /* parameters */
 
-.url-part--searchParams .url-part__value {
+.url-chunk--searchParams .url-chunk__value {
     background-color: #efefef;
     border-color: #d2d1d1;
 }
 
-.url-part__value__parameter {
+.url-chunk__value__parameter {
   display: inline-block;
 }
 
 /* anchor */
 
-.url-part--hash .url-part__value {
+.url-chunk--hash .url-chunk__value {
   background-color: #fbe7ff;
   border-color: #e457ff;
 }
 
 /* add value */
 
-.url-part__additional-value:hover .remove-value {
+.url-chunk__additional-value:hover .remove-value {
 opacity: 1;
 }
 .add-value {

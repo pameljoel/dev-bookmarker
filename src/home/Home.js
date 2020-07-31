@@ -60,19 +60,19 @@ export const Home = () => {
     };
 
     const copy = chunks.slice();
-    copy.map(part => part.chunkId === chunkId && part.values.push(object));
+    copy.map(chunk => chunk.chunkId === chunkId && chunk.values.push(object));
     setParts(copy);
   };
 
   const updateAdditionalValue = (input, chunkId, valueId) => {
     const chunksCopy = chunks.slice();
-    chunksCopy.map(part => part.chunkId === chunkId && part.values.map(value => (value.valueId === valueId ? value.value = input : null)));
+    chunksCopy.map(chunk => chunk.chunkId === chunkId && chunk.values.map(value => (value.valueId === valueId ? value.value = input : null)));
     setParts(chunksCopy);
   };
 
   const removeAdditionalValue = (chunkId, valueId) => {
     const chunksCopy = chunks.slice();
-    chunksCopy.map(part => part.chunkId === chunkId && part.values.map((value, i) => value.valueId === valueId && part.values.splice(i, 1)));
+    chunksCopy.map(chunk => chunk.chunkId === chunkId && chunk.values.map((value, i) => value.valueId === valueId && chunk.values.splice(i, 1)));
     setParts(chunksCopy);
   };
 

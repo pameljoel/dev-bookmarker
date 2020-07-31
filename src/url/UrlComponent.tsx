@@ -11,7 +11,7 @@ type Props = {
 }
 
 function makeArrayOfChunkValues(chunks: Chunks): ArrayOfChunkValues {
-  return chunks.map((part: Chunk) => part.values[0].value);
+  return chunks.map((chunk: Chunk) => chunk.values[0].value);
 }
 
 const addToUrl = (urlChunks: Chunks) => makeArrayOfChunkValues(urlChunks);
@@ -20,11 +20,11 @@ const makeArrayOfValues = (chunks: Chunks) => {
   const arrayOfParts = [];
 
   for (let i = 0; i < chunks.length; i += 1) {
-    const part = chunks[i];
+    const chunk = chunks[i];
     const valuesArray = [];
 
-    for (let j = 0; j < part.values.length; j++) {
-      const { value } = part.values[j];
+    for (let j = 0; j < chunk.values.length; j++) {
+      const { value } = chunk.values[j];
       valuesArray.push(value);
     }
 

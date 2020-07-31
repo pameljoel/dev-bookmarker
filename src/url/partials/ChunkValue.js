@@ -6,7 +6,7 @@ const focusChunk = (ref) => {
 };
 
 const ChunkValue = ({
-  partValue, isAdditionalValue, chunkId, valueId, updateAdditionalValue,
+  chunkValue, isAdditionalValue, chunkId, valueId, updateAdditionalValue,
 }) => {
   const chunkInputRef = useRef(null);
 
@@ -18,14 +18,14 @@ const ChunkValue = ({
     isAdditionalValue ? (
       <input
         type="text"
-        value={partValue}
+        value={chunkValue}
         placeholder="Add value"
         onChange={e => updateAdditionalValue(e.target.value, chunkId, valueId)}
         ref={chunkInputRef}
       />
     ) : (
-      <div className="url-part__value">
-        {partValue}
+      <div className="url-chunk__value">
+        {chunkValue}
       </div>
     )
   );
@@ -38,10 +38,10 @@ ChunkValue.propTypes = {
   isAdditionalValue: PropTypes.bool,
   chunkId: PropTypes.number.isRequired,
   valueId: PropTypes.number.isRequired,
-  partValue: PropTypes.string,
+  chunkValue: PropTypes.string,
 };
 
 ChunkValue.defaultProps = {
   isAdditionalValue: false,
-  partValue: '',
+  chunkValue: '',
 };
