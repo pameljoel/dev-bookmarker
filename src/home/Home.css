@@ -69,7 +69,9 @@
   cursor: pointer;
   transition: background-color .3s ease-in-out, color .2s ease-in-out;
   outline: none;
-  width: 100%;
+  width: 50%;
+    display: block;
+    margin: auto;
 }
 
 .url-hero__save {
@@ -110,18 +112,19 @@
   margin: auto;
   justify-content: space-evenly;
   flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .url-part {
-  margin: 5px;
   position: relative;
 }
 
 .url-part__main {
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
+    border: 1px solid #eee;
+    padding: 0;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
 }
 
 .url-part__additional-value {
@@ -136,19 +139,46 @@
   padding: 10px;
   border: 0;
   font-size: 16px;
-  margin-right: 10px;
 }
 
-.url-part__name {
-  margin-right: 20px;
-  margin-top: 10px;
+.url-part__additional-value button {
+    position: absolute;
+    right:12px;
+    top: 4px;
+}
+
+
+/* url part header */
+
+.url-part__header {
+    margin-bottom: 8px;
+    font-weight: lighter;
+    background-color: #f7f7f7;
+    padding: 12px;
+    border-bottom: #eee;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.url-part__header-name {
+    font-size: 16px;
+    font-weight: lighter;
+    color: #333;
+}
+
+.url-part__header-button {
+    font-size: 16px;
+    font-weight: lighter;
+    color: #333;
 }
 
 .url-part__value-container {
-  width: 80%;
+    padding: 2px 12px;
 }
 .url-part__value-container > div {
   display: flex;
+    position: relative;
 }
 
 .url-part__value {
@@ -157,7 +187,6 @@
   margin-bottom: 10px;
   padding: 10px;
   display: flex;
-  margin-right: 10px;
 }
 
 .url-part__value input{
@@ -191,44 +220,51 @@
   padding-right: 0;
 }
 
+.url-part__value {
+    background-color: #b6cb32;
+    border: 1px solid #b6cb32;
+}
+
 /* protocol */
 
 .url-part--protocol .url-part__value {
-  background-color: #b6cb32;
-}
-
-.url-part--protocol .url-part__value {
-  background-color: #5cd9d4;
+    background-color: #e9fffe;
+    border-color: #69fff8;
 }
 
 /* sub-domain */
 
 .url-part--host .url-part__value {
-  background-color: #f1ef01;
+    background-color: #fffec3;
+    border-color: #f1ef01;
 }
 
 /* domain */
 
 .url-part--hostname .url-part__value {
-  background-color: #f7ba07;
+    background-color: #fff0c6;
+  border-color: #f7ba07;
 }
 
 /* port */
 
 .url-part--port .url-part__value {
-  background-color: #baccff;
+    background-color: #f1f4ff;
+    border-color: #baccff;
 }
 
 /* page */
 
 .url-part--pathname .url-part__value {
-  background-color: #f7ba07;
+    background-color: #ffebeb;
+    border-color: #f70707;
 }
 
 /* parameters */
 
 .url-part--searchParams .url-part__value {
-  background-color: #baccff;
+    background-color: #efefef;
+    border-color: #d2d1d1;
 }
 
 .url-part__value__parameter {
@@ -238,7 +274,8 @@
 /* anchor */
 
 .url-part--hash .url-part__value {
-  background-color: #e457ff;
+  background-color: #fbe7ff;
+  border-color: #e457ff;
 }
 
 /* add value */
@@ -247,25 +284,24 @@
   opacity: 1;
 }
 .add-value {
-  background-color: lightgreen;
-  text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: 700;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
+    background-color: lightgreen;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .remove-value {
   background-color: #ddd;
   text-align: center;
-  padding: 10px;
   border-radius: 5px;
   font-weight: 700;
   cursor: pointer;
   width: 40px;
-  height: 40px;
+  height: 30px;
   opacity: 0;
   transition: opacity .3s ease-in-out;
 }

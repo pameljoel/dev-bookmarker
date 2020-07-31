@@ -3,15 +3,42 @@ import PropTypes from 'prop-types';
 import UrlParts from './partials/UrlParts';
 import SaveUrlButton from './partials/SaveUrlButton';
 
-function extractValues(parts) {
-  let string = '';
-  string = parts.map(part => part.values[0].value);
-  return string;
+type Props = {
+  parts: Chunks,
+  saveUrls: any,
+  addAdditionalValue: any,
+  removeAdditionalValue: any,
+  updateAdditionalValue: any
 }
 
-const addToUrl = parts => extractValues(parts);
+// names
+// think about your names
+// communicate intent
+// avoid disinformation
+// pronounceable names
+// avoid encodings (xVPex_Imyvariable)
+// should read like well written prose
 
-const makeArrayOfValues = (parts) => {
+
+// variables
+// reusable variables -> long names
+// in scope variables -> short names
+
+
+// functions
+// reusable functions -> short names
+// in scope functions -> long names
+
+
+
+
+function makeArrayOfChunkValues(parts: Chunks): ArrayOfChunkValues {
+  return parts.map((part: Chunk) => part.values[0].value);
+}
+
+const addToUrl = (urlChunks: Chunks) => makeArrayOfChunkValues(urlChunks);
+
+const makeArrayOfValues = (parts: Chunks) => {
   const arrayOfParts = [];
 
   for (let i = 0; i < parts.length; i += 1) {
@@ -28,7 +55,7 @@ const makeArrayOfValues = (parts) => {
   return arrayOfParts;
 };
 
-const UrlComponent = ({
+const UrlComponent: React.FC<Props> = ({
   parts, saveUrls,
   addAdditionalValue,
   removeAdditionalValue,
@@ -53,27 +80,3 @@ const UrlComponent = ({
 };
 
 export default UrlComponent;
-
-UrlComponent.propTypes = {
-  addAdditionalValue: PropTypes.func.isRequired,
-  updateAdditionalValue: PropTypes.func.isRequired,
-  removeAdditionalValue: PropTypes.func.isRequired,
-  parts: PropTypes.arrayOf(
-    PropTypes.shape({
-      additionalvalues: PropTypes.array,
-      cssClass: PropTypes.string,
-      name: PropTypes.string,
-      partType: PropTypes.string,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(
-          PropTypes.shape({
-            paramName: PropTypes.string,
-            paramValue: PropTypes.string,
-          }),
-        ),
-      ]),
-    }),
-  ).isRequired,
-  saveUrls: PropTypes.func.isRequired,
-};

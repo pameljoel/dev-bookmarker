@@ -33,7 +33,23 @@ export default class UrlPart extends Component {
     return (
       <div className={`url-part ${cssClass}`}>
         <div className="url-part__main">
-          <div className="url-part__name">{partName}</div>
+          <div className="url-part__header">
+            <div className="url-part__header-name">
+
+              {partName}
+            </div>
+            <div className="url-part__header-button">
+              <div
+                role="button"
+                tabIndex="0"
+                className="add-value"
+                onClick={() => addAdditionalValue(partId)}
+                onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
+              >
+                +
+              </div>
+            </div>
+          </div>
           <div className="url-part__value-container">
             {partType === 'string'
               && values.map(value => (
@@ -52,26 +68,16 @@ export default class UrlPart extends Component {
                       updateAdditionalValue
                     }
                   />
-                  {value.isAdditionalValue ? (
-                    <div
-                      role="button"
-                      tabIndex="-1"
-                      className="remove-value"
-                      onClick={() => removeAdditionalValue(partId, value.valueId)}
-                      onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
-                    >
-                      -
-                    </div>
-                  ) : (
-                    <div
-                      role="button"
-                      tabIndex="0"
-                      className="add-value"
-                      onClick={() => addAdditionalValue(partId)}
-                      onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
-                    >
-                      +
-                    </div>
+                  {value.isAdditionalValue && (
+                  <button
+                    role="button"
+                    tabIndex="-1"
+                    className="remove-value"
+                    onClick={() => removeAdditionalValue(partId, value.valueId)}
+                    onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
+                  >
+                    -
+                  </button>
                   )}
                 </div>
               ))}
@@ -94,7 +100,7 @@ export default class UrlPart extends Component {
                     }
                     isAdditionalValue={value.isAdditionalValue}
                   />
-                  {value.isAdditionalValue ? (
+                  {value.isAdditionalValue && (
                     <div
                       role="button"
                       tabIndex="0"
@@ -103,16 +109,6 @@ export default class UrlPart extends Component {
                       onKeyDown={e => this.onKeyDown(e.keyCode, partId, value.valueId)}
                     >
                       -
-                    </div>
-                  ) : (
-                    <div
-                      role="button"
-                      tabIndex="0"
-                      className="add-value"
-                      onClick={() => addAdditionalValue(partId)}
-                      onKeyDown={e => this.onKeyDown(e.keyCode, partId)}
-                    >
-                      +
                     </div>
                   )}
                 </div>
