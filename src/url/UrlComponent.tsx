@@ -11,27 +11,6 @@ type Props = {
   updateAdditionalValue: any
 }
 
-// names
-// think about your names
-// communicate intent
-// avoid disinformation
-// pronounceable names
-// avoid encodings (xVPex_Imyvariable)
-// should read like well written prose
-
-
-// variables
-// reusable variables -> long names
-// in scope variables -> short names
-
-
-// functions
-// reusable functions -> short names
-// in scope functions -> long names
-
-
-
-
 function makeArrayOfChunkValues(parts: Chunks): ArrayOfChunkValues {
   return parts.map((part: Chunk) => part.values[0].value);
 }
