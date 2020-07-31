@@ -6,13 +6,19 @@ const focusChunk = (ref) => {
 };
 
 const ChunkValue = ({
-  chunkValue, isAdditionalValue, chunkId, valueId, updateAdditionalValue,
+  chunkValue,
+  isAdditionalValue,
+  chunkId,
+  valueId,
+  updateAdditionalValue,
 }) => {
   const chunkInputRef = useRef(null);
 
   useEffect(() => {
     focusChunk(chunkInputRef);
   }, []);
+
+  if (!isAdditionalValue && !chunkValue) return null;
 
   return (
     isAdditionalValue ? (

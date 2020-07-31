@@ -1,5 +1,5 @@
 import React from 'react';
-import './UrlPreview.css';
+import './UrlPreview.scss';
 
 type Props = {
   url: string[],

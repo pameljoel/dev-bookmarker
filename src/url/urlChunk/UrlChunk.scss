@@ -35,7 +35,6 @@
   }
 
   &__header {
-    margin-bottom: 8px;
     font-weight: lighter;
     background-color: #f7f7f7;
     padding: 6px 12px;
@@ -68,7 +67,11 @@
     border: 1px solid #b6cb32;
 
     &-container {
-      padding: 2px 12px;
+      padding: 12px 12px 2px 12px;
+
+      &.empty {
+        padding: 0;
+      }
 
       & > div {
         display: flex;

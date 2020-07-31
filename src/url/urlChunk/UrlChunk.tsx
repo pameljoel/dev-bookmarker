@@ -1,7 +1,7 @@
 import React from "react";
 import AddButton from "../buttons/AddButton";
 import AdditionalChunkRow from "./AdditionalChunkRow";
-import './UrlChunk.scss';
+import "./UrlChunk.scss";
 
 type Props = {
   chunkClass: string;
@@ -64,6 +64,8 @@ const UrlChunk: React.FC<Props> = (
     }
   };
 
+  const isValueEmpty = values && values.length > 0 && values[0].value.length === 0;
+
   return (
     <div className={`url-chunk ${chunkClass}`}>
       <div className="url-chunk__main">
@@ -73,21 +75,22 @@ const UrlChunk: React.FC<Props> = (
           chunkId={chunkId}
           handleOnKeyDown={handleOnKeyDown}
         />
-        <div className="url-chunk__value-container">
-          {chunkType && values.map(value => (
-              <AdditionalChunkRow
-                key={value.valueId}
-                chunkType={chunkType}
-                value={value}
-                updateAdditionalValue={updateAdditionalValue}
-                onClick={() => removeAdditionalValue(chunkId, value.valueId)}
-                chunkId={chunkId}
-                valueId={value.valueId}
-                handleOnKeyDown={handleOnKeyDown}
-              />
-            )
-          )}
-        </div>
+
+          <div className={`url-chunk__value-container ${isValueEmpty ? 'empty' : ''}`}>
+            {chunkType && values.map(value => (
+                <AdditionalChunkRow
+                  key={value.valueId}
+                  chunkType={chunkType}
+                  value={value}
+                  updateAdditionalValue={updateAdditionalValue}
+                  onClick={() => removeAdditionalValue(chunkId, value.valueId)}
+                  chunkId={chunkId}
+                  valueId={value.valueId}
+                  handleOnKeyDown={handleOnKeyDown}
+                />
+              )
+            )}
+          </div>
       </div>
     </div>
   );

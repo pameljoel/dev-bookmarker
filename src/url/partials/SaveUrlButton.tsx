@@ -11,7 +11,7 @@ const SaveUrlButton: React.FC<Props> = ({ onClick }) => {
         className="big-button"
         onClick={onClick}
       >
-        save this url
+        generate urls
       </button>
   );
 }

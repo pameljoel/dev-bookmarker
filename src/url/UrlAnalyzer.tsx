@@ -12,6 +12,13 @@ type Props = {
   saveUrls: () => void,
 }
 
+const normalizedUrl = (url: string[]): string => url.join('');
+
+const openAllLinks = (e: any, listOfUrls: any) => {
+  e.preventDefault();
+  listOfUrls.map((url: string[]) => window.open(normalizedUrl(url)));
+}
+
 const UrlAnalyzer: React.FC<Props> = ({
   chunks,
   savedUrls,
@@ -32,8 +39,10 @@ const UrlAnalyzer: React.FC<Props> = ({
       />
     </div>
     <div className="container">
+      <h4>Generated urls:</h4>
       <div className="preview-urls">
         {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-${i}`} />)}
+        <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
       </div>
     </div>
   </div>
