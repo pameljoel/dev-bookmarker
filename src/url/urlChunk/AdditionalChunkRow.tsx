@@ -5,12 +5,13 @@ import React from "react";
 type Props = {
   value: ChunkValue,
   chunkId: number,
+  valueId: number,
   updateAdditionalValue: (chunkId: ChunkId) => void,
   onClick: () => void,
-  onKeyDown: (e: any) => void
+  handleOnKeyDown: (e: any) => void
 }
 
-const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId , updateAdditionalValue, onClick, onKeyDown }) => {
+const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId, updateAdditionalValue, onClick, handleOnKeyDown }) => {
   return <div
     className={`${
       value.isAdditionalValue ? "url-chunk__additional-value" : ""
@@ -28,10 +29,12 @@ const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId , updateAdditional
     {value.isAdditionalValue && (
       <RemoveButton
         onClick={onClick}
-        onKeyDown={onKeyDown}
+        chunkId={chunkId}
+        valueId={value.valueId}
+        handleOnKeyDown={handleOnKeyDown}
       />
     )}
   </div>;
-}
+};
 
 export default AdditionalChunkRow;

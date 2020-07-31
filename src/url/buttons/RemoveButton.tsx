@@ -2,18 +2,24 @@ import React from "react";
 
 type Props = {
   onClick: () => void,
-  onKeyDown: (e: any) => void
+  handleOnKeyDown: (e: any) => void
+  chunkId: number;
+  valueId: number;
 };
 
-  const RemoveButton: React.FC<Props>= ({ onClick, onKeyDown })  =>{
+const RemoveButton: React.FC<Props> = ({ onClick, handleOnKeyDown, chunkId, valueId }) => {
   return <button
     type="button"
     className="remove-value"
     onClick={onClick}
-    onKeyDown={onKeyDown}
+    onKeyDown={e => handleOnKeyDown({
+      key: e.keyCode,
+      chunkId: chunkId,
+      valueId: valueId
+    })}
   >
     Delete
   </button>;
-}
+};
 
 export default RemoveButton;

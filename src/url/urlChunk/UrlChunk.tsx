@@ -21,11 +21,12 @@ type OnKeyDown = {
 
 type HeaderProps = {
   name: string,
+  chunkId: ChunkId,
   onClick: () => void,
-  onKeyDown: (e: any) => void
+  handleOnKeyDown: (e: any) => void
 }
 
-function Header({ name, onClick, onKeyDown }: HeaderProps) {
+function Header({ name, onClick, handleOnKeyDown, chunkId }: HeaderProps) {
   return <div className="url-chunk__header">
     <div className="url-chunk__header-name">
       {name}
@@ -33,7 +34,8 @@ function Header({ name, onClick, onKeyDown }: HeaderProps) {
     <div className="url-chunk__header-button">
       <AddButton
         onClick={onClick}
-        onKeyDown={onKeyDown}
+        chunkId={chunkId}
+        handleOnKeyDown={handleOnKeyDown}
       />
     </div>
   </div>;
@@ -67,22 +69,19 @@ const UrlChunk: React.FC<Props> = (
         <Header
           name={name}
           onClick={() => addAdditionalValue(chunkId)}
-          onKeyDown={e => handleOnKeyDown({ key: e.keyCode, chunkId: chunkId })}
+          chunkId={chunkId}
+          handleOnKeyDown={handleOnKeyDown}
         />
         <div className="url-chunk__value-container">
           {chunkType && values.map(value => (
               <AdditionalChunkRow
                 key={value.valueId}
                 value={value}
-                chunkId={chunkId}
                 updateAdditionalValue={updateAdditionalValue}
                 onClick={() => removeAdditionalValue(chunkId, value.valueId)}
-                onKeyDown={
-                  e => handleOnKeyDown({
-                    key: e.keyCode,
-                    chunkId: chunkId,
-                    valueId: value.valueId
-                  })}
+                chunkId={chunkId}
+                valueId={value.valueId}
+                handleOnKeyDown={handleOnKeyDown}
               />
             )
           )}
