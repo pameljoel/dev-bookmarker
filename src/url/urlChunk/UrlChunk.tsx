@@ -1,5 +1,6 @@
-import React from 'react';
-import Value from '../partials/ChunkValue';
+import React from "react";
+import AddButton from "../buttons/AddButton";
+import AdditionalChunkRow from "./AdditionalChunkRow";
 
 type Props = {
   chunkClass: string;
@@ -48,77 +49,26 @@ const UrlChunk: React.FC<Props> = (
             {name}
           </div>
           <div className="url-chunk__header-button">
-            <button
-              type="button"
-              className="add-value"
+            <AddButton
               onClick={() => addAdditionalValue(chunkId)}
               onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: chunkId })}
-            >
-              Add value
-            </button>
+            />
           </div>
         </div>
         <div className="url-chunk__value-container">
-          {chunkType === 'string'
-              && values.map(value => (
-                <div
-                  key={value.valueId}
-                  className={`${
-                    value.isAdditionalValue ? 'url-chunk__additional-value' : ''
-                  }`}
-                >
-                  <Value
-                    chunkValue={value.value}
-                    chunkId={chunkId}
-                    valueId={value.valueId}
-                    isAdditionalValue={value.isAdditionalValue}
-                    updateAdditionalValue={
-                      updateAdditionalValue
-                    }
-                  />
-                  {value.isAdditionalValue && (
-                  <button
-                    type="button"
-                    className="remove-value"
-                    onClick={() => removeAdditionalValue(chunkId, value.valueId)}
-                    onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: chunkId, valueId: value.valueId })}
-                  >
-                    Delete
-                  </button>
-                  )}
-                </div>
-              ))}
-
-          {chunkType
-              && chunkType === 'object'
-              && values.map(value => (
-                <div
-                  key={value.valueId}
-                  className={`${
-                    value.isAdditionalValue ? 'url-chunk__additional-value' : ''
-                  }`}
-                >
-                  <Value
-                    chunkValue={value.value}
-                    chunkId={chunkId}
-                    valueId={value.valueId}
-                    updateAdditionalValue={
-                      updateAdditionalValue
-                    }
-                    isAdditionalValue={value.isAdditionalValue}
-                  />
-                  {value.isAdditionalValue && (
-                    <button
-                      type="button"
-                      className="remove-value"
-                      onClick={() => removeAdditionalValue(chunkId, value.valueId)}
-                      onKeyDown={e => onKeyDown({ key: e.keyCode, chunkId: chunkId, valueId: value.valueId })}
-                    >
-                      Delete
-                    </button>
-                  )}
-                </div>
-              ))}
+          {chunkType && values.map(value => (
+            <AdditionalChunkRow
+              key={value.valueId} value={value} chunkId={chunkId}
+              updateAdditionalValue={updateAdditionalValue}
+              onClick={() => removeAdditionalValue(chunkId, value.valueId)}
+              onKeyDown={e => onKeyDown({
+                key: e.keyCode,
+                chunkId: chunkId,
+                valueId: value.valueId
+              })}
+            />
+          )
+          )}
         </div>
       </div>
     </div>
