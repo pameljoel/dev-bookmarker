@@ -8,9 +8,9 @@ type Props = {
   chunkId: number;
   chunkType: string;
   values: ChunkValues;
-  addAdditionalValue: (chunkId: ChunkId) => void;
-  removeAdditionalValue: (chunkId: ChunkId, valueId: number) => void;
-  updateAdditionalValue: (chunkId: ChunkId) => void;
+  addAdditionalValue: AddAdditionaValue;
+  removeAdditionalValue: RemoveAdditionalValue;
+  updateAdditionalValue: UpdateAdditionalValue;
 }
 
 type OnKeyDown = {
