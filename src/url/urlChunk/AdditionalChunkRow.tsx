@@ -2,27 +2,33 @@ import ChunkValue from "../chunkValue/ChunkValue";
 import RemoveButton from "../buttons/RemoveButton";
 import React from "react";
 
-function AdditionalChunkRow(props: { value: ChunkValue, chunkId: number, updateAdditionalValue: (chunkId: ChunkId) => void, onClick: () => void, onKeyDown: (e: any) => void }) {
+type Props = {
+  value: ChunkValue,
+  chunkId: number,
+  updateAdditionalValue: (chunkId: ChunkId) => void,
+  onClick: () => void,
+  onKeyDown: (e: any) => void
+}
+
+const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId , updateAdditionalValue, onClick, onKeyDown }) => {
   return <div
     className={`${
-      props.value.isAdditionalValue ? "url-chunk__additional-value" : ""
+      value.isAdditionalValue ? "url-chunk__additional-value" : ""
     }`}
   >
     <ChunkValue
-      chunkValue={props.value.value}
-      chunkId={props.chunkId}
-      valueId={props.value.valueId}
-      isAdditionalValue={props.value.isAdditionalValue}
+      chunkValue={value.value}
+      chunkId={chunkId}
+      valueId={value.valueId}
+      isAdditionalValue={value.isAdditionalValue}
       updateAdditionalValue={
-        props.updateAdditionalValue
+        updateAdditionalValue
       }
     />
-    {props.value.isAdditionalValue && (
+    {value.isAdditionalValue && (
       <RemoveButton
-        onClick={props.onClick}
-        onKeyDown={
-          props.onKeyDown
-        }
+        onClick={onClick}
+        onKeyDown={onKeyDown}
       />
     )}
   </div>;

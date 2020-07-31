@@ -1,6 +1,11 @@
 import React from "react";
 
-const AddButton = ({ onClick, onKeyDown }: { onClick: () => void, onKeyDown: (e: any) => void }) => {
+type Props = {
+  onClick: () => void,
+  onKeyDown: (e: any) => void
+};
+
+const AddButton: React.FC<Props> = ({ onClick, onKeyDown }) => {
   return <button
     type="button"
     className="add-value"

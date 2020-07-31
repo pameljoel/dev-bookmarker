@@ -23,6 +23,10 @@ type ChunkValue = {
   isAdditionalValue: boolean,
 };
 
+type AddAdditionaValue = (chunkId: ChunkId) => void
+type RemoveAdditionalValue = (chunkId: ChunkId, valueId: number) => void;
+type UpdateAdditionalValue = (chunkId: ChunkId) => void;
+
 /* group of atomic types */
 
 type Chunks = Chunk[];

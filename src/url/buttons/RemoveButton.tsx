@@ -1,6 +1,11 @@
 import React from "react";
 
-const RemoveButton = ({ onClick, onKeyDown }: { onClick: () => void, onKeyDown: (e: any) => void })  =>{
+type Props = {
+  onClick: () => void,
+  onKeyDown: (e: any) => void
+};
+
+  const RemoveButton: React.FC<Props>= ({ onClick, onKeyDown })  =>{
   return <button
     type="button"
     className="remove-value"

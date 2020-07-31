@@ -7,7 +7,7 @@ type Props = {
   chunks: any,
   savedUrls: any,
   addAdditionalValue: () => void,
-  removeAdditionalValue: () => void,
+  removeAdditionalValue: RemoveAdditionalValue;
   updateAdditionalValue: () => void,
   saveUrls: () => void,
 }
