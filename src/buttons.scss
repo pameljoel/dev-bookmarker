@@ -80,3 +80,28 @@
     color: white;
   }
 }
+
+.preview-url-button {
+  display: inline-block;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  text-decoration: none;
+  background-color: white;
+  user-select: none;
+  border: 1px solid #eee;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: lighter;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 12px;
+  height: 20px;
+  line-height: 20px;
+  transition: .4s background-color ease-in-out, .4s color ease-in-out;
+
+  &:hover {
+    background-color: lightgreen;
+    color: #2ea52e;
+  }
+}
