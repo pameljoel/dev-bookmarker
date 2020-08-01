@@ -1,7 +1,7 @@
 import UrlComponent from "./UrlComponent";
 import React from "react";
 import Header from "./partials/Header";
-import UrlPreview from "./urlPreview/UrlPreview";
+import GeneratedUrl from "./generatedUrls/GeneratedUrl";
 
 type Props = {
   chunks: any,
@@ -41,7 +41,7 @@ const UrlAnalyzer: React.FC<Props> = ({
     <div className="container">
       <h4>Generated urls:</h4>
       <div className="preview-urls">
-        {savedUrls && savedUrls.map((url: any, i: number) => <UrlPreview url={url} key={`${url}-${i}`} />)}
+        {savedUrls && savedUrls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`} />)}
         <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
-import './UrlPreview.scss';
+import './GeneratedUrl.scss';
 
 type Props = {
   url: string[],
 }
 
-const UrlPreview: React.FC<Props> = ({ url }) => {
+const GeneratedUrl: React.FC<Props> = ({ url }) => {
   const normalizedUrl = url ? url.join('') : '';
   return (
     <div className="preview-url">
@@ -15,4 +15,4 @@ const UrlPreview: React.FC<Props> = ({ url }) => {
   );
 };
 
-export default UrlPreview;
+export default GeneratedUrl;
