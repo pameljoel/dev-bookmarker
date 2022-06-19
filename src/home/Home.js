@@ -4,9 +4,9 @@ import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { generateUrl } from '../url/partials/generateUrl';
 
-const DEFAULT_URL = '';
+const DEFAULT_URL = 'https://inspiration.lastminute.com/';
 
-const generateUrlsToSave = (...chunks) => {
+export const generateUrlsToSave = (...chunks) => {
   const newUrls = [];
   const newArray = [];
   const chunk = chunks[0];

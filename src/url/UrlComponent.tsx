@@ -12,7 +12,8 @@ type Props = {
 }
 
 function makeArrayOfChunkValues(chunks: Chunks): ArrayOfChunkValues {
-  return chunks.map((chunk: Chunk) => chunk.values[0].value);
+  const hasChunks = chunks && chunks.length > 0;
+  return hasChunks ? chunks.map((chunk: Chunk) => chunk.values[0].value) : [];
 }
 
 const addToUrl = (urlChunks: Chunks) => makeArrayOfChunkValues(urlChunks);

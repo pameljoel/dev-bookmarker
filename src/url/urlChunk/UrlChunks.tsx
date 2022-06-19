@@ -9,8 +9,9 @@ type Props = {
 }
 
 const UrlChunks: React.FC<Props> = ({ chunks, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {
+  const hasChunks = chunks && chunks.length > 0;
   return <div className="url">
-    {chunks.map((chunk) => {
+    {hasChunks && chunks.map((chunk) => {
       const {
         name,
         chunkClass,

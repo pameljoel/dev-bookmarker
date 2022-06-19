@@ -64,7 +64,7 @@ const UrlChunk: React.FC<Props> = (
     }
   };
 
-  const isValueEmpty = values && values.length > 0 && values[0].value.length === 0;
+  const isValueEmpty = values && values.length > 0 && values[0].value && values[0].value.length === 0;
 
   return (
     <div className={`url-chunk ${chunkClass}`}>
