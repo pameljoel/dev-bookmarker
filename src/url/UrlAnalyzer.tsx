@@ -27,6 +27,7 @@ const UrlAnalyzer: React.FC<Props> = ({
   updateAdditionalValue,
   saveUrls
 }) => {
+  const hasSavedUrls = savedUrls && savedUrls.length > 0;
   return <div className="main-url">
     <div className="container">
       <Header />
@@ -38,13 +39,13 @@ const UrlAnalyzer: React.FC<Props> = ({
         saveUrls={saveUrls}
       />
     </div>
-    <div className="container">
+    {hasSavedUrls && <div className="container">
       <h4>Generated urls:</h4>
       <div className="preview-urls">
         {savedUrls && savedUrls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`} />)}
         <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
       </div>
-    </div>
+    </div>}
   </div>
 }
 
