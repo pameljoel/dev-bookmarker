@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import createPersistedState from 'use-persisted-state';
 import Header from './Header';
 import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { generateUrl } from '../url/partials/generateUrl';
-
-
-const useBookMakerState = createPersistedState('bookmaker');
-const useUrlState = createPersistedState('bookmakerSavedUrls');
 
 const DEFAULT_URL = 'http://www.google.com/my-section/my-page.html?id="1"&queryStringKey="queryStringValue"#myID';
 
@@ -37,8 +32,8 @@ const generateUrlsToSave = (...chunks) => {
 
 export const Home = () => {
   const [url, setUrl] = useState(DEFAULT_URL);
-  const [chunks, setParts] = useBookMakerState([]);
-  const [savedUrls, setSavedUrls] = useUrlState([]);
+  const [chunks, setParts] = useState([]);
+  const [savedUrls, setSavedUrls] = useState([]);
 
   const updateInput = (value) => {
     const newParts = generateUrl(value, chunks);
@@ -48,6 +43,7 @@ export const Home = () => {
 
   useEffect(() => {
     if (url) updateInput(url);
+    // eslint-disable-next-line
   }, [url]);
 
   const onKeypress = (key) => {
