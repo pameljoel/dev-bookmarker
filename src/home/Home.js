@@ -32,12 +32,12 @@ const generateUrlsToSave = (...chunks) => {
 
 export const Home = () => {
   const [url, setUrl] = useState(DEFAULT_URL);
-  const [chunks, setParts] = useState([]);
+  const [chunks, setChunks] = useState([]);
   const [savedUrls, setSavedUrls] = useState([]);
 
   const updateInput = (value) => {
     const newParts = generateUrl(value, chunks);
-    setParts(newParts);
+    setChunks(newParts);
     setUrl(value);
   };
 
@@ -61,19 +61,19 @@ export const Home = () => {
 
     const copy = chunks.slice();
     copy.map(chunk => chunk.chunkId === chunkId && chunk.values.push(object));
-    setParts(copy);
+    setChunks(copy);
   };
 
   const updateAdditionalValue = (input, chunkId, valueId) => {
     const chunksCopy = chunks.slice();
     chunksCopy.map(chunk => chunk.chunkId === chunkId && chunk.values.map(value => (value.valueId === valueId ? value.value = input : null)));
-    setParts(chunksCopy);
+    setChunks(chunksCopy);
   };
 
   const removeAdditionalValue = (chunkId, valueId) => {
     const chunksCopy = chunks.slice();
     chunksCopy.map(chunk => chunk.chunkId === chunkId && chunk.values.map((value, i) => value.valueId === valueId && chunk.values.splice(i, 1)));
-    setParts(chunksCopy);
+    setChunks(chunksCopy);
   };
 
   const saveUrls = (chunks) => {
