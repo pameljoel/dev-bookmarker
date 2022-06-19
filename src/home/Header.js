@@ -10,20 +10,14 @@ const Header = ({
       <h2>The bookmarker for devs</h2>
       <div className="url-hero__description">
         Want to bookmark your pages on multiple
-        {' '}
-        <strong>sub-domains</strong>
-        ,
-        {' '}
-        <strong>domains</strong>
-        ,
-        {' '}
-        <strong>ports</strong>
-        ? MAybe with different parameters every
-        time?
+        <strong> sub-domains</strong>,
+        <strong> domains</strong>,
+        <strong> ports</strong>?
+        <br/>
+        Maybe with different parameters every time?
         <br />
-        This is your lucky day.
-        {' '}
-        <strong>Try it out.</strong>
+        <br />
+        This is your lucky day. <strong>Try it out.</strong>
       </div>
       <div
         id="labelForInput"

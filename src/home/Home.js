@@ -4,7 +4,7 @@ import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { generateUrl } from '../url/partials/generateUrl';
 
-const DEFAULT_URL = 'http://www.google.com/my-section/my-page.html?id="1"&queryStringKey="queryStringValue"#myID';
+const DEFAULT_URL = '';
 
 const generateUrlsToSave = (...chunks) => {
   const newUrls = [];
