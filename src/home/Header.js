@@ -37,6 +37,7 @@ const Header = ({
             name="bookmarkInput"
             id="bookmarkInput"
             className="url-hero__input"
+            placeholder="Paste an url here"
             onChange={(e) => {
               updateInput(e.target.value);
               onKeypress(e.keyCode);
