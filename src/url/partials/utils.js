@@ -65,7 +65,7 @@ function matchRegExp(input, regex) {
   return result;
 }
 
-function updatePart(chunks, name, newValue, type) {
+function updateChunk(chunks, name, newValue, type) {
   for (let i = 0; i < chunks.length; i += 1) {
     const chunk = chunks[i];
     if (chunk.name === name) {
@@ -78,33 +78,18 @@ function updatePart(chunks, name, newValue, type) {
   }
 }
 
-function addPartToArray(chunks, newObject) {
+function addChunkToNewArray(chunks, newObject) {
   chunks.push(newObject);
   return chunks;
 }
 
-function isPartCreated(chunks, name) {
-  for (let i = 0; i < chunks.length; i += 1) {
-    const chunk = chunks[i];
-    if (chunk.name === name) {
-      return true;
-    }
-  }
-  return false;
-}
+export function appendChunk(chunks, name, newValue, regExp, type) {
+  const regularExp = regExp ? matchRegExp(newValue, regExp) : newValue;
+  const chunkExists = chunks.filter(chunk => chunk.name === name).length > 0;
 
-export function appendChunk(array, name, newValue, regExp, type) {
-  if (isPartCreated(array, name)) {
-    updatePart(
-      array,
-      name,
-      regExp ? matchRegExp(newValue, regExp) : newValue,
-      type,
-    );
+  if (chunkExists) {
+    updateChunk(chunks, name, regularExp, type);
   } else {
-    addPartToArray(
-      array,
-      createChunk(name, regExp ? matchRegExp(newValue, regExp) : newValue, type),
-    );
+    addChunkToNewArray(chunks, createChunk(name, regularExp, type));
   }
 }
