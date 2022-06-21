@@ -18,11 +18,10 @@ function makeParamsString(params) {
 }
 
 export function makeUrlString(urlArray) {
-  const string = urlArray.join('');
-  return string;
+  return urlArray.join('');
 }
 
-function createChunk(name, newValue, type) {
+export function createChunk(name, newValue, type) {
   const chunk = {
     name,
     values: [],
@@ -94,7 +93,7 @@ function isPartCreated(chunks, name) {
   return false;
 }
 
-export function addPart(array, name, newValue, regExp, type) {
+export function appendChunk(array, name, newValue, regExp, type) {
   if (isPartCreated(array, name)) {
     updatePart(
       array,

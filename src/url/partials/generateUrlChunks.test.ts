@@ -1,27 +1,25 @@
 import {generateUrlChunks} from "./generateUrlChunks";
-import {addPart, createChunk} from "./utils";
+// import {createChunk} from "./utils";
 
 const EMPTY_URL = '';
 const PROTOCOL_ONLY = 'https://';
-const HOST_ONLY = 'https://www';
-const HOSTNAME_ONLY = 'https://www.google.com';
-
-const chunks = [
-    createChunk('protocol', 'https:', 'string'),
-
-].map(chunk => ({
-    chunkClass: chunk.chunkClass,
-    chunkType: chunk.chunkType,
-    name: chunk.name,
-    values: chunk.values.map(obj => ({
-        // @ts-ignore
-        isAdditionalValue: obj.isAdditionalValue,
-        // @ts-ignore
-        value: obj.value,
-    })),
-}))
-
-const prova = addPart([], 'protocol', 'https:', null, 'string');
+// const HOST_ONLY = 'https://www';
+// const HOSTNAME_ONLY = 'https://www.google.com';
+//
+// const chunks = [
+//     createChunk('protocol', 'https:', 'string'),
+//
+// ].map(chunk => ({
+//     chunkClass: chunk.chunkClass,
+//     chunkType: chunk.chunkType,
+//     name: chunk.name,
+//     values: chunk.values.map(obj => ({
+//         // @ts-ignore
+//         isAdditionalValue: obj.isAdditionalValue,
+//         // @ts-ignore
+//         value: obj.value,
+//     })),
+// }))
 
 describe('generateUrl', () => {
     it('return [] if url is empty', () => {

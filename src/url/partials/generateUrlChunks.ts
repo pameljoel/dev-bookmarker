@@ -1,4 +1,4 @@
-import {addPart} from './utils';
+import {appendChunk} from './utils';
 
 type UrlPartsActions = {
     [key: string]: (key: string) => void;
@@ -46,7 +46,7 @@ export const generateUrlChunks = (input: string, chunks?: string[]) => {
 
         const execute = (key: string) => {
             // @ts-ignore
-            addPart(copy, key, newUrl[key], URL_PARTS_REGEX[key], URL_PARTS_TYPES[key])
+            appendChunk(copy, key, newUrl[key], URL_PARTS_REGEX[key], URL_PARTS_TYPES[key])
         }
 
         const urlPartsActions = {
