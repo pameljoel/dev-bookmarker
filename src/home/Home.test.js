@@ -1,8 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './Home';
+import Home, {generateUrlsToSave} from './Home';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Home />, div);
+describe('Home', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(<Home/>, div);
+    });
 });
+
+
+// TODO:
+// add tests
+
+// describe('generateUrlsToSave', () => {
+//   it('generates urls', () => {
+//     // generateUrlsToSave()
+//   })
+// })

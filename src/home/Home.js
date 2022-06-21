@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
-import { generateUrl } from '../url/partials/generateUrl';
+import { generateUrlChunks } from '../url/partials/generateUrlChunks';
 
 const DEFAULT_URL = 'https://inspiration.lastminute.com/';
 
@@ -36,7 +36,7 @@ export const Home = () => {
   const [savedUrls, setSavedUrls] = useState([]);
 
   const updateInput = (value) => {
-    const newParts = generateUrl(value, chunks);
+    const newParts = generateUrlChunks(value, chunks);
     setChunks(newParts);
     setUrl(value);
   };

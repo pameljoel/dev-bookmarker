@@ -39,7 +39,7 @@ const URL_PARTS_TYPES = {
     [URL_PARTS.HASH]: URL_PARTS_TYPE.STRING,
 }
 
-export const generateUrl = (input: string, chunks?: string[]) => {
+export const generateUrlChunks = (input: string, chunks?: string[]) => {
     try {
         let newUrl: URL = new URL(input);
         const copy = chunks ? chunks.slice() : [];
