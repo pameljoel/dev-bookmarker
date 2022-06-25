@@ -12,7 +12,7 @@ type Props = {
   chunkType: ChunkType,
 }
 
-const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId, updateAdditionalValue, onClick, handleOnKeyDown, chunkType }) => {
+const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId, updateAdditionalValue, onClick, handleOnKeyDown }) => {
   return <div
     className={`${
       value.isAdditionalValue ? "url-chunk__additional-value" : ""

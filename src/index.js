@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './main.scss';
-import registerServiceWorker from './registerServiceWorker';
-import Login from "./Login/Login";
+// import registerServiceWorker from './registerServiceWorker';
+import Index from "./pages";
 
-ReactDOM.render(<Login />, document.getElementById('root'));
-registerServiceWorker();
+ReactDOM.render(<Index />, document.getElementById('root'));
+// registerServiceWorker();

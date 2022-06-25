@@ -2,6 +2,7 @@ import UrlComponent from "./UrlComponent";
 import React from "react";
 import Header from "./partials/Header";
 import GeneratedUrl from "./generatedUrls/GeneratedUrl";
+import {canUseDOM} from "../utils";
 
 type Props = {
   chunks: any,
@@ -16,7 +17,7 @@ const normalizedUrl = (url: string[]): string => url.join('');
 
 const openAllLinks = (e: any, listOfUrls: any) => {
   e.preventDefault();
-  listOfUrls.map((url: string[]) => window.open(normalizedUrl(url)));
+  if (canUseDOM) listOfUrls.map((url: string[]) => window.open(normalizedUrl(url)));
 }
 
 const UrlAnalyzer: React.FC<Props> = ({

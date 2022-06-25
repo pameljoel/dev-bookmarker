@@ -1,7 +1,6 @@
 import React from "react";
 import AddButton from "../buttons/AddButton";
 import AdditionalChunkRow from "./AdditionalChunkRow";
-import "./UrlChunk.scss";
 
 type Props = {
   chunkClass: string;

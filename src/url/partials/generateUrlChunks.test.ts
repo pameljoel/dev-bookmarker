@@ -1,5 +1,5 @@
 import {generateUrlChunks} from "./generateUrlChunks";
-// import {createChunk} from "./utils";
+// import {createChunk} from "./utils.ts";
 
 const EMPTY_URL = '';
 const PROTOCOL_ONLY = 'https://';

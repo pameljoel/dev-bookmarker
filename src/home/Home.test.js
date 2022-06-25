@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home, {generateUrlsToSave} from './Home';
+import Home from './Home';
 
 describe('Home', () => {
     it('renders without crashing', () => {

@@ -5,13 +5,14 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import Home from "../home/Home";
 
 if (getApps().length === 0) {
+    
     initializeApp({
-        apiKey: process.env.REACT_APP_API_KEY,
-        authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-        projectId: process.env.REACT_APP_PROJECT_ID,
-        storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-        messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-        appId: process.env.REACT_APP_APP_ID
+        apiKey: process.env.NEXT_PUBLIC_API_KEY,
+        authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+        projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+        storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+        messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+        appId: process.env.NEXT_PUBLIC_APP_ID
     })
 } else {
     getApp();
@@ -32,10 +33,10 @@ function SignIn() {
     )
 }
 
-const Login = () => {
+const Index = () => {
     const [user] = useAuthState(auth);
 
     return user ? <Home/> : <SignIn/>;
 }
 
-export default Login;
+export default Index;

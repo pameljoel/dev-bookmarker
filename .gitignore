@@ -12,6 +12,9 @@
 # ide
 .idea
 
+# ide
+.next
+
 # misc
 .DS_Store
 .env.local

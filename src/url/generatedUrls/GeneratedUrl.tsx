@@ -1,5 +1,4 @@
 import React from 'react';
-import './GeneratedUrl.scss';
 
 type Props = {
   url: string[],
