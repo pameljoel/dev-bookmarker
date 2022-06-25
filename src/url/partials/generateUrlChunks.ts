@@ -40,7 +40,12 @@ const URL_PARTS_TYPES = {
 }
 
 export const generateUrlChunks = (input: string, chunks?: string[]) => {
+    const minCharacters = 5;
+    const notMinCharacters = !input || input.length < minCharacters;
+
     try {
+        if (notMinCharacters) return [];
+
         let newUrl: URL = new URL(input);
         const copy = chunks ? chunks.slice() : [];
 
@@ -71,7 +76,7 @@ export const generateUrlChunks = (input: string, chunks?: string[]) => {
 
         return copy;
     } catch (err) {
-        console.error(input, err);
+        console.warn(input, { err });
         return [];
     }
 };
