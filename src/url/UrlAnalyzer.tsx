@@ -2,7 +2,7 @@ import UrlComponent from "./UrlComponent";
 import React from "react";
 import Header from "./partials/Header";
 import GeneratedUrl from "./generatedUrls/GeneratedUrl";
-import {canUseDOM} from "../utils";
+import {canUseDOM, saveDoc} from "../utils";
 
 type Props = {
   chunks: any,
@@ -11,6 +11,7 @@ type Props = {
   removeAdditionalValue: RemoveAdditionalValue;
   updateAdditionalValue: () => void,
   saveUrls: () => void,
+  originalUrl: string,
 }
 
 const normalizedUrl = (url: string[]): string => url.join('');
@@ -26,9 +27,20 @@ const UrlAnalyzer: React.FC<Props> = ({
   addAdditionalValue,
   removeAdditionalValue,
   updateAdditionalValue,
-  saveUrls
+  saveUrls,
+    originalUrl,
 }) => {
   const hasSavedUrls = savedUrls && savedUrls.length > 0;
+
+  const handleOnClick = () => {
+    saveDoc({
+      'original-url': originalUrl,
+      chunks
+    }).then(response => {
+      console.log('saving doc', { response })
+    });
+  };
+
   return <div className="main-url">
     <div className="container">
       <Header />
@@ -46,6 +58,13 @@ const UrlAnalyzer: React.FC<Props> = ({
         {savedUrls && savedUrls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`} />)}
         <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
       </div>
+      <button
+          type="button"
+          className="big-button"
+          onClick={handleOnClick}
+      >
+        save
+      </button>
     </div>}
   </div>
 }

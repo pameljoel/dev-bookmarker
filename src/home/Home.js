@@ -96,6 +96,7 @@ export const Home = () => {
         removeAdditionalValue={removeAdditionalValue}
         updateAdditionalValue={updateAdditionalValue}
         saveUrls={saveUrls}
+        originalUrl={url}
       />
     </div>
   );
