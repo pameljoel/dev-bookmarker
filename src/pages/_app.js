@@ -21,8 +21,6 @@ function MyApp({Component, pageProps}) {
             <link rel="shortcut icon" href="/favicon.ico"/>
         </Head>
         <Component {...pageProps} />
-
-        <Component {...pageProps} />
     </>
 }
 
