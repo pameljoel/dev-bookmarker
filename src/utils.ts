@@ -1,4 +1,4 @@
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { collection, getFirestore, doc, setDoc, getDocs } from "firebase/firestore";
 import {getApp, getApps, initializeApp} from "firebase/app";
 
 export const canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
@@ -23,6 +23,14 @@ export const initFirebaseApp = () => {
     }
 }
 
+export const fetchPosts = async (auth: any) => {
+    const db = getFirestore(getApp());
+    const messagesRef = collection(db, 'urls');
+    // console.log('fetchPosts', { auth, db, messagesRef, uid: auth?.currentUser?.uid })
+
+    const data = await getDocs(messagesRef);
+    return [...data.docs].filter(doc => doc.data().author === auth.currentUser.uid).map(doc => doc.data());
+};
 
 export const saveDoc = async (data: any) => {
     const db = getFirestore(getApp());
