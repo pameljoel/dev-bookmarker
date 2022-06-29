@@ -6,8 +6,9 @@ import '../home/Header.scss';
 import '../url/Url.scss';
 import '../url/generatedUrls/GeneratedUrl.scss';
 import "../url/urlChunk/UrlChunk.scss";
+import {AppProps} from "next/app";
 
-function MyApp({Component, pageProps}) {
+function MyApp({Component, pageProps}: AppProps) {
     return <>
         <Head>
             <title>Dev Bookmarker</title>
