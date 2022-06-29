@@ -1,6 +1,7 @@
 /* atomic types */
 
-import {URL_PARTS} from "./url/partials/generateUrlChunks";
+import {URL_PARTS} from "./url/partials/createChunks";
+import React from "react";
 
 enum ChunkType {
   STRING= 'string',
@@ -22,13 +23,17 @@ type Chunk = {
   name: URL_PARTS;
   values: ChunkValues;
 }
-type SavedUrl = string;
 
-type SavedUrls = SavedUrl[];
+type SavedUrlPart = string;
+type SavedUrlWithParts = SavedUrlPart[];
 
 type AddAdditionaValue = (chunkId: ChunkId) => void
 type RemoveAdditionalValue = (chunkId: ChunkId, valueId: number) => void;
-type UpdateAdditionalValue = (chunkId: ChunkId) => void;
+type UpdateAdditionalValue = (input: string, chunkId: number, valueId: number) => void;
+type SaveUrls = (chunks: [SavedUrlWithParts]) => void;
+type HandleOnKeyPress = (key: number) => void;
+type UpdateUrl = (url: string) => void;
+type SetUrl = React.Dispatch<React.SetStateAction<string>>;
 
 /* group of atomic types */
 

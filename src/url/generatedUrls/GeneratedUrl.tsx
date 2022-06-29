@@ -5,7 +5,7 @@ type Props = {
 }
 
 const GeneratedUrl: React.FC<Props> = ({ url }) => {
-  const normalizedUrl = url ? url.join('') : '';
+  const normalizedUrl = url.length > 0 ? url.join('') : '';
   return (
     <div className="preview-url">
       {normalizedUrl}

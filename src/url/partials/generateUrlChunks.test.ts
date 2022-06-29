@@ -1,4 +1,4 @@
-import {generateUrlChunks} from "./generateUrlChunks";
+import {createChunks} from "./createChunks";
 // import {createChunk} from "./utils.ts";
 
 const EMPTY_URL = '';
@@ -23,12 +23,12 @@ const PROTOCOL_ONLY = 'https://';
 
 describe('generateUrl', () => {
     it('return [] if url is empty', () => {
-        const generated = generateUrlChunks(EMPTY_URL);
+        const generated = createChunks(EMPTY_URL);
         expect(generated).toStrictEqual([]);
     })
 
     it('return [] if url has only protocol', () => {
-        const generated = generateUrlChunks(PROTOCOL_ONLY);
+        const generated = createChunks(PROTOCOL_ONLY);
         expect(generated).toStrictEqual([]);
     })
 
@@ -36,13 +36,13 @@ describe('generateUrl', () => {
     // add testing for all possible chunks
 
     // it('return [] if url has protocol and host', () => {
-    //     const generated = generateUrlChunks(HOST_ONLY);
+    //     const generated = createChunks(HOST_ONLY);
     //     expect(generated).toEqual(HOST_ONLY);
     //     // expect(generated).toEqual([expect.objectContaining(chunks)]);
     // })
     //
     // it('return [] if url has protocol, host, hostname', () => {
-    //     const generated = generateUrlChunks(HOSTNAME_ONLY);
+    //     const generated = createChunks(HOSTNAME_ONLY);
     //     expect(generated).toStrictEqual([]);
     // })
 })

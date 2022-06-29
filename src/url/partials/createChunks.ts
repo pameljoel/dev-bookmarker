@@ -1,4 +1,5 @@
 import {appendChunk} from './utils';
+import {Chunks} from "../../type";
 
 type UrlPartsActions = {
     [key: string]: (key: string) => void;
@@ -39,7 +40,7 @@ const URL_PARTS_TYPES = {
     [URL_PARTS.HASH]: URL_PARTS_TYPE.STRING,
 }
 
-export const generateUrlChunks = (input: string, chunks?: string[]) => {
+export const createChunks = (input: string, chunks: Chunks) => {
     const minCharacters = 5;
     const notMinCharacters = !input || input.length < minCharacters;
 

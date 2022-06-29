@@ -2,22 +2,25 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
-import { generateUrlChunks } from '../url/partials/generateUrlChunks';
+import { createChunks } from '../url/partials/createChunks';
+import {Chunks, SavedUrlWithParts} from "../type";
 
 const DEFAULT_URL = 'https://inspiration.lastminute.com/';
 
-export const generateUrlsToSave = (...chunks) => {
+export const generateUrlsToSave = (chunks: SavedUrlWithParts[])  => {
+  // TODO: remove function
   const newUrls = [];
+  // @ts-ignore
   const newArray = [];
-  const chunk = chunks[0];
-  const max = chunk.length - 1;
+  const firstChunk = chunks;
+  const max = firstChunk.length - 1;
 
-  const saveChunks = (startArray, index) => {
-    const actualChunk = chunk[index];
+  const saveChunks = (startArray: SavedUrlWithParts, index: number) => {
+    const savedUrlPart = firstChunk[index];
 
-    actualChunk.forEach((urlChunkString) => {
+    savedUrlPart.forEach((urlPartString: string) => {
       const startArrayCopy = startArray.slice();
-      startArrayCopy.push(urlChunkString);
+      startArrayCopy.push(urlPartString);
 
       if (index === max) newArray.push(startArrayCopy);
       else { saveChunks(startArrayCopy, index + 1); }
@@ -26,33 +29,41 @@ export const generateUrlsToSave = (...chunks) => {
 
   saveChunks([], 0);
 
+  // @ts-ignore
   newArray.map(i => newUrls.push(makeUrlString(i)));
+  // @ts-ignore
   return newArray;
 };
 
-export const Home = () => {
-  const [url, setUrl] = useState(DEFAULT_URL);
-  const [chunks, setChunks] = useState([]);
-  const [savedUrls, setSavedUrls] = useState([]);
 
-  const updateInput = (value) => {
-    const newParts = generateUrlChunks(value, chunks);
+export const generateUrlStrings = (chunks: SavedUrlWithParts[]) => {
+  //TODO: replace generateUrlsToSave with this function
+  // each url should be a string, not an array of parts
+  return chunks.map(el => el[0]).join('');
+}
+
+export const Home = () => {
+  const [url, setUrl] = useState<string>(DEFAULT_URL);
+  const [chunks, setChunks] = useState<Chunks>([]);
+  const [savedUrls, setSavedUrls] = useState<string[]>([]);
+
+  const updateUrl = (url: string) => {
+    const newParts = createChunks(url, chunks);
     setChunks(newParts);
-    setUrl(value);
+    setUrl(url);
   };
 
   useEffect(() => {
-    if (url) updateInput(url);
-    // eslint-disable-next-line
+    updateUrl(url || '');
   }, [url]);
 
-  const onKeypress = (key) => {
+  const handleOnKeyPress = (key: number) => {
     if (key === 13) {
       setUrl(url);
     }
   };
 
-  const addAdditionalValue = (chunkId) => {
+  const addAdditionalValue = (chunkId: number) => {
     const object = {
       valueId: createRandomId(),
       value: '',
@@ -64,20 +75,23 @@ export const Home = () => {
     setChunks(copy);
   };
 
-  const updateAdditionalValue = (input, chunkId, valueId) => {
+  const updateAdditionalValue = (input: string, chunkId: number, valueId: number) => {
     const chunksCopy = chunks.slice();
     chunksCopy.map(chunk => chunk.chunkId === chunkId && chunk.values.map(value => (value.valueId === valueId ? value.value = input : null)));
     setChunks(chunksCopy);
   };
 
-  const removeAdditionalValue = (chunkId, valueId) => {
+  const removeAdditionalValue = (chunkId: number, valueId: number) => {
     const chunksCopy = chunks.slice();
     chunksCopy.map(chunk => chunk.chunkId === chunkId && chunk.values.map((value, i) => value.valueId === valueId && chunk.values.splice(i, 1)));
     setChunks(chunksCopy);
   };
 
-  const saveUrls = (chunks) => {
+  const saveUrls = (chunks: [SavedUrlWithParts]) => {
     const urls = generateUrlsToSave(chunks);
+    // TODO: use urls2
+    // const urls2 = generateUrlStrings(chunks);
+    // console.log('aaaa saveUrls', { chunks, urls, urls2 });
     setSavedUrls(urls);
   };
 
@@ -85,8 +99,8 @@ export const Home = () => {
     <div>
       <Header
         url={url}
-        onKeypress={onKeypress}
-        updateInput={updateInput}
+        handleOnKeyPress={handleOnKeyPress}
+        updateInput={updateUrl}
         setUrl={setUrl}
       />
       <UrlAnalyzer

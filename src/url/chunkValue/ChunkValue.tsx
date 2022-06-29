@@ -1,9 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import {ChunkValueType, UpdateAdditionalValue} from "../../type";
 
-const focusChunk = (ref) => {
+const focusChunk = (ref: React.MutableRefObject<HTMLInputElement | null> ) => {
   if (ref && ref.current) ref.current.focus();
 };
+
+type Props = {
+  chunkValue: string,
+  isAdditionalValue: boolean,
+  chunkId: number,
+  valueId: number,
+  updateAdditionalValue: UpdateAdditionalValue,
+}
 
 const ChunkValue = ({
   chunkValue,
@@ -11,7 +20,7 @@ const ChunkValue = ({
   chunkId,
   valueId,
   updateAdditionalValue,
-}) => {
+}: Props) => {
   const chunkInputRef = useRef(null);
 
   useEffect(() => {

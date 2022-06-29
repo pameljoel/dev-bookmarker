@@ -1,6 +1,7 @@
 import React from "react";
 import AddButton from "../buttons/AddButton";
 import AdditionalChunkRow from "./AdditionalChunkRow";
+import {AddAdditionaValue, ChunkType, ChunkValues, RemoveAdditionalValue, UpdateAdditionalValue} from "../../type";
 
 type Props = {
   chunkClass: string;
@@ -21,7 +22,7 @@ type OnKeyDown = {
 
 type HeaderProps = {
   name: string,
-  chunkId: ChunkId,
+  chunkId: number,
   onClick: () => void,
   handleOnKeyDown: (e: any) => void
 }

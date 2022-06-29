@@ -1,9 +1,14 @@
 import React from 'react';
+import {HandleOnKeyPress, SetUrl, UpdateUrl} from "../type";
 
+type Props = {
+  url: string;
+    handleOnKeyPress: HandleOnKeyPress;
+  updateInput: UpdateUrl;
+  setUrl: SetUrl;
+}
 
-const Header = ({
-  url, onKeypress, updateInput, setUrl,
-}) => (
+const Header = ({ url, handleOnKeyPress, updateInput, setUrl }: Props) => (
   <div className="url-hero">
     <div className="container">
       <h1>Dev Bookmarker</h1>
@@ -32,9 +37,10 @@ const Header = ({
             id="bookmarkInput"
             className="url-hero__input"
             placeholder="Paste an url here"
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               updateInput(e.target.value);
-              onKeypress(e.keyCode);
+              // @ts-ignore
+                handleOnKeyPress(e.keyCode);
             }}
           />
           <button

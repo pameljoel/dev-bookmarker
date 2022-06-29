@@ -1,13 +1,13 @@
 import ChunkValue from "../chunkValue/ChunkValue";
 import RemoveButton from "../buttons/RemoveButton";
 import React from "react";
-import {ChunkType, ChunkValueType} from "../../type";
+import {ChunkType, ChunkValueType, UpdateAdditionalValue} from "../../type";
 
 type Props = {
   value: ChunkValueType,
   chunkId: number,
   valueId: number,
-  updateAdditionalValue: (chunkId: number) => void,
+  updateAdditionalValue: UpdateAdditionalValue,
   onClick: () => void,
   handleOnKeyDown: (e: any) => void,
   chunkType: ChunkType,
@@ -24,9 +24,7 @@ const AdditionalChunkRow: React.FC<Props> = ({ value, chunkId, updateAdditionalV
       chunkId={chunkId}
       valueId={value.valueId}
       isAdditionalValue={value.isAdditionalValue}
-      updateAdditionalValue={
-        updateAdditionalValue
-      }
+      updateAdditionalValue={updateAdditionalValue}
     />
     {value.isAdditionalValue && (
       <RemoveButton
