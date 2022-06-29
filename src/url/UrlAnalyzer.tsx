@@ -3,10 +3,11 @@ import React from "react";
 import Header from "./partials/Header";
 import GeneratedUrl from "./generatedUrls/GeneratedUrl";
 import {canUseDOM, saveDoc} from "../utils";
+import {Chunks, RemoveAdditionalValue, SavedUrls} from "../type";
 
 type Props = {
-  chunks: any,
-  savedUrls: any,
+  chunks: Chunks,
+  savedUrls: SavedUrls,
   addAdditionalValue: () => void,
   removeAdditionalValue: RemoveAdditionalValue;
   updateAdditionalValue: () => void,

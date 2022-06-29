@@ -1,12 +1,13 @@
 import ChunkValue from "../chunkValue/ChunkValue";
 import RemoveButton from "../buttons/RemoveButton";
 import React from "react";
+import {ChunkType, ChunkValueType} from "../../type";
 
 type Props = {
-  value: ChunkValue,
+  value: ChunkValueType,
   chunkId: number,
   valueId: number,
-  updateAdditionalValue: (chunkId: ChunkId) => void,
+  updateAdditionalValue: (chunkId: number) => void,
   onClick: () => void,
   handleOnKeyDown: (e: any) => void,
   chunkType: ChunkType,

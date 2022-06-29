@@ -4,7 +4,7 @@ type UrlPartsActions = {
     [key: string]: (key: string) => void;
 }
 
-enum URL_PARTS {
+export enum URL_PARTS {
     PROTOCOL = 'protocol',
     HOST = 'host',
     HOSTNAME = 'hostname',

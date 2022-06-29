@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import UrlChunks from './urlChunk/UrlChunks';
 import SaveUrlButton from './buttons/SaveUrlButton';
-
+import {ArrayOfChunkValues, Chunk, Chunks} from "../type";
 
 type Props = {
   chunks: Chunks,
