@@ -10,7 +10,7 @@ enum ChunkType {
 
 type ChunkValueType = {
   valueId: number,
-  value: string,
+  value: string;
   isAdditionalValue: boolean,
 };
 

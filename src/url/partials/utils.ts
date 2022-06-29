@@ -1,8 +1,11 @@
+import {Chunk, Chunks, ChunkType, ChunkValueType} from "../../type";
+import {URL_PARTS} from "./createChunks";
+
 export function createRandomId() {
   return Math.round(Math.random() * 10000000000);
 }
 
-function makeParamsString(params) {
+function makeParamsString(params: string) {
   let string = '';
   for (const p of params) {
     const paramName = p[0];
@@ -17,12 +20,12 @@ function makeParamsString(params) {
   return string;
 }
 
-export function makeUrlString(urlArray) {
+export function makeUrlString(urlArray: string[]) {
   return urlArray.join('');
 }
 
-export function createChunk(name, newValue, type) {
-  const chunk = {
+export function createChunk(name: URL_PARTS, type: ChunkType, newValue: string | null): Chunk {
+  const chunk: Chunk = {
     name,
     values: [],
     chunkClass: `url-chunk--${name}`,
@@ -30,7 +33,7 @@ export function createChunk(name, newValue, type) {
     chunkId: createRandomId(),
   };
 
-  const valueObject = {
+  const valueObject: ChunkValueType = {
     valueId: createRandomId(),
     value: '',
     isAdditionalValue: false,
@@ -41,7 +44,7 @@ export function createChunk(name, newValue, type) {
     valueObject.value += newValue;
     if (name === 'protocol') valueObject.value += '//';
   } else {
-    valueObject.value = makeParamsString(newValue);
+    valueObject.value = newValue ? makeParamsString(newValue) : '';
   }
 
   chunk.values.push(valueObject);
@@ -49,12 +52,12 @@ export function createChunk(name, newValue, type) {
   return chunk;
 }
 
-function matchRegExp(input, regex) {
+function getRegExpMatchedValue(input: string, regex: RegExp): string | null {
   if (!input) {
-    return false;
+    return null;
   }
   if (!regex) {
-    return false;
+    return null;
   }
 
   const result = input.match(regex);
@@ -62,34 +65,35 @@ function matchRegExp(input, regex) {
   if (typeof result === 'object' && result !== null) {
     return result[0];
   }
+
   return result;
 }
 
-function updateChunk(chunks, name, newValue, type) {
-  for (let i = 0; i < chunks.length; i += 1) {
-    const chunk = chunks[i];
+function updateChunk(chunks: Chunks, name: string, newValue: string | null, type: ChunkType) {
+
+  chunks.map(chunk => {
     if (chunk.name === name) {
       if (type === 'string') {
-        chunk.values[0].value = newValue;
+        chunk.values[0].value = newValue || '';
       } else if (typeof newValue === 'object') {
-        chunk.values[0].value = makeParamsString(newValue);
+        chunk.values[0].value = makeParamsString(newValue || '');
       }
     }
-  }
+  })
 }
 
-function addChunkToNewArray(chunks, newObject) {
+function addChunkToNewArray(chunks: Chunks, newObject: Chunk) {
   chunks.push(newObject);
   return chunks;
 }
 
-export function appendChunk(chunks, name, newValue, regExp, type) {
-  const regularExp = regExp ? matchRegExp(newValue, regExp) : newValue;
+export function appendChunk(chunks: Chunks, name: URL_PARTS, newValue: string, regExp: RegExp, type: ChunkType) {
+  const value = regExp ? getRegExpMatchedValue(newValue, regExp) : newValue;
   const chunkExists = chunks.filter(chunk => chunk.name === name).length > 0;
 
   if (chunkExists) {
-    updateChunk(chunks, name, regularExp, type);
+    updateChunk(chunks, name, value, type);
   } else {
-    addChunkToNewArray(chunks, createChunk(name, regularExp, type));
+    addChunkToNewArray(chunks, createChunk(name, type, value));
   }
 }

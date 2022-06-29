@@ -5,7 +5,7 @@ import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { createChunks } from '../url/partials/createChunks';
 import {Chunks, SavedUrlWithParts} from "../type";
 
-const DEFAULT_URL = 'https://inspiration.lastminute.com/';
+const DEFAULT_URL = 'https://globalhotels.lastminute.com:3000/global-location-svc-autocomplete-1.0/services/json/autocomplete?isGeoSearch=true&numRequested=30&radius=300km&isInternalCityId=true&isOpenSearch=true&locale=EN&airportDetails=true&resolveTo=AIR#abc';
 
 export const generateUrlsToSave = (chunks: SavedUrlWithParts[])  => {
   // TODO: remove function
@@ -37,8 +37,6 @@ export const generateUrlsToSave = (chunks: SavedUrlWithParts[])  => {
 
 
 export const generateUrlStrings = (chunks: SavedUrlWithParts[]) => {
-  //TODO: replace generateUrlsToSave with this function
-  // each url should be a string, not an array of parts
   return chunks.map(el => el[0]).join('');
 }
 
