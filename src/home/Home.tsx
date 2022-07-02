@@ -36,7 +36,9 @@ export const generateUrlsToSave = (chunks: SavedUrlWithParts[])  => {
 };
 
 
-export const generateUrlStrings = (chunks: SavedUrlWithParts[]) => {
+export const generateUrlStrings = (chunks: SavedUrlWithParts[]): string[] => {
+  //TODO: remove function
+  // @ts-ignore
   return chunks.map(el => el[0]).join('');
 }
 
@@ -88,8 +90,8 @@ export const Home = () => {
   const saveUrls = (chunks: [SavedUrlWithParts]) => {
     const urls = generateUrlsToSave(chunks);
     // TODO: use urls2
-    // const urls2 = generateUrlStrings(chunks);
-    // console.log('aaaa saveUrls', { chunks, urls, urls2 });
+    const urls2 = generateUrlStrings(chunks);
+    console.log('aaaa saveUrls', { chunks, urls, urls2 });
     setSavedUrls(urls);
   };
 

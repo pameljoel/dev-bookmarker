@@ -1,11 +1,10 @@
 import React from "react";
 import GeneratedUrl from "../generatedUrls/GeneratedUrl";
 import { canUseDOM } from "../../utils";
-import {generateUrlsToSave} from "../../home/Home";
-import {Chunks} from "../../type";
+import {SavedUrlWithParts} from "../../type";
 
 type Props = {
-    chunks: Chunks;
+    savedUrls: SavedUrlWithParts;
     handleOnClick?: any;
 }
 
@@ -16,15 +15,14 @@ const openAllLinks = (e: any, listOfUrls: any) => {
     if (canUseDOM) listOfUrls.map((url: string[]) => window.open(normalizedUrl(url)));
 }
 
-const PreviewUrls = ({chunks, handleOnClick}: Props) => {
-    const urls= generateUrlsToSave(chunks);
-    const hasSavedUrls = urls && urls.length > 0;
+const PreviewUrls = ({savedUrls, handleOnClick}: Props) => {
+    const hasSavedUrls = savedUrls && savedUrls.length > 0;
 
     return hasSavedUrls ? <div className="container">
         <h4>Generated urls:</h4>
         <div className="preview-urls">
-            {urls && urls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`}/>)}
-            <button className="add-value" onClick={(e) => openAllLinks(e, urls)}>open all links</button>
+            {savedUrls && savedUrls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`}/>)}
+            <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
         </div>
         {handleOnClick && <button type="button" className="big-button" onClick={handleOnClick}>save</button>}
     </div> : null;
