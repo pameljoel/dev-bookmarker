@@ -18,7 +18,7 @@ function makeArrayOfChunkValues(chunks: Chunks): ArrayOfChunkValues {
 
 const addToUrl = (urlChunks: Chunks) => makeArrayOfChunkValues(urlChunks);
 
-const makeArrayOfValues = (chunks: Chunks) => {
+export const makeArrayOfValues = (chunks: Chunks) => {
   const arrayOfParts = [];
 
   for (let i = 0; i < chunks.length; i += 1) {

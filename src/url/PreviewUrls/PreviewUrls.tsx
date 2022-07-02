@@ -1,6 +1,6 @@
 import React from "react";
 import GeneratedUrl from "../generatedUrls/GeneratedUrl";
-import { canUseDOM } from "../../utils";
+import {canUseDOM} from "../../utils";
 import {SavedUrlWithParts} from "../../type";
 
 type Props = {
@@ -19,10 +19,12 @@ const PreviewUrls = ({savedUrls, handleOnClick}: Props) => {
     const hasSavedUrls = savedUrls && savedUrls.length > 0;
 
     return hasSavedUrls ? <div className="container">
-        <h4>Generated urls:</h4>
+        <div className="preview-urls-title">
+            <h4>Generated urls:</h4>
+            <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
+        </div>
         <div className="preview-urls">
             {savedUrls && savedUrls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`}/>)}
-            <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
         </div>
         {handleOnClick && <button type="button" className="big-button" onClick={handleOnClick}>save</button>}
     </div> : null;

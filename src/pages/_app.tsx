@@ -6,6 +6,7 @@ import '../home/Header.scss';
 import '../url/Url.scss';
 import '../url/generatedUrls/GeneratedUrl.scss';
 import "../url/urlChunk/UrlChunk.scss";
+import "../url/PreviewUrls/PreviewUrls.scss";
 import {AppProps} from "next/app";
 
 function MyApp({Component, pageProps}: AppProps) {

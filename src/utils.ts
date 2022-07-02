@@ -26,10 +26,12 @@ export const initFirebaseApp = () => {
 export const fetchPosts = async (auth: any) => {
     const db = getFirestore(getApp());
     const messagesRef = collection(db, 'urls');
-    // console.log('fetchPosts', { auth, db, messagesRef, uid: auth?.currentUser?.uid })
 
     const data = await getDocs(messagesRef);
-    return [...data.docs].filter(doc => doc.data().author === auth?.currentUser?.uid).map(doc => doc.data());
+    return [...data.docs].map(doc => doc.data());
+
+    // TODO: check user id
+    // return [...data.docs].filter(doc => doc.data().author === auth?.currentUser?.uid).map(doc => doc.data());
 };
 
 export const saveDoc = async (data: any) => {
