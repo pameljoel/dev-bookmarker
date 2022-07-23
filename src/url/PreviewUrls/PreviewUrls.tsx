@@ -12,7 +12,9 @@ const normalizedUrl = (url: string[]): string => url.join('');
 
 const openAllLinks = (e: any, listOfUrls: any) => {
     e.preventDefault();
-    if (canUseDOM) listOfUrls.map((url: string[]) => window.open(normalizedUrl(url)));
+    if (canUseDOM) listOfUrls.map((url: string[], index: number) => {
+        window.open(normalizedUrl(url), `${index === 0 ? '_new' : index.toString()}`);
+    });
 }
 
 const PreviewUrls = ({savedUrls, handleOnClick}: Props) => {
@@ -21,7 +23,7 @@ const PreviewUrls = ({savedUrls, handleOnClick}: Props) => {
     return hasSavedUrls ? <div className="container">
         <div className="preview-urls-title">
             <h4>Generated urls:</h4>
-            <button className="add-value" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
+            <button className="button dark small" onClick={(e) => openAllLinks(e, savedUrls)}>open all links</button>
         </div>
         <div className="preview-urls">
             {savedUrls && savedUrls.map((url: any, i: number) => <GeneratedUrl url={url} key={`${url}-${i}`}/>)}
