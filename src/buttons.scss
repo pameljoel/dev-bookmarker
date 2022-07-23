@@ -44,6 +44,27 @@
 }
 
 
+.button {
+  &.small {
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0 12px;
+    height: 30px;
+    font-weight: lighter;
+    text-align: center;
+  }
+  &.dark {
+    background: #0A1D2C;
+    border-radius: 8px;
+    color: #CBF1FE;
+    transition: color .1s ease-in-out;
+
+    &:hover {
+      color: #9AE3FB;
+    }
+  }
+}
+
 .add-value {
   background-color: white;
   border: 1px solid #eee;
