@@ -8,8 +8,6 @@ type UrlPartsActions = {
 export enum URL_PARTS {
     PROTOCOL = 'protocol',
     HOST = 'host',
-    HOSTNAME = 'hostname',
-    PORT = 'port',
     PATHNAME = 'pathname',
     SEARCH_PARAMS = 'searchParams',
     HASH = 'hash',
@@ -17,9 +15,7 @@ export enum URL_PARTS {
 
 const URL_PARTS_REGEX = {
     [URL_PARTS.PROTOCOL]: null,
-    [URL_PARTS.HOST]: /^([a-zA-Z0-9][a-zA-Z0-9-_]*[^.])/,
-    [URL_PARTS.HOSTNAME]: /\.{1}(([\S][^\]])*)/,
-    [URL_PARTS.PORT]: null,
+    [URL_PARTS.HOST]: null,
     [URL_PARTS.PATHNAME]: null,
     [URL_PARTS.SEARCH_PARAMS]: null,
     [URL_PARTS.HASH]: null,
@@ -33,8 +29,6 @@ const URL_PARTS_TYPE = {
 const URL_PARTS_TYPES = {
     [URL_PARTS.PROTOCOL]: URL_PARTS_TYPE.STRING,
     [URL_PARTS.HOST]: URL_PARTS_TYPE.STRING,
-    [URL_PARTS.HOSTNAME]: URL_PARTS_TYPE.STRING,
-    [URL_PARTS.PORT]: URL_PARTS_TYPE.STRING,
     [URL_PARTS.PATHNAME]: URL_PARTS_TYPE.STRING,
     [URL_PARTS.SEARCH_PARAMS]: URL_PARTS_TYPE.OBJECT,
     [URL_PARTS.HASH]: URL_PARTS_TYPE.STRING,
@@ -48,6 +42,7 @@ export const createChunks = (input: string, chunks: Chunks) => {
         if (notMinCharacters) return [];
 
         let newUrl: URL = new URL(input);
+        console.log('newUrl', { newUrl })
         const copy = chunks ? chunks.slice() : [];
 
         const execute = (key: string) => {
@@ -58,8 +53,6 @@ export const createChunks = (input: string, chunks: Chunks) => {
         const urlPartsActions = {
             [URL_PARTS.PROTOCOL]: execute,
             [URL_PARTS.HOST]: execute,
-            [URL_PARTS.HOSTNAME]: execute,
-            [URL_PARTS.PORT]: execute,
             [URL_PARTS.PATHNAME]: execute,
             [URL_PARTS.SEARCH_PARAMS]: execute,
             [URL_PARTS.HASH]: execute,
@@ -70,6 +63,7 @@ export const createChunks = (input: string, chunks: Chunks) => {
             const value: string = chunks[key];
 
             const actions: UrlPartsActions = urlPartsActions;
+            console.log('chunks', {chunks, value, actions });
             const action = actions[value];
 
             if (action) action(value);
