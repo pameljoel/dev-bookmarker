@@ -3,11 +3,14 @@
   width: 100%;
   padding: 10px;
   background-color: #eee;
-  margin-bottom: 10px;
   font-size: 12px;
   border-radius: 10px;
   display: block;
   color: black;
   padding-right: 90px;
   word-break: break-all;
+
+  & + .preview-url {
+    margin-top: 10px;
+  }
 }
