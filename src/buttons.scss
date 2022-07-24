@@ -107,7 +107,8 @@
 .preview-url-button {
   display: inline-block;
   position: absolute;
-  top: 7px;
+  top: 50%;
+  transform: translateY(-50%);
   right: 7px;
   text-decoration: none;
   background-color: white;
