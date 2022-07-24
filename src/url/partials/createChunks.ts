@@ -42,7 +42,6 @@ export const createChunks = (input: string, chunks: Chunks) => {
         if (notMinCharacters) return [];
 
         let newUrl: URL = new URL(input);
-        console.log('newUrl', { newUrl })
         const copy = chunks ? chunks.slice() : [];
 
         const execute = (key: string) => {
@@ -63,7 +62,6 @@ export const createChunks = (input: string, chunks: Chunks) => {
             const value: string = chunks[key];
 
             const actions: UrlPartsActions = urlPartsActions;
-            console.log('chunks', {chunks, value, actions });
             const action = actions[value];
 
             if (action) action(value);
