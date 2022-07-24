@@ -31,7 +31,7 @@ const BookmarksPage = () => {
 
     return (
         <Login>
-            <div>
+            <div className="bookmarks">
                 bookmarks page
 
                 {hasPosts && posts.map((post, i) => {
