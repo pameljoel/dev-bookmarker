@@ -1,11 +1,12 @@
 import UrlChunk from "./UrlChunk";
 import React from "react";
+import {AddAdditionaValue, Chunks, RemoveAdditionalValue, UpdateAdditionalValue} from "../../type";
 
 type Props = {
   chunks: Chunks,
-  addAdditionalValue: (chunkId: ChunkId) => void;
-  removeAdditionalValue: (chunkId: ChunkId, valueId: number) => void;
-  updateAdditionalValue: (chunkId: ChunkId) => void;
+  addAdditionalValue: AddAdditionaValue;
+  removeAdditionalValue: RemoveAdditionalValue;
+  updateAdditionalValue: UpdateAdditionalValue;
 }
 
 const UrlChunks: React.FC<Props> = ({ chunks, addAdditionalValue, removeAdditionalValue, updateAdditionalValue }) => {

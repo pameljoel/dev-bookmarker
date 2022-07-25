@@ -27,8 +27,8 @@ type Chunk = {
 type SavedUrlPart = string;
 type SavedUrlWithParts = SavedUrlPart[];
 
-type AddAdditionaValue = (chunkId: ChunkId) => void
-type RemoveAdditionalValue = (chunkId: ChunkId, valueId: number) => void;
+type AddAdditionaValue = (chunkId: number) => void
+type RemoveAdditionalValue = (chunkId: number, valueId: number) => void;
 type UpdateAdditionalValue = (input: string, chunkId: number, valueId: number) => void;
 type SaveUrls = (chunks: [SavedUrlWithParts]) => void;
 type HandleOnKeyPress = (key: number) => void;
