@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
   onClick: () => void,
-  chunkId: ChunkId,
+  chunkId: number,
   handleOnKeyDown: (e: any) => void
 };
 
