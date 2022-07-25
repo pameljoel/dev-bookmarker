@@ -7,15 +7,18 @@ export function createRandomId() {
 
 function makeParamsString(params: string) {
   let string = '';
+  let i = 0;
   for (const p of params) {
     const paramName = p[0];
     const paramValue = p[1];
     if (paramName) {
-      string += `&${paramName}`;
+      if (i === 0) string += `?${paramName}`;
+      else string += `&${paramName}`;
     }
     if (paramValue) {
       string += `=${paramValue}`;
     }
+    i++;
   }
   return string;
 }
@@ -40,9 +43,9 @@ export function createChunk(name: URL_PARTS, type: ChunkType, newValue: string |
   };
 
   if (type === 'string') {
-    if (name === 'port') valueObject.value += ':';
     valueObject.value += newValue;
-    if (name === 'protocol') valueObject.value += '//';
+    if (name === URL_PARTS.PROTOCOL) valueObject.value += '//';
+    if (name === URL_PARTS.SEARCH_PARAMS) valueObject.value = `?${valueObject.value}`;
   } else {
     valueObject.value = newValue ? makeParamsString(newValue) : '';
   }
@@ -75,6 +78,8 @@ function updateChunk(chunks: Chunks, name: string, newValue: string | null, type
     if (chunk.name === name) {
       if (type === 'string') {
         chunk.values[0].value = newValue || '';
+        if (name === URL_PARTS.PROTOCOL) chunk.values[0].value += '//';
+        if (name === URL_PARTS.SEARCH_PARAMS) chunk.values[0].value = `?${chunk.values[0].value}`;
       } else if (typeof newValue === 'object') {
         chunk.values[0].value = makeParamsString(newValue || '');
       }
