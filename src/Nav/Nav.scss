@@ -1,0 +1,28 @@
+.nav {
+  background: #0A1D2C;
+
+  &__container {
+    width: 1000px;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__logo {}
+  &__links {
+    display: flex;
+    gap: 20px;
+  }
+  &__link {
+    display: block;
+    a {
+      color: white;
+      text-decoration: none;
+
+      &.active {
+        color: #9AE3FB;
+      }
+    }
+  }
+}

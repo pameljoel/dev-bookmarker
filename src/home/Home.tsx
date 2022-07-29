@@ -4,6 +4,7 @@ import UrlAnalyzer from '../url/UrlAnalyzer';
 import { createRandomId, makeUrlString } from '../url/partials/utils';
 import { createChunks } from '../url/partials/createChunks';
 import {Chunks, SavedUrlWithParts} from "../type";
+import Nav from "../Nav/Nav";
 
 const DEFAULT_URL = 'https://globalhotels.lastminute.com:3000/global-location-svc-autocomplete-1.0/services/json/autocomplete?isGeoSearch=true&numRequested=30&radius=300km&isInternalCityId=true&isOpenSearch=true&locale=EN&airportDetails=true&resolveTo=AIR#abc';
 
@@ -97,6 +98,7 @@ export const Home = () => {
 
   return (
     <div>
+      <Nav />
       <Header
         url={url}
         handleOnKeyPress={handleOnKeyPress}
