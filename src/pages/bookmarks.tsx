@@ -9,6 +9,7 @@ import {makeArrayOfValues} from "../url/UrlComponent";
 import Nav from "../Nav/Nav";
 
 type Post = {
+    name?: string;
     'original-url': string;
     chunks: Chunks;
 }
@@ -35,7 +36,8 @@ const BookmarksPage = () => {
             <Nav />
             <div className="bookmarks">
                 {hasPosts && posts.map((post, i) => {
-                    return <PreviewUrls { ...{savedUrls: generateUrlsToSave(makeArrayOfValues(post.chunks)) } } key={`${post['original-url']}-${i}`}/>
+                    const { name } = post;
+                    return <PreviewUrls { ...{savedUrls: generateUrlsToSave(makeArrayOfValues(post.chunks)), name, originalUrl: post['original-url'] } } key={`${post['original-url']}-${i}`}/>
                 })}
             </div>
         </Login>
