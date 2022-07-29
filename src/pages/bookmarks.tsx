@@ -6,6 +6,7 @@ import {Chunks, SavedUrlWithParts} from "../type";
 import {generateUrlsToSave} from "../home/Home";
 import PreviewUrls from "../url/PreviewUrls/PreviewUrls";
 import {makeArrayOfValues} from "../url/UrlComponent";
+import Nav from "../Nav/Nav";
 
 type Post = {
     'original-url': string;
@@ -31,9 +32,8 @@ const BookmarksPage = () => {
 
     return (
         <Login>
+            <Nav />
             <div className="bookmarks">
-                bookmarks page
-
                 {hasPosts && posts.map((post, i) => {
                     return <PreviewUrls { ...{savedUrls: generateUrlsToSave(makeArrayOfValues(post.chunks)) } } key={`${post['original-url']}-${i}`}/>
                 })}
